@@ -4,13 +4,22 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Leaf } from "lucide-react";
 import PersonalityQuiz from "@/components/personality/PersonalityQuiz";
 import PersonalityFilters from "@/components/personality/PersonalityFilters";
+import Seo from "@/components/Seo";
 
 const PersonalityPage = () => {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   const [tab, setTab] = useState("quiz");
 
   return (
     <div className="section-padding">
+      <Seo
+        title={lang === "th" ? "ค้นหาบุคลิกภาพต้นไม้ของคุณ | TreeKingdom" : "Find Your Plant Personality | TreeKingdom"}
+        description={
+          lang === "th"
+            ? "ทำแบบทดสอบเพื่อค้นหาต้นไม้ที่เหมาะกับไลฟ์สไตล์ของคุณ"
+            : "Take the quiz to find plants that match your lifestyle."
+        }
+      />
       <div className="container mx-auto">
         <div className="mb-5 md:mb-8">
           <h1 className="font-display font-bold text-2xl md:text-4xl text-foreground mb-1.5 flex items-center gap-2">

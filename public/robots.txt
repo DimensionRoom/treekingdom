@@ -1,8 +1,12 @@
 User-agent: Googlebot
 Allow: /
+Disallow: /admin
+Disallow: /tk-portal-9x7
 
 User-agent: Bingbot
 Allow: /
+Disallow: /admin
+Disallow: /tk-portal-9x7
 
 User-agent: Twitterbot
 Allow: /
@@ -12,3 +16,10 @@ Allow: /
 
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /tk-portal-9x7
+
+# Update this once the real domain is known — keep it in sync with
+# src/lib/site.ts's SITE_URL, which scripts/seoPlugin.ts uses to build the
+# sitemap it writes to dist/sitemap.xml.
+Sitemap: https://treekingdom.example.com/sitemap.xml

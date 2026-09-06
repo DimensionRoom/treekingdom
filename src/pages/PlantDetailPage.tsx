@@ -15,6 +15,8 @@ import {
 } from "@/components/ui/carousel";
 import TagBadges from "@/components/TagBadges";
 import { saleInfo } from "@/lib/price";
+import Seo from "@/components/Seo";
+import { SITE_NAME, absoluteUrl } from "@/lib/site";
 
 const PlantDetailPage = () => {
   const { id } = useParams();
@@ -65,6 +67,7 @@ const PlantDetailPage = () => {
   if (!plant) {
     return (
       <div className="section-padding text-center">
+        <Seo title="Plant Not Found | TreeKingdom" description="This plant doesn't exist." noindex />
         <p className="text-5xl mb-4">🌿</p>
         <p className="text-muted-foreground">{lang === "th" ? "ไม่พบพรรณไม้" : "Plant not found"}</p>
         <Link to={backTo} className="text-primary mt-4 inline-block hover:underline">
@@ -114,8 +117,35 @@ const PlantDetailPage = () => {
 
   const hasImages = images.length > 0;
 
+  const pageUrl = absoluteUrl(`/plants/${plant.id}`);
+
   return (
     <div className="fixed inset-0 top-16 z-20 flex flex-col md:flex-row bg-background" ref={ref}>
+      <Seo
+        title={lang === "th" ? `${plant.name.th} — วิธีดูแล | TreeKingdom` : `${plant.name.en} — Care Guide | TreeKingdom`}
+        description={plant.description[lang]}
+        image={images[0]}
+        jsonLd={[
+          {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: plant.name[lang],
+            description: plant.description[lang],
+            image: images[0] ? absoluteUrl(images[0]) : undefined,
+            url: pageUrl,
+            inLanguage: lang === "th" ? "th" : "en",
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: SITE_NAME, item: absoluteUrl("/") },
+              { "@type": "ListItem", position: 2, name: lang === "th" ? "พรรณไม้" : "Plants", item: absoluteUrl("/plants") },
+              { "@type": "ListItem", position: 3, name: plant.name[lang], item: pageUrl },
+            ],
+          },
+        ]}
+      />
       {/* Left: Image carousel or emoji fallback */}
       <div className="h-48 md:h-full md:w-2/5 bg-muted flex items-center justify-center shrink-0 relative overflow-hidden">
         <Link

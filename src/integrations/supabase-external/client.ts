@@ -1,11 +1,9 @@
 // External Supabase project (user-owned).
-// Keys are publishable/anon — safe to commit.
 import { createClient } from "@supabase/supabase-js";
 import type { Database } from "@/integrations/supabase/types";
+import { EXTERNAL_SUPABASE_URL, EXTERNAL_SUPABASE_PUBLISHABLE_KEY } from "./config";
 
-export const EXTERNAL_SUPABASE_URL = "https://mcinlbefwyysuljrluln.supabase.co";
-export const EXTERNAL_SUPABASE_PUBLISHABLE_KEY =
-  "sb_publishable_te0Gqsd8aIjIPrO2LrweCQ_Ga7x1FqW";
+export { EXTERNAL_SUPABASE_URL, EXTERNAL_SUPABASE_PUBLISHABLE_KEY };
 
 export const supabase = createClient<Database>(
   EXTERNAL_SUPABASE_URL,

@@ -4,6 +4,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { SupplyCategory } from "@/data/supplies";
 import { useSupplies, useTags } from "@/hooks/useCloudData";
 import SupplyCard from "@/components/SupplyCard";
+import Seo from "@/components/Seo";
 import { Search, ChevronsUpDown, Check, X } from "lucide-react";
 import {
   Popover,
@@ -114,6 +115,14 @@ const CategoriesPage = () => {
 
   return (
     <div className="section-padding">
+      <Seo
+        title={lang === "th" ? "สินค้าและอุปกรณ์ทั้งหมด | TreeKingdom" : "All Products | TreeKingdom"}
+        description={
+          lang === "th"
+            ? "เลือกซื้อต้นไม้ ปุ๋ย กระถาง และอุปกรณ์จัดสวนครบครัน"
+            : "Shop plants, fertilizer, pots, and gardening supplies."
+        }
+      />
       <div className="container mx-auto">
         <h1 className="font-display font-bold text-3xl md:text-4xl text-foreground mb-2">
           {t("supplies.title")}

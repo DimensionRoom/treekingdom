@@ -6,6 +6,7 @@ import LuckyList from "@/components/lucky/LuckyList";
 import LuckyMatch from "@/components/lucky/LuckyMatch";
 import LuckyDaily from "@/components/lucky/LuckyDaily";
 import LuckyOccasions from "@/components/lucky/LuckyOccasions";
+import Seo from "@/components/Seo";
 
 const LuckyPage = () => {
   const { lang } = useLanguage();
@@ -13,6 +14,14 @@ const LuckyPage = () => {
 
   return (
     <div className="section-padding">
+      <Seo
+        title={lang === "th" ? "ไม้มงคล | TreeKingdom" : "Lucky Plants | TreeKingdom"}
+        description={
+          lang === "th"
+            ? "เลือกต้นไม้มงคลตามดวง เสริมพลังและความเป็นสิริมงคลให้กับชีวิต"
+            : "Choose lucky plants by your destiny — boost positive energy in your life."
+        }
+      />
       <div className="container mx-auto">
         <div className="mb-5 md:mb-8">
           <h1 className="font-display font-bold text-2xl md:text-4xl text-foreground mb-1.5 flex items-center gap-2">

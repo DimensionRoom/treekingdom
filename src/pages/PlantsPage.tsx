@@ -4,6 +4,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { allCategories, PlantCategory } from "@/data/plants";
 import { usePlants, useCategoryInfo } from "@/hooks/useCloudData";
 import PlantCard from "@/components/PlantCard";
+import Seo from "@/components/Seo";
 import { Search, ChevronsUpDown, Check, X } from "lucide-react";
 import {
   Popover,
@@ -65,6 +66,14 @@ const PlantsPage = () => {
 
   return (
     <div className="section-padding">
+      <Seo
+        title={lang === "th" ? "พรรณไม้ทั้งหมด | TreeKingdom" : "All Plants | TreeKingdom"}
+        description={
+          lang === "th"
+            ? "เลือกชมพรรณไม้หลากหลายชนิด พร้อมข้อมูลการดูแลครบถ้วน"
+            : "Browse our full plant catalog with detailed care information."
+        }
+      />
       <div className="container mx-auto">
         <h1 className="font-display font-bold text-3xl md:text-4xl text-foreground mb-2">
           🌱 {t("nav.plants")}

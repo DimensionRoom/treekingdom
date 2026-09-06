@@ -15,6 +15,9 @@ import {
 } from "@/components/ui/carousel";
 import TagBadges from "@/components/TagBadges";
 import SalePrice from "@/components/SalePrice";
+import Seo from "@/components/Seo";
+import { SITE_NAME, absoluteUrl } from "@/lib/site";
+import { saleInfo } from "@/lib/price";
 
 const SupplyDetailPage = () => {
   const { id } = useParams();
@@ -75,6 +78,7 @@ const SupplyDetailPage = () => {
   if (!supply) {
     return (
       <div className="section-padding text-center">
+        <Seo title="Product Not Found | TreeKingdom" description="This product doesn't exist." noindex />
         <p className="text-5xl mb-4">📦</p>
         <p className="text-muted-foreground">{lang === "th" ? "ไม่พบสินค้า" : "Product not found"}</p>
         <Link to={backTo} className="text-primary mt-4 inline-block hover:underline">
@@ -85,9 +89,56 @@ const SupplyDetailPage = () => {
   }
 
   const stockColor = supply.stock > 20 ? "text-primary" : supply.stock > 5 ? "text-accent" : "text-destructive";
+  const pageUrl = absoluteUrl(`/categories/${supply.id}`);
+  const { onSale } = saleInfo(supply.price, supply.compareAtPrice);
+  // schema.org has no dedicated "compare at" field; priceType: ListPrice on a
+  // nested priceSpecification is the accepted way to surface the old price.
+  const listPriceSpec = onSale
+    ? {
+        "@type": "UnitPriceSpecification",
+        price: supply.compareAtPrice,
+        priceCurrency: "THB",
+        priceType: "https://schema.org/ListPrice",
+      }
+    : undefined;
 
   return (
     <div className="fixed inset-0 top-16 z-20 flex flex-col md:flex-row bg-background" ref={ref}>
+      <Seo
+        title={lang === "th" ? `${supply.name.th} | TreeKingdom` : `${supply.name.en} | TreeKingdom`}
+        description={supply.description[lang]}
+        image={images[0]}
+        jsonLd={[
+          {
+            "@context": "https://schema.org",
+            "@type": "Product",
+            name: supply.name[lang],
+            description: supply.description[lang],
+            image: images[0] ? absoluteUrl(images[0]) : undefined,
+            url: pageUrl,
+            offers: {
+              "@type": "Offer",
+              url: pageUrl,
+              priceCurrency: "THB",
+              price: supply.price,
+              availability:
+                supply.stock > 0
+                  ? "https://schema.org/InStock"
+                  : "https://schema.org/OutOfStock",
+              ...(listPriceSpec ? { priceSpecification: listPriceSpec } : {}),
+            },
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: SITE_NAME, item: absoluteUrl("/") },
+              { "@type": "ListItem", position: 2, name: lang === "th" ? "สินค้า" : "Products", item: absoluteUrl("/categories") },
+              { "@type": "ListItem", position: 3, name: supply.name[lang], item: pageUrl },
+            ],
+          },
+        ]}
+      />
       {/* Left: Image carousel or emoji fallback */}
       <div className="h-48 md:h-full md:w-2/5 bg-muted flex items-center justify-center shrink-0 relative overflow-hidden">
         <Link

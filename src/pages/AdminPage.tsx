@@ -12,6 +12,7 @@ import {
 import EntityForm from "@/components/admin/EntityForm";
 import { deleteImage, getPublicUrl } from "@/lib/storage";
 import { saleInfo } from "@/lib/price";
+import Seo from "@/components/Seo";
 
 type Entity = "plants" | "supplies" | "categories" | "plant_varieties" | "personality_examples" | "tags";
 
@@ -259,6 +260,7 @@ const AdminPage = () => {
 
   return (
     <div className="container mx-auto px-4 py-6 max-w-6xl">
+      <Seo title="Admin Panel | TreeKingdom" description="Internal admin panel." noindex />
       <div className="flex items-center justify-between mb-5 flex-wrap gap-3">
         <div>
           <h1 className="font-display font-bold text-2xl sm:text-3xl text-foreground">

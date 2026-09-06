@@ -2,6 +2,8 @@ import { useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import HeroSection from "@/components/HeroSection";
+import Seo from "@/components/Seo";
+import { SITE_NAME, SITE_TITLE, SITE_DESCRIPTION, SITE_URL } from "@/lib/site";
 import PlantCard from "@/components/PlantCard";
 import { allCategories } from "@/data/plants";
 import { usePlants, useCategoryInfo } from "@/hooks/useCloudData";
@@ -57,6 +59,24 @@ const Index = () => {
 
   return (
     <div ref={containerRef}>
+      <Seo
+        title={SITE_TITLE[lang]}
+        description={SITE_DESCRIPTION[lang]}
+        jsonLd={[
+          {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            name: SITE_NAME,
+            url: SITE_URL,
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            name: SITE_NAME,
+            url: SITE_URL,
+          },
+        ]}
+      />
       <HeroSection />
 
       {/* Featured plants */}

@@ -109,10 +109,10 @@ const HeroSection = () => {
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
 
-          {/* Logo */}
-          <div className="hero-title-line flex justify-center mb-6 md:mb-10">
+          {/* Logo doubles as the page's <h1> — same look, correct semantics for SEO. */}
+          <h1 className="hero-title-line flex justify-center mb-6 md:mb-10">
             <img src={logoHero} alt={t("hero.title")} className="h-24 sm:h-40 md:h-56 lg:h-72 w-auto drop-shadow-2xl" />
-          </div>
+          </h1>
 
           {/* Subtitle */}
           <p className="hero-sub text-muted-foreground text-base md:text-xl lg:text-2xl max-w-2xl mx-auto mb-6 md:mb-10 leading-relaxed font-medium px-2">

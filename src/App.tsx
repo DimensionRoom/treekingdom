@@ -3,6 +3,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { AuthProvider } from "@/contexts/AuthContext";
 import Header from "@/components/Header";
@@ -50,19 +51,21 @@ const AppLayout = () => {
 };
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <AuthProvider>
-        <LanguageProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <AppLayout />
-          </BrowserRouter>
-        </LanguageProvider>
-      </AuthProvider>
-    </TooltipProvider>
-  </QueryClientProvider>
+  <HelmetProvider>
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <AuthProvider>
+          <LanguageProvider>
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <AppLayout />
+            </BrowserRouter>
+          </LanguageProvider>
+        </AuthProvider>
+      </TooltipProvider>
+    </QueryClientProvider>
+  </HelmetProvider>
 );
 
 export default App;

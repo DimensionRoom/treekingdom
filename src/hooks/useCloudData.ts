@@ -4,8 +4,7 @@ import type { Plant, PlantCategory, PlantVariety } from "@/data/plants";
 import type { Supply } from "@/data/supplies";
 import { plants as localPlants, categoryInfo as localCategoryInfo, allCategories } from "@/data/plants";
 import { supplies as localSupplies } from "@/data/supplies";
-
-const BUCKET = "plant-images";
+import { STORAGE_BUCKET as BUCKET } from "@/integrations/supabase-external/config";
 
 const publicUrl = (path: string | null | undefined): string | null => {
   if (!path) return null;

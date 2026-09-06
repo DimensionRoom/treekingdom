@@ -1,6 +1,5 @@
 import { supabase } from "@/integrations/supabase-external/client";
-
-export const BUCKET = "plant-images";
+import { STORAGE_BUCKET as BUCKET } from "@/integrations/supabase-external/config";
 
 export const getPublicUrl = (path: string | null | undefined): string | null => {
   if (!path) return null;

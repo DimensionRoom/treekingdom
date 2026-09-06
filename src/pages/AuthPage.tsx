@@ -5,6 +5,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
+import Seo from "@/components/Seo";
 
 const AuthPage = () => {
   const { lang } = useLanguage();
@@ -45,6 +46,11 @@ const AuthPage = () => {
 
   return (
     <div className="container mx-auto max-w-md px-4 py-12">
+      <Seo
+        title={lang === "th" ? "เข้าสู่ระบบผู้ดูแล | TreeKingdom" : "Admin Sign In | TreeKingdom"}
+        description={lang === "th" ? "สำหรับผู้ดูแลระบบเท่านั้น" : "Admin access only."}
+        noindex
+      />
       <div className="bg-card border-2 border-border rounded-3xl p-6 sm:p-8 cute-shadow">
         <h1 className="font-display font-bold text-2xl text-foreground mb-1">
           {mode === "signin"
