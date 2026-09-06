@@ -14,6 +14,7 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 import TagBadges from "@/components/TagBadges";
+import ImageWithFallback, { BlankImage } from "@/components/ImageWithFallback";
 import { saleInfo } from "@/lib/price";
 import Seo from "@/components/Seo";
 import { SITE_NAME, absoluteUrl } from "@/lib/site";
@@ -161,7 +162,7 @@ const PlantDetailPage = () => {
               <CarouselContent className="h-full -ml-0 [&>div]:h-full">
                 {images.map((src, i) => (
                   <CarouselItem key={i} className="pl-0 h-full">
-                    <img
+                    <ImageWithFallback
                       src={src}
                       alt={`${plant.name[lang]} ${i + 1}`}
                       className="w-full h-full object-cover cursor-pointer"
@@ -208,7 +209,7 @@ const PlantDetailPage = () => {
             )}
           </div>
         ) : (
-          <span className="text-8xl md:text-9xl">{plant.emoji}</span>
+          <BlankImage className="w-1/2 h-1/2" />
         )}
       </div>
 
@@ -319,13 +320,11 @@ const PlantDetailPage = () => {
                     state={{ from: location.pathname }}
                     className="flex items-center gap-3 p-3 rounded-2xl bg-muted/40 border-2 border-border hover:border-primary/40 hover:bg-primary/5 transition-colors"
                   >
-                    <div className="w-12 h-12 rounded-xl bg-muted flex items-center justify-center overflow-hidden shrink-0">
-                      {thumb ? (
-                        <img src={thumb} alt={s.name[lang]} className="w-full h-full object-cover" />
-                      ) : (
-                        <span className="text-2xl">{s.emoji}</span>
-                      )}
-                    </div>
+                    <ImageWithFallback
+                      src={thumb}
+                      alt={s.name[lang]}
+                      className="w-12 h-12 rounded-xl object-cover shrink-0"
+                    />
                     <div className="flex-1 min-w-0">
                       <p className="font-semibold text-sm text-card-foreground truncate">
                         {s.name[lang]}
@@ -378,7 +377,7 @@ const PlantDetailPage = () => {
             </>
           )}
 
-          <img
+          <ImageWithFallback
             src={images[fullscreenIndex]}
             alt={`${plant.name[lang]} ${fullscreenIndex + 1}`}
             className="max-w-[90vw] max-h-[90vh] object-contain rounded-xl"

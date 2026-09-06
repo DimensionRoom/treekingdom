@@ -13,6 +13,7 @@ import EntityForm from "@/components/admin/EntityForm";
 import { deleteImage, getPublicUrl } from "@/lib/storage";
 import { saleInfo } from "@/lib/price";
 import Seo from "@/components/Seo";
+import ImageWithFallback from "@/components/ImageWithFallback";
 
 type Entity = "plants" | "supplies" | "categories" | "plant_varieties" | "personality_examples" | "tags";
 
@@ -416,13 +417,11 @@ const AdminPage = () => {
                       onClick={() => isAdmin && setEditing(r)}
                     >
                       <td className="p-2">
-                        <div className="w-12 h-12 rounded-xl bg-muted overflow-hidden flex items-center justify-center text-xl">
-                          {thumb ? (
-                            <img src={getPublicUrl(thumb) ?? ""} alt="" className="w-full h-full object-cover" />
-                          ) : (
-                            <span>{r.emoji ?? "•"}</span>
-                          )}
-                        </div>
+                        <ImageWithFallback
+                          src={thumb ? getPublicUrl(thumb) : null}
+                          alt=""
+                          className="w-12 h-12 rounded-xl object-cover shrink-0"
+                        />
                       </td>
                       <td className="p-3 font-mono text-xs">{r.id ?? r.key}</td>
                       <td className="p-3">

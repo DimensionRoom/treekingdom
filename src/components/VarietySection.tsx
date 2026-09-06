@@ -5,6 +5,7 @@ import { PlantVariety, PlantLevels } from "@/data/plants";
 import { varietyImages } from "@/data/varietyImages";
 import TagBadges from "@/components/TagBadges";
 import ShareButton from "@/components/ShareButton";
+import ImageWithFallback, { BlankImage } from "@/components/ImageWithFallback";
 import {
   X, Flower2, Calendar, Ruler, ChevronLeft, ChevronRight,
   Sun, Droplets, Wind, Thermometer, Lightbulb, MapPin,
@@ -77,18 +78,14 @@ const VarietySection = ({ varieties, plantName, parentLevels }: VarietySectionPr
                 onClick={() => openVariety(v.id)}
                 className="flex items-center gap-2 p-2 rounded-2xl bg-muted/50 border-2 border-border hover:border-primary/40 hover:bg-primary/5 transition-all text-left group overflow-hidden"
               >
-                {thumb ? (
-                  <img
-                    src={thumb}
-                    alt={v.name[lang]}
-                    className="w-10 h-10 rounded-xl object-cover shrink-0"
-                    loading="lazy"
-                    width={40}
-                    height={40}
-                  />
-                ) : (
-                  <span className="text-2xl shrink-0">{v.emoji}</span>
-                )}
+                <ImageWithFallback
+                  src={thumb}
+                  alt={v.name[lang]}
+                  className="w-10 h-10 rounded-xl object-cover shrink-0"
+                  loading="lazy"
+                  width={40}
+                  height={40}
+                />
                 <div className="min-w-0">
                   <p className="font-semibold text-sm text-card-foreground truncate group-hover:text-primary transition-colors">
                     {v.name[lang]}
@@ -123,7 +120,7 @@ const VarietySection = ({ varieties, plantName, parentLevels }: VarietySectionPr
                   const safeIdx = Math.min(imgIdx, Math.max(0, displayGallery.length - 1));
                   return displayGallery.length > 0 ? (
                     <>
-                      <img
+                      <ImageWithFallback
                         src={displayGallery[safeIdx]}
                         alt={selected.name[lang]}
                         className="w-full h-full object-cover"
@@ -160,8 +157,8 @@ const VarietySection = ({ varieties, plantName, parentLevels }: VarietySectionPr
                       )}
                     </>
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center">
-                      <span className="text-7xl">{selected.emoji}</span>
+                    <div className="w-full h-full bg-muted flex items-center justify-center">
+                      <BlankImage className="w-1/2 h-1/2" />
                     </div>
                   );
                 })()}

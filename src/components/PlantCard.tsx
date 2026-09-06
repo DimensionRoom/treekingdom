@@ -3,6 +3,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { Plant, categoryInfo as fallbackInfo } from "@/data/plants";
 import { useCategoryInfo, usePlants } from "@/hooks/useCloudData";
 import TagBadges from "@/components/TagBadges";
+import ImageWithFallback from "@/components/ImageWithFallback";
 
 interface PlantCardProps {
   plant: Plant;
@@ -16,7 +17,6 @@ const PlantCard = ({ plant }: PlantCardProps) => {
   const catName = lang === "th" ? info.th : info.en;
   const { data: plantsData } = usePlants();
   const images = (plantsData?.images ?? {})[plant.id] ?? [];
-  const hasImage = images.length > 0;
 
   return (
     <Link
@@ -24,13 +24,14 @@ const PlantCard = ({ plant }: PlantCardProps) => {
       state={{ from: location.pathname + location.search }}
       className="block bg-card rounded-2xl border-2 border-border card-hover overflow-hidden group"
     >
-      <div className="h-36 sm:h-48 bg-muted/50 flex items-center justify-center text-6xl sm:text-7xl group-hover:scale-110 transition-transform duration-500 relative overflow-hidden">
+      <div className="h-36 sm:h-48 bg-muted/50 group-hover:scale-110 transition-transform duration-500 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-card/20 z-10" />
-        {hasImage ? (
-          <img src={images[0]} alt={plant.name[lang]} className="w-full h-full object-cover" loading="lazy" />
-        ) : (
-          plant.emoji
-        )}
+        <ImageWithFallback
+          src={images[0]}
+          alt={plant.name[lang]}
+          className="w-full h-full object-cover"
+          loading="lazy"
+        />
         <TagBadges tags={plant.tags} variant="overlay" max={2} />
       </div>
       <div className="p-3 sm:p-5">

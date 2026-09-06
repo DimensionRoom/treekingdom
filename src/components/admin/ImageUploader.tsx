@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { Loader2, Plus, Trash2, ArrowLeft, ArrowRight } from "lucide-react";
 import { toast } from "sonner";
 import { uploadImage, deleteImage, getPublicUrl } from "@/lib/storage";
+import ImageWithFallback from "@/components/ImageWithFallback";
 
 interface Props {
   value: string[];
@@ -59,7 +60,7 @@ const ImageUploader = ({ value, onChange, folder, multiple = true, label }: Prop
       <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
         {value.map((path, idx) => (
           <div key={path + idx} className="relative aspect-square rounded-xl overflow-hidden border-2 border-border bg-muted group">
-            <img src={getPublicUrl(path) ?? ""} alt="" className="w-full h-full object-cover" />
+            <ImageWithFallback src={getPublicUrl(path)} alt="" className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition flex items-center justify-center gap-1 opacity-0 group-hover:opacity-100">
               {multiple && (
                 <>

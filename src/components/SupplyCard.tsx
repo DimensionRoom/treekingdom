@@ -4,13 +4,13 @@ import { Supply } from "@/data/supplies";
 import { useSupplies } from "@/hooks/useCloudData";
 import TagBadges from "@/components/TagBadges";
 import SalePrice from "@/components/SalePrice";
+import ImageWithFallback from "@/components/ImageWithFallback";
 
 const SupplyCard = ({ supply, showDescription = true, showMeta = true }: { supply: Supply; showDescription?: boolean; showMeta?: boolean }) => {
   const { lang, t } = useLanguage();
   const location = useLocation();
   const { data } = useSupplies();
   const images = (data?.images ?? {})[supply.id] ?? [];
-  const hasImage = images.length > 0;
 
   return (
     <Link
@@ -18,13 +18,14 @@ const SupplyCard = ({ supply, showDescription = true, showMeta = true }: { suppl
       state={{ from: location.pathname }}
       className="block bg-card rounded-2xl border-2 border-border card-hover overflow-hidden group"
     >
-      <div className="h-32 sm:h-40 bg-muted/50 flex items-center justify-center text-5xl sm:text-6xl group-hover:scale-110 transition-transform duration-500 relative overflow-hidden">
+      <div className="h-32 sm:h-40 bg-muted/50 group-hover:scale-110 transition-transform duration-500 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-card/20 z-10" />
-        {hasImage ? (
-          <img src={images[0]} alt={supply.name[lang]} className="w-full h-full object-cover" loading="lazy" />
-        ) : (
-          supply.emoji
-        )}
+        <ImageWithFallback
+          src={images[0]}
+          alt={supply.name[lang]}
+          className="w-full h-full object-cover"
+          loading="lazy"
+        />
         <TagBadges tags={supply.tags} variant="overlay" max={2} />
       </div>
       <div className="p-3 sm:p-5">

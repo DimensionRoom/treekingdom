@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { SupplyVariant } from "@/data/supplies";
 import { X, Tag, Package } from "lucide-react";
+import ImageWithFallback, { BlankImage } from "@/components/ImageWithFallback";
 
 interface Props {
   variants: SupplyVariant[];
@@ -45,18 +46,12 @@ const SupplyVariantSection = ({ variants, supplyName }: Props) => {
                 onClick={() => setSelected(v)}
                 className={`flex items-center gap-2 p-2 rounded-2xl bg-muted/50 border-2 border-border hover:border-primary/40 hover:bg-primary/5 transition-all text-left group overflow-hidden ${!inStock ? "opacity-70" : ""}`}
               >
-                {v.image ? (
-                  <img
-                    src={v.image}
-                    alt={v.name[lang]}
-                    className="w-12 h-12 rounded-xl object-cover shrink-0"
-                    loading="lazy"
-                  />
-                ) : (
-                  <div className="w-12 h-12 rounded-xl bg-muted flex items-center justify-center shrink-0 text-2xl">
-                    📦
-                  </div>
-                )}
+                <ImageWithFallback
+                  src={v.image}
+                  alt={v.name[lang]}
+                  className="w-12 h-12 rounded-xl object-cover shrink-0"
+                  loading="lazy"
+                />
                 <div className="min-w-0 flex-1">
                   <p className="font-semibold text-sm text-card-foreground truncate group-hover:text-primary transition-colors">
                     {v.name[lang]}
@@ -88,14 +83,14 @@ const SupplyVariantSection = ({ variants, supplyName }: Props) => {
           >
             <div className="relative h-48 md:h-60 shrink-0 bg-muted overflow-hidden">
               {selected.image ? (
-                <img
+                <ImageWithFallback
                   src={selected.image}
                   alt={selected.name[lang]}
                   className="w-full h-full object-cover"
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center">
-                  <span className="text-7xl">📦</span>
+                  <BlankImage className="w-1/2 h-1/2" />
                 </div>
               )}
               <button

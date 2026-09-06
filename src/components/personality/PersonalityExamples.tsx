@@ -5,6 +5,7 @@ import { usePersonalityExamples, type PersonalityExample } from "@/hooks/usePers
 import { usePlants } from "@/hooks/useCloudData";
 import { defaultPersonalityExamples } from "@/data/personalityExamples";
 import { ChevronLeft, ChevronRight, Sprout } from "lucide-react";
+import ImageWithFallback from "@/components/ImageWithFallback";
 
 interface Props {
   archetypeKey: string;
@@ -27,16 +28,12 @@ const ExampleCard = ({
   return (
     <article className="bg-card border-2 border-border rounded-3xl overflow-hidden shadow-sm">
       <div className="relative aspect-[4/3] bg-muted">
-        {img ? (
-          <img
-            src={img}
-            alt={lang === "th" ? ex.title.th : ex.title.en}
-            loading="lazy"
-            className="w-full h-full object-cover"
-          />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center text-4xl">{ex.emoji}</div>
-        )}
+        <ImageWithFallback
+          src={img}
+          alt={lang === "th" ? ex.title.th : ex.title.en}
+          loading="lazy"
+          className="w-full h-full object-cover"
+        />
         {images.length > 1 && (
           <>
             <button
