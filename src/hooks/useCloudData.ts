@@ -149,6 +149,7 @@ export const usePlants = () => {
           tags: (v.tags ?? []) as string[],
           careTip: v.care_tip ?? null,
           origin: v.origin ?? null,
+          originUrl: v.origin_url ?? null,
         });
       });
 

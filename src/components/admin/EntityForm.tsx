@@ -138,6 +138,7 @@ const defaults: Record<Entity, any> = {
     size: null,
     care_tip: null,
     origin: null,
+    origin_url: null,
     image: null,
     images: [],
     tags: [],
@@ -1055,6 +1056,15 @@ const EntityForm = ({
                 value={data.origin ?? { th: "", en: "" }}
                 onChange={(v) => patch({ origin: v })}
               />
+              <Field label="Origin link (optional — e.g. the nursery/shop's Facebook or LINE page)">
+                <input
+                  type="url"
+                  className={fieldCls}
+                  placeholder="https://facebook.com/..."
+                  value={data.origin_url ?? ""}
+                  onChange={(e) => patch({ origin_url: e.target.value || null })}
+                />
+              </Field>
               <ImageUploader
                 label="Images"
                 value={

@@ -8,7 +8,7 @@ import ShareButton from "@/components/ShareButton";
 import ImageWithFallback, { BlankImage } from "@/components/ImageWithFallback";
 import {
   X, Flower2, Calendar, Ruler, ChevronLeft, ChevronRight,
-  Sun, Droplets, Wind, Thermometer, Lightbulb, MapPin,
+  Sun, Droplets, Wind, Thermometer, Lightbulb, MapPin, ExternalLink,
 } from "lucide-react";
 
 interface VarietySectionProps {
@@ -31,6 +31,12 @@ const VarietySection = ({ varieties, plantName, parentLevels }: VarietySectionPr
   const [params, setParams] = useSearchParams();
   const selected = varieties.find((v) => v.id === params.get("variety")) ?? null;
   const [imgIdx, setImgIdx] = useState(0);
+
+  // Optional detail fields are stored as { th, en } objects, so an admin entry
+  // saved with the field "touched" but left blank is still a truthy object —
+  // `field &&` alone would render an empty section (icon + label, no text).
+  // This checks the string that's actually about to be shown.
+  const hasText = (v?: { th: string; en: string } | null) => !!v?.[lang]?.trim();
 
   // Push so Back closes the sheet (expected on mobile); replace on close so
   // Back doesn't just reopen it. This also makes the variety linkable/shareable
@@ -107,7 +113,7 @@ const VarietySection = ({ varieties, plantName, parentLevels }: VarietySectionPr
           onClick={closeVariety}
         >
           <div
-            className="bg-card w-full h-full md:h-auto md:w-auto md:max-w-lg md:rounded-2xl md:shadow-2xl md:max-h-[85vh] overflow-hidden flex flex-col animate-in slide-in-from-bottom md:fade-in md:zoom-in-95 duration-300"
+            className="bg-card w-full h-full md:h-auto md:max-w-lg md:rounded-2xl md:shadow-2xl md:max-h-[85vh] overflow-hidden flex flex-col animate-in slide-in-from-bottom md:fade-in md:zoom-in-95 duration-300"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Image carousel */}
@@ -229,7 +235,7 @@ const VarietySection = ({ varieties, plantName, parentLevels }: VarietySectionPr
                   </div>
                 )}
 
-                {selected.careTip && (
+                {hasText(selected.careTip) && (
                   <div className="flex items-start gap-3 p-3 rounded-xl bg-primary/5 border border-primary/20">
                     <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
                       <Lightbulb className="w-4 h-4 text-primary" />
@@ -241,19 +247,31 @@ const VarietySection = ({ varieties, plantName, parentLevels }: VarietySectionPr
                   </div>
                 )}
 
-                {selected.origin && (
+                {hasText(selected.origin) && (
                   <div className="flex items-start gap-3 p-3 rounded-xl bg-muted/50 border border-border">
                     <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
                       <MapPin className="w-4 h-4 text-primary" />
                     </div>
                     <div>
                       <p className="text-xs font-semibold text-card-foreground">{t("varieties.origin")}</p>
-                      <p className="text-xs text-muted-foreground">{selected.origin[lang]}</p>
+                      {selected.originUrl ? (
+                        <a
+                          href={selected.originUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-xs text-primary hover:underline inline-flex items-center gap-1"
+                        >
+                          {selected.origin[lang]}
+                          <ExternalLink className="w-3 h-3 shrink-0" />
+                        </a>
+                      ) : (
+                        <p className="text-xs text-muted-foreground">{selected.origin[lang]}</p>
+                      )}
                     </div>
                   </div>
                 )}
 
-                {selected.bloomSeason && (
+                {hasText(selected.bloomSeason) && (
                   <div className="flex items-start gap-3 p-3 rounded-xl bg-muted/50 border border-border">
                     <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
                       <Calendar className="w-4 h-4 text-primary" />
@@ -265,7 +283,7 @@ const VarietySection = ({ varieties, plantName, parentLevels }: VarietySectionPr
                   </div>
                 )}
 
-                {selected.size && (
+                {hasText(selected.size) && (
                   <div className="flex items-start gap-3 p-3 rounded-xl bg-muted/50 border border-border">
                     <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
                       <Ruler className="w-4 h-4 text-primary" />

@@ -49,6 +49,8 @@ export interface PlantVariety {
   /** A tip specific to this variety, distinct from the parent plant's care.* fields. */
   careTip?: { th: string; en: string } | null;
   origin?: { th: string; en: string } | null;
+  /** When set, the origin text links here — typically the nursery/shop's own social page. */
+  originUrl?: string | null;
 }
 
 export interface Plant {
