@@ -34,6 +34,11 @@ const translations: Record<string, Record<Lang, string>> = {
   "search": { th: "ค้นหา...", en: "Search..." },
   "search.plants": { th: "ค้นหาพรรณไม้...", en: "Search plants..." },
   "all": { th: "ทั้งหมด", en: "All" },
+  // "{n}" is replaced by the caller — t() itself does no interpolation.
+  "filter.results": { th: "พบ {n} รายการ", en: "{n} results" },
+  "filter.clear": { th: "ล้างตัวกรอง", en: "Clear filters" },
+  "filter.noResults.clear": { th: "ล้างตัวกรองทั้งหมด", en: "Clear all filters" },
+  "sort.label": { th: "เรียงโดย:", en: "Sort:" },
   "care.title": { th: "วิธีดูแล", en: "Care Guide" },
   "care.light": { th: "แสง", en: "Light" },
   "care.water": { th: "น้ำ", en: "Water" },
