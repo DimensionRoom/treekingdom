@@ -6,6 +6,7 @@ import { varietyImages } from "@/data/varietyImages";
 import TagBadges from "@/components/TagBadges";
 import ShareButton from "@/components/ShareButton";
 import ImageWithFallback, { BlankImage } from "@/components/ImageWithFallback";
+import ImageLightbox from "@/components/ImageLightbox";
 import {
   X, Flower2, Calendar, Ruler, ChevronLeft, ChevronRight,
   Sun, Droplets, Wind, Thermometer, Lightbulb, MapPin, ExternalLink,
@@ -31,6 +32,13 @@ const VarietySection = ({ varieties, plantName, parentLevels }: VarietySectionPr
   const [params, setParams] = useSearchParams();
   const selected = varieties.find((v) => v.id === params.get("variety")) ?? null;
   const [imgIdx, setImgIdx] = useState(0);
+  const [zoomed, setZoomed] = useState(false);
+
+  // Hoisted out of the carousel's own render so the lightbox can share them.
+  const gallery = (selected?.images ?? []).filter((p: string) => p && p.trim() !== "");
+  const singleImage = selected?.image && selected.image.trim() !== "" ? [selected.image] : [];
+  const displayGallery = gallery.length > 0 ? gallery : singleImage;
+  const safeIdx = Math.min(imgIdx, Math.max(0, displayGallery.length - 1));
 
   // Optional detail fields are stored as { th, en } objects, so an admin entry
   // saved with the field "touched" but left blank is still a truthy object —
@@ -58,6 +66,7 @@ const VarietySection = ({ varieties, plantName, parentLevels }: VarietySectionPr
   // Reset image index when opening a new variety
   useEffect(() => {
     setImgIdx(0);
+    setZoomed(false);
   }, [selected?.id]);
 
   // Lock body scroll when modal is open
@@ -119,55 +128,50 @@ const VarietySection = ({ varieties, plantName, parentLevels }: VarietySectionPr
             {/* Image carousel */}
             {selected && (
               <div className="relative h-44 md:h-56 shrink-0 bg-muted overflow-hidden">
-                {(() => {
-                  const gallery = (selected.images ?? []).filter((p: string) => p && p.trim() !== "");
-                  const fallback = selected.image && selected.image.trim() !== "" ? [selected.image] : [];
-                  const displayGallery = gallery.length > 0 ? gallery : fallback;
-                  const safeIdx = Math.min(imgIdx, Math.max(0, displayGallery.length - 1));
-                  return displayGallery.length > 0 ? (
-                    <>
-                      <ImageWithFallback
-                        src={displayGallery[safeIdx]}
-                        alt={selected.name[lang]}
-                        className="w-full h-full object-cover"
-                      />
-                      {displayGallery.length > 1 && (
-                        <>
-                          <button
-                            onClick={() => setImgIdx((i) => (i - 1 + displayGallery.length) % displayGallery.length)}
-                            aria-label="previous image"
-                            className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-card/80 backdrop-blur-sm flex items-center justify-center text-foreground hover:bg-card transition-colors shadow-sm"
-                          >
-                            <ChevronLeft className="w-4 h-4" />
-                          </button>
-                          <button
-                            onClick={() => setImgIdx((i) => (i + 1) % displayGallery.length)}
-                            aria-label="next image"
-                            className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-card/80 backdrop-blur-sm flex items-center justify-center text-foreground hover:bg-card transition-colors shadow-sm"
-                          >
-                            <ChevronRight className="w-4 h-4" />
-                          </button>
-                          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5 px-2 py-1 rounded-full bg-card/70 backdrop-blur-sm">
-                            {displayGallery.map((_, i) => (
-                              <button
-                                key={i}
-                                onClick={() => setImgIdx(i)}
-                                aria-label={`image ${i + 1}`}
-                                className={`w-2 h-2 rounded-full transition-all ${
-                                  i === safeIdx ? "bg-primary w-4" : "bg-muted-foreground/40"
-                                }`}
-                              />
-                            ))}
-                          </div>
-                        </>
-                      )}
-                    </>
-                  ) : (
-                    <div className="w-full h-full bg-muted flex items-center justify-center">
-                      <BlankImage className="w-1/2 h-1/2" />
-                    </div>
-                  );
-                })()}
+                {displayGallery.length > 0 ? (
+                  <>
+                    <ImageWithFallback
+                      src={displayGallery[safeIdx]}
+                      alt={selected.name[lang]}
+                      className="w-full h-full object-cover cursor-zoom-in"
+                      onClick={() => setZoomed(true)}
+                    />
+                    {displayGallery.length > 1 && (
+                      <>
+                        <button
+                          onClick={() => setImgIdx((i) => (i - 1 + displayGallery.length) % displayGallery.length)}
+                          aria-label="previous image"
+                          className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-card/80 backdrop-blur-sm flex items-center justify-center text-foreground hover:bg-card transition-colors shadow-sm"
+                        >
+                          <ChevronLeft className="w-4 h-4" />
+                        </button>
+                        <button
+                          onClick={() => setImgIdx((i) => (i + 1) % displayGallery.length)}
+                          aria-label="next image"
+                          className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-card/80 backdrop-blur-sm flex items-center justify-center text-foreground hover:bg-card transition-colors shadow-sm"
+                        >
+                          <ChevronRight className="w-4 h-4" />
+                        </button>
+                        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5 px-2 py-1 rounded-full bg-card/70 backdrop-blur-sm">
+                          {displayGallery.map((_, i) => (
+                            <button
+                              key={i}
+                              onClick={() => setImgIdx(i)}
+                              aria-label={`image ${i + 1}`}
+                              className={`w-2 h-2 rounded-full transition-all ${
+                                i === safeIdx ? "bg-primary w-4" : "bg-muted-foreground/40"
+                              }`}
+                            />
+                          ))}
+                        </div>
+                      </>
+                    )}
+                  </>
+                ) : (
+                  <div className="w-full h-full bg-muted flex items-center justify-center">
+                    <BlankImage className="w-1/2 h-1/2" />
+                  </div>
+                )}
                 <button
                   onClick={closeVariety}
                   className="absolute top-3 right-3 w-8 h-8 rounded-full bg-card/80 backdrop-blur-sm flex items-center justify-center text-foreground hover:bg-card transition-colors"
@@ -298,6 +302,18 @@ const VarietySection = ({ varieties, plantName, parentLevels }: VarietySectionPr
             </div>
           </div>
         </div>
+      )}
+
+      {/* Sibling of the sheet, not a child: at z-[70] it covers the sheet's
+          backdrop, and its own click handling stays independent of it. */}
+      {zoomed && selected && (
+        <ImageLightbox
+          images={displayGallery}
+          index={safeIdx}
+          onIndexChange={setImgIdx}
+          onClose={() => setZoomed(false)}
+          alt={selected.name[lang]}
+        />
       )}
     </>
   );

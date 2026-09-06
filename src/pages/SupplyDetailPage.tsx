@@ -1,7 +1,7 @@
 import { useParams, Link, useLocation } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useSupplies, usePlants } from "@/hooks/useCloudData";
-import { ArrowLeft, Package, Tag, ChevronLeft, ChevronRight, X } from "lucide-react";
+import { ArrowLeft, Package, Tag, ChevronLeft, ChevronRight } from "lucide-react";
 import ShareButton from "@/components/ShareButton";
 import SupplyVariantSection from "@/components/SupplyVariantSection";
 import { useEffect, useRef, useState, useCallback } from "react";
@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/carousel";
 import TagBadges from "@/components/TagBadges";
 import ImageWithFallback, { BlankImage } from "@/components/ImageWithFallback";
+import ImageLightbox from "@/components/ImageLightbox";
 import SalePrice from "@/components/SalePrice";
 import Seo from "@/components/Seo";
 import { SITE_NAME, absoluteUrl } from "@/lib/site";
@@ -280,54 +281,14 @@ const SupplyDetailPage = () => {
       </div>
 
 
-      {/* Fullscreen lightbox */}
       {fullscreen && hasImages && (
-        <div className="fixed inset-0 z-50 bg-background/95 backdrop-blur-sm flex items-center justify-center" onClick={closeFullscreen}>
-          <button
-            onClick={closeFullscreen}
-            className="absolute top-4 right-4 w-10 h-10 rounded-full bg-muted flex items-center justify-center text-foreground hover:bg-muted/80 transition-colors z-10"
-          >
-            <X className="w-5 h-5" />
-          </button>
-
-          {images.length > 1 && (
-            <>
-              <button
-                onClick={(e) => { e.stopPropagation(); setFullscreenIndex((prev) => (prev - 1 + images.length) % images.length); }}
-                className="absolute left-4 w-10 h-10 rounded-full bg-muted flex items-center justify-center text-foreground hover:bg-muted/80 transition-colors z-10"
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </button>
-              <button
-                onClick={(e) => { e.stopPropagation(); setFullscreenIndex((prev) => (prev + 1) % images.length); }}
-                className="absolute right-4 w-10 h-10 rounded-full bg-muted flex items-center justify-center text-foreground hover:bg-muted/80 transition-colors z-10"
-              >
-                <ChevronRight className="w-5 h-5" />
-              </button>
-            </>
-          )}
-
-          <ImageWithFallback
-            src={images[fullscreenIndex]}
-            alt={`${supply.name[lang]} ${fullscreenIndex + 1}`}
-            className="max-w-[90vw] max-h-[90vh] object-contain rounded-xl"
-            onClick={(e) => e.stopPropagation()}
-          />
-
-          {images.length > 1 && (
-            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-10">
-              {images.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={(e) => { e.stopPropagation(); setFullscreenIndex(i); }}
-                  className={`w-2.5 h-2.5 rounded-full transition-all ${
-                    i === fullscreenIndex ? "bg-primary w-5" : "bg-muted-foreground/40 hover:bg-muted-foreground/60"
-                  }`}
-                />
-              ))}
-            </div>
-          )}
-        </div>
+        <ImageLightbox
+          images={images}
+          index={fullscreenIndex}
+          onIndexChange={setFullscreenIndex}
+          onClose={closeFullscreen}
+          alt={supply.name[lang]}
+        />
       )}
     </div>
   );

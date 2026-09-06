@@ -3,6 +3,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { SupplyVariant } from "@/data/supplies";
 import { X, Tag, Package } from "lucide-react";
 import ImageWithFallback, { BlankImage } from "@/components/ImageWithFallback";
+import ImageLightbox from "@/components/ImageLightbox";
 
 interface Props {
   variants: SupplyVariant[];
@@ -12,6 +13,15 @@ interface Props {
 const SupplyVariantSection = ({ variants, supplyName }: Props) => {
   const { lang, t } = useLanguage();
   const [selected, setSelected] = useState<SupplyVariant | null>(null);
+  const [zoomed, setZoomed] = useState(false);
+
+  // A variant carries a single image, so the lightbox gets a one-item gallery
+  // — it then renders without arrows or dots on its own.
+  const zoomImages = selected?.image ? [selected.image] : [];
+
+  useEffect(() => {
+    setZoomed(false);
+  }, [selected?.id]);
 
   useEffect(() => {
     if (selected) {
@@ -86,7 +96,8 @@ const SupplyVariantSection = ({ variants, supplyName }: Props) => {
                 <ImageWithFallback
                   src={selected.image}
                   alt={selected.name[lang]}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover cursor-zoom-in"
+                  onClick={() => setZoomed(true)}
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center">
@@ -144,6 +155,18 @@ const SupplyVariantSection = ({ variants, supplyName }: Props) => {
             </div>
           </div>
         </div>
+      )}
+
+      {/* Sibling of the sheet, not a child: at z-[70] it covers the sheet's
+          backdrop, and its own click handling stays independent of it. */}
+      {zoomed && selected && zoomImages.length > 0 && (
+        <ImageLightbox
+          images={zoomImages}
+          index={0}
+          onIndexChange={() => {}}
+          onClose={() => setZoomed(false)}
+          alt={selected.name[lang]}
+        />
       )}
     </>
   );
