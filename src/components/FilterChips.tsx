@@ -72,7 +72,13 @@ const FilterChips = ({ options, active, onChange, allLabel, totalCount, edgeFade
         </div>
       </div>
       {edgeFade && (
-        <div className="pointer-events-none absolute right-0 top-0 bottom-1 w-8 bg-gradient-to-l from-background to-transparent" />
+        // `overflow` clips at an element's padding edge, not its content edge —
+        // so the scroll strip's real right boundary is out at its own -mx-4
+        // bleed (16px past this wrapper's box), not flush with the wrapper.
+        // "right-0" here left that last 16px unfaded, so a chip's edge stayed
+        // fully visible, uncovered, right at the scroll limit. "-right-4"
+        // pushes the fade out to where the strip actually ends.
+        <div className="pointer-events-none absolute -right-4 top-0 bottom-1 w-8 bg-gradient-to-l from-background to-transparent" />
       )}
     </div>
   );
