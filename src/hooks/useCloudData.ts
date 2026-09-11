@@ -150,6 +150,7 @@ export const usePlants = () => {
           careTip: v.care_tip ?? null,
           origin: v.origin ?? null,
           originUrl: v.origin_url ?? null,
+          parentId: v.parent_variety_id ?? null,
         });
       });
 

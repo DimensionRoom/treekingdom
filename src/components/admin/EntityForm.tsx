@@ -139,6 +139,7 @@ const defaults: Record<Entity, any> = {
     care_tip: null,
     origin: null,
     origin_url: null,
+    forms: [],
     image: null,
     images: [],
     tags: [],
@@ -473,6 +474,120 @@ const VariantsEditor = ({
       {normalized.length === 0 && (
         <p className="text-xs text-muted-foreground text-center py-3">
           ยังไม่มีตัวเลือกย่อย — กด "เพิ่ม" เพื่อสร้าง
+        </p>
+      )}
+    </div>
+  );
+};
+
+// ---- Mutation-forms editor (plant_varieties, self-referencing) ----------
+type FormDraft = {
+  id: string;
+  name: { th: string; en: string };
+  description: { th: string; en: string };
+  image: string | null;
+};
+
+const makeFormId = () =>
+  `vf-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`;
+
+/**
+ * Edits a variety's mutation forms (cristata, variegated, …) inline, the same
+ * way VariantsEditor edits supply variants. Each form is just a name, a short
+ * description and an image; AdminPage.handleSave writes them back to
+ * plant_varieties with parent_variety_id set.
+ */
+type FormRowIn = Partial<FormDraft> & { images?: string[] };
+
+const FormsEditor = ({
+  value,
+  onChange,
+  folder,
+}: {
+  value: FormRowIn[];
+  onChange: (v: FormDraft[]) => void;
+  folder: string;
+}) => {
+  const [open, setOpen] = useState<Record<string, boolean>>({});
+
+  const normalized: FormDraft[] = value.map((v) => ({
+    id: v.id ?? makeFormId(),
+    name: v.name ?? { th: "", en: "" },
+    description: v.description ?? { th: "", en: "" },
+    image: v.image ?? (Array.isArray(v.images) ? v.images[0] ?? null : null),
+  }));
+
+  const update = (idx: number, patch: Partial<FormDraft>) =>
+    onChange(normalized.map((v, i) => (i === idx ? { ...v, ...patch } : v)));
+  const remove = (idx: number) => onChange(normalized.filter((_, i) => i !== idx));
+  const add = () => {
+    const id = makeFormId();
+    onChange([...normalized, { id, name: { th: "", en: "" }, description: { th: "", en: "" }, image: null }]);
+    setOpen((o) => ({ ...o, [id]: true }));
+  };
+
+  return (
+    <div className="space-y-2 border-2 border-dashed border-border rounded-2xl p-3">
+      <div className="flex items-center justify-between">
+        <div className={lblCls}>ฟอร์มของสายพันธุ์ (Mutation forms) · {normalized.length}</div>
+        <button
+          type="button"
+          onClick={add}
+          className="text-xs px-2.5 py-1 rounded-full bg-primary text-primary-foreground font-semibold inline-flex items-center gap-1"
+        >
+          <Plus className="w-3 h-3" /> เพิ่ม
+        </button>
+      </div>
+
+      {normalized.map((v, idx) => {
+        const isOpen = open[v.id] ?? false;
+        return (
+          <div key={v.id} className="rounded-xl border-2 border-border bg-background">
+            <div className="flex items-center gap-2 p-2">
+              <button
+                type="button"
+                onClick={() => setOpen((o) => ({ ...o, [v.id]: !isOpen }))}
+                className="p-1 rounded hover:bg-muted"
+              >
+                {isOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+              </button>
+              <div className="flex-1 min-w-0 text-sm font-semibold">
+                {v.name.th || v.name.en || "(ยังไม่ตั้งชื่อ)"}
+              </div>
+              <button
+                type="button"
+                onClick={() => remove(idx)}
+                className="p-1.5 rounded-lg hover:bg-destructive/10 text-destructive"
+              >
+                <Trash2 className="w-4 h-4" />
+              </button>
+            </div>
+
+            {isOpen && (
+              <div className="p-3 pt-0 space-y-3">
+                <BilingualText label="Name" value={v.name} onChange={(n) => update(idx, { name: n })} />
+                <BilingualText
+                  label="Description"
+                  value={v.description}
+                  onChange={(n) => update(idx, { description: n })}
+                  textarea
+                />
+                <ImageUploader
+                  label="Image (optional)"
+                  value={v.image ? [v.image] : []}
+                  onChange={(arr) => update(idx, { image: arr[0] ?? null })}
+                  folder={folder}
+                  multiple={false}
+                />
+              </div>
+            )}
+          </div>
+        );
+      })}
+
+      {normalized.length === 0 && (
+        <p className="text-xs text-muted-foreground text-center py-3">
+          ยังไม่มีฟอร์ม — กด "เพิ่ม" เพื่อสร้าง (เช่น คริสตาต้า, ด่าง, ไร้หนาม)
         </p>
       )}
     </div>
@@ -1077,6 +1192,11 @@ const EntityForm = ({
                 onChange={(v) => patch({ images: v, image: v[0] ?? null })}
                 folder={folder}
                 multiple
+              />
+              <FormsEditor
+                value={Array.isArray(data.forms) ? data.forms : []}
+                onChange={(v) => patch({ forms: v })}
+                folder={folder}
               />
               <TagPicker
                 value={(data.tags ?? []) as string[]}

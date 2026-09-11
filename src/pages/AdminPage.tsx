@@ -17,6 +17,15 @@ import ImageWithFallback from "@/components/ImageWithFallback";
 
 type Entity = "plants" | "supplies" | "categories" | "plant_varieties" | "personality_examples" | "tags";
 
+/** A mutation-form row edited inline inside its parent variety. */
+type FormRow = {
+  id: string;
+  name?: { th: string; en: string };
+  description?: { th: string; en: string };
+  image?: string | null;
+  sort_order?: number;
+};
+
 const ENTITY_META: Record<Entity, { emoji: string; th: string; en: string; emptyTh: string; emptyEn: string }> = {
   plants: { emoji: "🌿", th: "ต้นไม้", en: "Plants", emptyTh: "ยังไม่มีต้นไม้", emptyEn: "No plants yet" },
   plant_varieties: { emoji: "🌱", th: "สายพันธุ์", en: "Varieties", emptyTh: "ยังไม่มีสายพันธุ์", emptyEn: "No varieties yet" },
@@ -83,7 +92,10 @@ const AdminPage = () => {
   const varietyRows = rowsOf("plant_varieties");
   const supplyRows = rowsOf("supplies");
   const categoryRows = rowsOf("categories");
-  const rows = rowsOf(tab);
+  const rows =
+    tab === "plant_varieties"
+      ? rowsOf(tab).filter((r) => !(r as { parent_variety_id?: string | null }).parent_variety_id) // forms edit inside their parent
+      : rowsOf(tab);
   const isLoading = tableQueries[ENTITIES.indexOf(tab)].isLoading;
 
   const categoryOptions = useMemo(
@@ -113,11 +125,13 @@ const AdminPage = () => {
 
   const varietyOptions = useMemo(
     () =>
-      varietyRows.map((v: any) => ({
-        value: v.id,
-        plantId: v.plant_id,
-        label: `${v.emoji ?? ""} ${v.name?.th ?? v.id}`.trim(),
-      })),
+      varietyRows
+        .filter((v: { parent_variety_id?: string | null }) => !v.parent_variety_id)
+        .map((v: any) => ({
+          value: v.id,
+          plantId: v.plant_id,
+          label: `${v.emoji ?? ""} ${v.name?.th ?? v.id}`.trim(),
+        })),
     [varietyRows],
   );
 
@@ -126,7 +140,9 @@ const AdminPage = () => {
     () =>
       tagRows.map((tg: any) => ({
         value: tg.key,
-        label: `${tg.emoji ?? ""} ${tg.name?.th ?? tg.key}${tg.name?.en ? ` / ${tg.name.en}` : ""}`.trim(),
+        // No emoji here: TagPicker renders `emoji` in its own <span> before
+        // this label, so baking it into the label too showed it twice.
+        label: `${tg.name?.th ?? tg.key}${tg.name?.en ? ` / ${tg.name.en}` : ""}`,
         color: tg.color ?? "badge-humid",
         emoji: tg.emoji ?? null,
       })),
@@ -189,19 +205,43 @@ const AdminPage = () => {
     enabled: !!editingSupplyId,
   });
 
-  // Inject variants into record so EntityForm sees them
+  // Load a variety's mutation forms (child rows in the same table)
+  const editingVarietyId = tab === "plant_varieties" ? (editing?.id ?? null) : null;
+  const { data: editingForms } = useQuery<FormRow[]>({
+    queryKey: ["admin", "variety_forms", editingVarietyId],
+    queryFn: async () => {
+      if (!editingVarietyId) return [];
+      const { data, error } = await (supabase as any)
+        .from("plant_varieties")
+        .select("*")
+        .eq("parent_variety_id", editingVarietyId)
+        .order("sort_order");
+      if (error) throw error;
+      return (data ?? []) as FormRow[];
+    },
+    enabled: !!editingVarietyId,
+  });
+
+  // Inject the child collection into the record so EntityForm sees it
   const editingWithVariants =
     tab === "supplies" && editing
       ? { ...editing, variants: editingVariants ?? editing.variants ?? [] }
-      : editing;
+      : tab === "plant_varieties" && editing
+        ? { ...editing, forms: editingForms ?? editing.forms ?? [] }
+        : editing;
 
   const handleSave = async (record: any) => {
-    // Extract variants for supplies (persisted in supply_variants table)
+    // Extract the inline child collection so it goes to its own rows.
     let variantsToWrite: any[] | null = null;
+    let formsToWrite: FormRow[] | null = null;
     let recordToWrite = record;
     if (tab === "supplies") {
       const { variants, ...rest } = record;
       variantsToWrite = Array.isArray(variants) ? variants : [];
+      recordToWrite = rest;
+    } else if (tab === "plant_varieties") {
+      const { forms, ...rest } = record;
+      formsToWrite = Array.isArray(forms) ? forms : [];
       recordToWrite = rest;
     }
 
@@ -211,6 +251,42 @@ const AdminPage = () => {
     if (error) {
       toast.error(error.message);
       return;
+    }
+
+    if (formsToWrite !== null && recordToWrite.id) {
+      const parentId = recordToWrite.id;
+      const prevIds = new Set((editingForms ?? []).map((v) => v.id));
+      const nextIds = new Set(formsToWrite.map((v) => v.id));
+      const toDelete = [...prevIds].filter((id) => !nextIds.has(id));
+
+      if (formsToWrite.length > 0) {
+        const rows = formsToWrite.map((v, i) => ({
+          id: v.id,
+          plant_id: recordToWrite.plant_id,
+          parent_variety_id: parentId,
+          name: v.name ?? { th: "", en: "" },
+          description: v.description ?? { th: "", en: "" },
+          // features is NOT NULL in the schema; a form has none of its own.
+          features: { th: "", en: "" },
+          image: v.image ?? null,
+          images: v.image ? [v.image] : [],
+          sort_order: Number(v.sort_order ?? i),
+        }));
+        const { error: fErr } = await (supabase as any)
+          .from("plant_varieties")
+          .upsert(rows, { onConflict: "id" });
+        if (fErr) {
+          toast.error(`Forms: ${fErr.message}`);
+          return;
+        }
+      }
+      if (toDelete.length > 0) {
+        const { error: dErr } = await (supabase as any)
+          .from("plant_varieties")
+          .delete()
+          .in("id", toDelete);
+        if (dErr) toast.error(`Delete forms: ${dErr.message}`);
+      }
     }
 
     if (variantsToWrite !== null && recordToWrite.id) {

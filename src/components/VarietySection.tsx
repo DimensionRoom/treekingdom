@@ -7,11 +7,12 @@ import TagBadges from "@/components/TagBadges";
 import ShareButton from "@/components/ShareButton";
 import ImageWithFallback, { BlankImage } from "@/components/ImageWithFallback";
 import ImageLightbox from "@/components/ImageLightbox";
+import VarietyTree from "@/components/VarietyTree";
 import Portal from "@/components/Portal";
 import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel";
 import {
   Flower2, Calendar, Ruler, ChevronLeft, ChevronRight, ArrowLeft,
-  Sun, Droplets, Wind, Thermometer, Lightbulb, MapPin, ExternalLink,
+  Sun, Droplets, Wind, Thermometer, Lightbulb, MapPin, ExternalLink, Network,
 } from "lucide-react";
 
 interface VarietySectionProps {
@@ -32,10 +33,21 @@ const LEVEL_ICONS: { key: keyof PlantLevels; icon: typeof Sun }[] = [
 const VarietySection = ({ varieties, plantName, parentLevels }: VarietySectionProps) => {
   const { lang, t } = useLanguage();
   const [params, setParams] = useSearchParams();
-  const selected = varieties.find((v) => v.id === params.get("variety")) ?? null;
+  // The prop stays a flat array; the form/parent link lives on each row.
+  const topLevel = varieties.filter((v) => !v.parentId);
+  const formsOf = (parentId: string) => varieties.filter((v) => v.parentId === parentId);
+
+  // A form is not openable on its own — only top-level varieties get a sheet.
+  const selected = topLevel.find((v) => v.id === params.get("variety")) ?? null;
   const [imgIdx, setImgIdx] = useState(0);
   const [zoomed, setZoomed] = useState(false);
+  const [treeOpen, setTreeOpen] = useState(false);
+  // A form's own gallery, opened in its own lightbox instance so it never
+  // collides with the parent carousel's imgIdx/zoomed.
+  const [formZoom, setFormZoom] = useState<{ images: string[]; index: number } | null>(null);
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
+
+  const selectedForms = selected ? formsOf(selected.id) : [];
 
   // Hoisted out of the carousel's own render so the lightbox can share them.
   const gallery = (selected?.images ?? []).filter((p: string) => p && p.trim() !== "");
@@ -70,6 +82,8 @@ const VarietySection = ({ varieties, plantName, parentLevels }: VarietySectionPr
   useEffect(() => {
     setImgIdx(0);
     setZoomed(false);
+    setTreeOpen(false);
+    setFormZoom(null);
   }, [selected?.id]);
 
   // Lock body scroll when modal is open
@@ -99,10 +113,10 @@ const VarietySection = ({ varieties, plantName, parentLevels }: VarietySectionPr
     <>
       <div className="mt-6">
         <h2 className="font-display font-bold text-lg text-card-foreground mb-3">
-          {t("varieties.title")} ({varieties.length})
+          {t("varieties.title")} ({topLevel.length})
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-          {varieties.map((v) => {
+          {topLevel.map((v) => {
             const validImages = (v.images ?? []).filter((p: string) => p && p.trim() !== "");
             const thumb = validImages[0] ?? v.image ?? varietyImages[v.id];
             return (
@@ -119,7 +133,7 @@ const VarietySection = ({ varieties, plantName, parentLevels }: VarietySectionPr
                   width={40}
                   height={40}
                 />
-                <div className="min-w-0">
+                <div className="min-w-0 flex-1">
                   <p className="font-semibold text-sm text-card-foreground truncate group-hover:text-primary transition-colors">
                     {v.name[lang]}
                   </p>
@@ -127,6 +141,9 @@ const VarietySection = ({ varieties, plantName, parentLevels }: VarietySectionPr
                     {v.features[lang]}
                   </p>
                 </div>
+                {formsOf(v.id).length > 0 && (
+                  <Network className="w-4 h-4 shrink-0 text-muted-foreground" aria-label="has forms" />
+                )}
               </button>
             );
           })}
@@ -228,17 +245,47 @@ const VarietySection = ({ varieties, plantName, parentLevels }: VarietySectionPr
                   <h3 className="font-display font-bold text-xl text-card-foreground">
                     {selected.name[lang]}
                   </h3>
-                  <ShareButton
-                    title={
-                      lang === "th"
-                        ? `${selected.name.th} — สายพันธุ์ของ${plantName}`
-                        : `${selected.name.en} — variety of ${plantName}`
-                    }
-                  />
+                  <div className="flex items-center gap-1 shrink-0">
+                    {selectedForms.length > 0 && (
+                      <button
+                        type="button"
+                        onClick={() => setTreeOpen((v) => !v)}
+                        aria-pressed={treeOpen}
+                        aria-label={lang === "th" ? "ฟอร์มของสายพันธุ์" : "Mutation forms"}
+                        className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${
+                          treeOpen ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-muted"
+                        }`}
+                      >
+                        <Network className="w-4 h-4" />
+                      </button>
+                    )}
+                    <ShareButton
+                      title={
+                        lang === "th"
+                          ? `${selected.name.th} — สายพันธุ์ของ${plantName}`
+                          : `${selected.name.en} — variety of ${plantName}`
+                      }
+                    />
+                  </div>
                 </div>
                 <p className="text-muted-foreground text-xs mb-3">
                   {lang === "th" ? `สายพันธุ์ของ${plantName}` : `Variety of ${plantName}`}
                 </p>
+
+                {treeOpen && selectedForms.length > 0 && (
+                  <div className="mb-3 rounded-xl bg-muted/40 border border-border p-3">
+                    <p className="text-xs font-semibold text-muted-foreground mb-2">
+                      {lang === "th"
+                        ? `ฟอร์มของสายพันธุ์ (${selectedForms.length})`
+                        : `Mutation forms (${selectedForms.length})`}
+                    </p>
+                    <VarietyTree
+                      parent={selected}
+                      forms={selectedForms}
+                      onZoom={(images, index) => setFormZoom({ images, index })}
+                    />
+                  </div>
+                )}
 
                 <p className="text-muted-foreground text-sm leading-relaxed mb-3">
                   {selected.description[lang]}
@@ -353,6 +400,17 @@ const VarietySection = ({ varieties, plantName, parentLevels }: VarietySectionPr
           onIndexChange={setImgIdx}
           onClose={() => setZoomed(false)}
           alt={selected.name[lang]}
+        />
+      )}
+
+      {/* A form's images get their own lightbox, kept apart from the parent's. */}
+      {formZoom && (
+        <ImageLightbox
+          images={formZoom.images}
+          index={formZoom.index}
+          onIndexChange={(index) => setFormZoom((z) => (z ? { ...z, index } : z))}
+          onClose={() => setFormZoom(null)}
+          alt={selected?.name[lang] ?? ""}
         />
       )}
     </>

@@ -51,6 +51,8 @@ export interface PlantVariety {
   origin?: { th: string; en: string } | null;
   /** When set, the origin text links here — typically the nursery/shop's own social page. */
   originUrl?: string | null;
+  /** Set when this variety is a mutation form of another (cristata, variegated, …). */
+  parentId?: string | null;
 }
 
 export interface Plant {
