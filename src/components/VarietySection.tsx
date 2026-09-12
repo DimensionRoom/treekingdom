@@ -90,8 +90,14 @@ const VarietySection = ({ varieties, plantName, parentLevels }: VarietySectionPr
   useEffect(() => {
     setImgIdx(0);
     setZoomed(false);
-    setTreeOpen(false);
+    // Open the forms tree by default when there's something to show — no
+    // reason to make the admin discover and click the toggle first.
+    setTreeOpen(selected ? formsOf(selected.id).length > 0 : false);
     setFormZoom(null);
+    // Deliberately only selected?.id: formsOf/selected are new references
+    // every render, and this should reset once per variety switch, not
+    // whenever the parent re-renders for an unrelated reason.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selected?.id]);
 
   // Lock body scroll when modal is open
