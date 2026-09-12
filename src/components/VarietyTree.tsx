@@ -32,6 +32,7 @@ const VarietyTree = ({ parent, forms, onZoom }: Props) => {
           const gallery = (f.images ?? []).filter((p) => p && p.trim() !== "");
           const shots = gallery.length > 0 ? gallery : f.image ? [f.image] : [];
           const isLast = i === forms.length - 1;
+          const hasDesc = !!f.description?.[lang]?.trim();
 
           return (
             <li key={f.id} className="relative pl-5">
@@ -59,9 +60,12 @@ const VarietyTree = ({ parent, forms, onZoom }: Props) => {
                     height={56}
                   />
                 </button>
-                <div className="min-w-0">
+                {/* No description: the row stretches this to the image's height
+                    (flex default), so center the lone name in it rather than
+                    leaving it pinned to the top with blank space below. */}
+                <div className={`min-w-0 ${hasDesc ? "" : "flex flex-col justify-center"}`}>
                   <p className="text-sm font-semibold text-card-foreground">{f.name[lang]}</p>
-                  {f.description?.[lang]?.trim() && (
+                  {hasDesc && (
                     <p className="text-xs text-muted-foreground leading-relaxed mt-0.5">
                       {f.description[lang]}
                     </p>
