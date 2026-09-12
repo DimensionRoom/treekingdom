@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { useSupplies } from "@/hooks/useCloudData";
+import { useSupplies, useFortuneMessages } from "@/hooks/useCloudData";
 import {
   WEEKDAYS,
   DOMAINS,
@@ -17,6 +17,7 @@ const LuckyDaily = () => {
   const [weekday, setWeekday] = useState<number | null>(null);
   const { data } = useSupplies();
   const supplies = data?.supplies ?? [];
+  const { data: fortunePool } = useFortuneMessages();
 
   const today = useMemo(() => new Date(), []);
   const todayLabel = today.toLocaleDateString(lang === "th" ? "th-TH" : "en-US", {
@@ -31,8 +32,8 @@ const LuckyDaily = () => {
     const fakeBirth = new Date(today);
     const diff = (weekday - today.getDay() + 7) % 7;
     fakeBirth.setDate(today.getDate() - diff);
-    return getDailyFortune(buildProfile(fakeBirth), today);
-  }, [weekday, today]);
+    return getDailyFortune(buildProfile(fakeBirth), today, fortunePool);
+  }, [weekday, today, fortunePool]);
 
   const matches = useMemo(() => {
     if (weekday === null) return [];

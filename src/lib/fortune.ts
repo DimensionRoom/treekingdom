@@ -164,7 +164,25 @@ const MSG_CAREFUL = {
   ],
 };
 
-export function getDailyFortune(profile: FortuneProfile, date = new Date()): DailyFortune {
+export type FortuneTone = "positive" | "neutral" | "careful";
+/** weekday (0-6) -> tone -> messages. A bucket missing or empty falls back
+ *  to the small hard-coded pool below, so an empty/unreachable DB never breaks
+ *  the page — it just serves the old fixed set until the table is filled. */
+export type FortuneMessagePool = Partial<
+  Record<number, Partial<Record<FortuneTone, { th: string; en: string }[]>>>
+>;
+
+const FALLBACK_MESSAGES: Record<FortuneTone, { th: string; en: string }[]> = {
+  positive: MSG_POSITIVE.th.map((th, i) => ({ th, en: MSG_POSITIVE.en[i] })),
+  neutral: MSG_NEUTRAL.th.map((th, i) => ({ th, en: MSG_NEUTRAL.en[i] })),
+  careful: MSG_CAREFUL.th.map((th, i) => ({ th, en: MSG_CAREFUL.en[i] })),
+};
+
+export function getDailyFortune(
+  profile: FortuneProfile,
+  date = new Date(),
+  pool?: FortuneMessagePool,
+): DailyFortune {
   const dateStr = date.toISOString().slice(0, 10);
   const seed = `${dateStr}|${profile.weekday}|${profile.zodiac}|${profile.chineseZodiac}`;
   const rand = seedRand(seed);
@@ -180,14 +198,27 @@ export function getDailyFortune(profile: FortuneProfile, date = new Date()): Dai
     Object.values(scores).reduce((a, b) => a + b, 0) / 6,
   );
   const color = COLOR_POOL[Math.floor(rand() * COLOR_POOL.length)];
-  const pool = overall >= 75 ? MSG_POSITIVE : overall >= 55 ? MSG_NEUTRAL : MSG_CAREFUL;
-  const idx = Math.floor(rand() * pool.th.length);
+  const tone: FortuneTone = overall >= 75 ? "positive" : overall >= 55 ? "neutral" : "careful";
+
+  // Rotates through the bucket by day number instead of picking randomly —
+  // random selection from even a few dozen entries collides within days
+  // (birthday-paradox territory), so a regular visitor would still see
+  // repeats constantly. Rotation guarantees no repeat until the whole
+  // bucket has cycled. toneIndex/bucketOffset stagger the 21 buckets so
+  // they don't all turn over on the same day.
+  const toneIndex = tone === "positive" ? 0 : tone === "neutral" ? 1 : 2;
+  const bucket = pool?.[profile.weekday]?.[tone];
+  const messages = bucket && bucket.length > 0 ? bucket : FALLBACK_MESSAGES[tone];
+  const dayNumber = Math.floor(date.getTime() / 86400000);
+  const bucketOffset = profile.weekday * 3 + toneIndex;
+  const message = messages[(dayNumber + bucketOffset) % messages.length];
+
   return {
     date: dateStr,
     scores,
     overall,
     luckyColor: color,
-    message: { th: pool.th[idx], en: pool.en[idx] },
+    message,
   };
 }
 

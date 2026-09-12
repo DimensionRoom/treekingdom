@@ -5,6 +5,7 @@ import type { Supply } from "@/data/supplies";
 import { plants as localPlants, categoryInfo as localCategoryInfo, allCategories } from "@/data/plants";
 import { supplies as localSupplies } from "@/data/supplies";
 import { STORAGE_BUCKET as BUCKET } from "@/integrations/supabase-external/config";
+import type { FortuneMessagePool, FortuneTone } from "@/lib/fortune";
 
 const publicUrl = (path: string | null | undefined): string | null => {
   if (!path) return null;
@@ -101,6 +102,67 @@ export const useTagMap = (): Record<string, TagRecord> => {
   return map;
 };
 
+// ---------- Origins (shop/nursery master data) ----------
+export type OriginRecord = {
+  key: string;
+  name: { th: string; en: string };
+  link: string | null;
+};
+
+export const useOrigins = () =>
+  useQuery({
+    queryKey: ["origins"],
+    queryFn: async (): Promise<OriginRecord[]> => {
+      const { data, error } = await (supabase as any)
+        .from("origins")
+        .select("*")
+        .order("sort_order")
+        .order("key");
+      // Table may not exist yet on the backend — fail soft, varieties just
+      // keep showing whatever free-text origin they already have.
+      if (error) return [];
+      return (data ?? []).map((o) => ({
+        key: o.key,
+        name: (o.name ?? { th: o.key, en: o.key }) as { th: string; en: string },
+        link: o.link ?? null,
+      }));
+    },
+    staleTime: 5 * 60 * 1000,
+  });
+
+/** key -> origin, for resolving a variety's origin_id. */
+export const useOriginMap = (): Record<string, OriginRecord> => {
+  const { data } = useOrigins();
+  const map: Record<string, OriginRecord> = {};
+  (data ?? []).forEach((o) => { map[o.key] = o; });
+  return map;
+};
+
+// ---------- Fortune messages ----------
+/**
+ * The daily-fortune message pool, bucketed by weekday x tone. Table may not
+ * exist yet or be empty — fail soft (getDailyFortune falls back to its own
+ * small built-in pool) rather than break the page.
+ */
+export const useFortuneMessages = () =>
+  useQuery({
+    queryKey: ["fortune_messages"],
+    queryFn: async (): Promise<FortuneMessagePool> => {
+      const { data, error } = await (supabase as any)
+        .from("fortune_messages")
+        .select("weekday,tone,message")
+        .limit(2000);
+      if (error) return {};
+      const pool: FortuneMessagePool = {};
+      (data ?? []).forEach((row: { weekday: number; tone: FortuneTone; message: { th: string; en: string } }) => {
+        const byTone = (pool[row.weekday] ||= {});
+        (byTone[row.tone] ||= []).push(row.message);
+      });
+      return pool;
+    },
+    staleTime: 5 * 60 * 1000,
+  });
+
 // ---------- Plants ----------
 const rowToPlant = (r: any): Plant => ({
   id: r.id,
@@ -150,6 +212,7 @@ export const usePlants = () => {
           careTip: v.care_tip ?? null,
           origin: v.origin ?? null,
           originUrl: v.origin_url ?? null,
+          originId: v.origin_id ?? null,
           parentId: v.parent_variety_id ?? null,
         });
       });

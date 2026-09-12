@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useOriginMap } from "@/hooks/useCloudData";
 import { PlantVariety, PlantLevels } from "@/data/plants";
 import { varietyImages } from "@/data/varietyImages";
 import TagBadges from "@/components/TagBadges";
@@ -32,6 +33,7 @@ const LEVEL_ICONS: { key: keyof PlantLevels; icon: typeof Sun }[] = [
 
 const VarietySection = ({ varieties, plantName, parentLevels }: VarietySectionProps) => {
   const { lang, t } = useLanguage();
+  const originMap = useOriginMap();
   const [params, setParams] = useSearchParams();
   // The prop stays a flat array; the form/parent link lives on each row.
   const topLevel = varieties.filter((v) => !v.parentId);
@@ -48,6 +50,12 @@ const VarietySection = ({ varieties, plantName, parentLevels }: VarietySectionPr
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
 
   const selectedForms = selected ? formsOf(selected.id) : [];
+
+  // A variety can point at a shared origins record (originId) or just carry
+  // its own free-text origin/originUrl — the master record wins when set.
+  const originMaster = selected?.originId ? originMap[selected.originId] : null;
+  const originName = originMaster ? originMaster.name[lang] : selected?.origin?.[lang];
+  const originLink = originMaster ? originMaster.link : selected?.originUrl;
 
   // Hoisted out of the carousel's own render so the lightbox can share them.
   const gallery = (selected?.images ?? []).filter((p: string) => p && p.trim() !== "");
@@ -338,25 +346,25 @@ const VarietySection = ({ varieties, plantName, parentLevels }: VarietySectionPr
                     </div>
                   )}
 
-                  {hasText(selected.origin) && (
+                  {originName?.trim() && (
                     <div className="flex items-start gap-3 p-3 rounded-xl bg-muted/50 border border-border">
                       <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
                         <MapPin className="w-4 h-4 text-primary" />
                       </div>
                       <div>
                         <p className="text-xs font-semibold text-card-foreground">{t("varieties.origin")}</p>
-                        {selected.originUrl ? (
+                        {originLink ? (
                           <a
-                            href={selected.originUrl}
+                            href={originLink}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-xs text-primary hover:underline inline-flex items-center gap-1"
                           >
-                            {selected.origin[lang]}
+                            {originName}
                             <ExternalLink className="w-3 h-3 shrink-0" />
                           </a>
                         ) : (
-                          <p className="text-xs text-muted-foreground">{selected.origin[lang]}</p>
+                          <p className="text-xs text-muted-foreground">{originName}</p>
                         )}
                       </div>
                     </div>

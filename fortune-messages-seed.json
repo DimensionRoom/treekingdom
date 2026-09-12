@@ -1,0 +1,3782 @@
+[
+  {
+    "weekday": 0,
+    "tone": "positive",
+    "th": "วันนี้พลังบวกกำลังโอบล้อมคุณ ลองเริ่มสิ่งใหม่ๆ ดู",
+    "en": "Positive energy surrounds you today — start something new."
+  },
+  {
+    "weekday": 0,
+    "tone": "positive",
+    "th": "จังหวะดีมาเยือน อย่ารอช้าที่จะลงมือทำ",
+    "en": "A great moment arrives — don't hesitate to act."
+  },
+  {
+    "weekday": 0,
+    "tone": "positive",
+    "th": "ความตั้งใจของคุณจะเห็นผลในวันนี้",
+    "en": "Your effort will pay off today."
+  },
+  {
+    "weekday": 0,
+    "tone": "positive",
+    "th": "โชคเข้าข้างคุณอย่างเต็มที่ วันนี้เหมาะกับการตัดสินใจสำคัญ",
+    "en": "Luck is fully on your side — a good day for big decisions."
+  },
+  {
+    "weekday": 0,
+    "tone": "positive",
+    "th": "สิ่งที่รอคอยมานานกำลังจะเป็นจริง",
+    "en": "Something you've waited for is about to come true."
+  },
+  {
+    "weekday": 0,
+    "tone": "positive",
+    "th": "เปิดใจรับโอกาสใหม่ที่เข้ามา มันคุ้มค่าแน่นอน",
+    "en": "Stay open to new opportunities — they're worth it."
+  },
+  {
+    "weekday": 0,
+    "tone": "positive",
+    "th": "คนรอบข้างพร้อมสนับสนุนคุณเต็มที่วันนี้",
+    "en": "The people around you are fully behind you today."
+  },
+  {
+    "weekday": 0,
+    "tone": "positive",
+    "th": "ความคิดสร้างสรรค์ของคุณกำลังพลุ่งพล่าน ใช้มันให้เป็นประโยชน์",
+    "en": "Your creativity is flowing — put it to good use."
+  },
+  {
+    "weekday": 0,
+    "tone": "positive",
+    "th": "งานที่ทำค้างไว้จะคืบหน้าอย่างน่าพอใจ",
+    "en": "Work you've been stuck on will finally move forward."
+  },
+  {
+    "weekday": 0,
+    "tone": "positive",
+    "th": "พลังงานดีๆ จะดึงดูดผู้คนที่ใช่เข้ามาหาคุณ",
+    "en": "Good energy will draw the right people to you."
+  },
+  {
+    "weekday": 0,
+    "tone": "positive",
+    "th": "ทุกก้าวที่เดินวันนี้นำไปสู่ความสำเร็จ",
+    "en": "Every step you take today leads toward success."
+  },
+  {
+    "weekday": 0,
+    "tone": "positive",
+    "th": "เป็นวันที่เหมาะกับการเริ่มต้นธุรกิจหรือโปรเจกต์ใหม่",
+    "en": "A great day to launch a new business or project."
+  },
+  {
+    "weekday": 0,
+    "tone": "positive",
+    "th": "ความมั่นใจในตัวเองของคุณจะส่งผลดีต่อทุกเรื่อง",
+    "en": "Your self-confidence will carry you through everything today."
+  },
+  {
+    "weekday": 0,
+    "tone": "positive",
+    "th": "คำพูดของคุณวันนี้มีน้ำหนัก ใช้มันสร้างแรงบันดาลใจ",
+    "en": "Your words carry weight today — use them to inspire."
+  },
+  {
+    "weekday": 0,
+    "tone": "positive",
+    "th": "เงินทองไหลมาเทมาอย่างไม่คาดคิด",
+    "en": "Money flows in from unexpected places."
+  },
+  {
+    "weekday": 0,
+    "tone": "positive",
+    "th": "ความสัมพันธ์ที่ห่างเหินจะกลับมาอบอุ่นอีกครั้ง",
+    "en": "A distant relationship will warm up again."
+  },
+  {
+    "weekday": 0,
+    "tone": "positive",
+    "th": "สุขภาพแข็งแรง พลังงานเต็มเปี่ยมตลอดวัน",
+    "en": "Your health is strong and your energy full all day."
+  },
+  {
+    "weekday": 0,
+    "tone": "positive",
+    "th": "โอกาสทองมาถึงแล้ว อย่าปล่อยให้หลุดมือ",
+    "en": "A golden opportunity has arrived — don't let it slip."
+  },
+  {
+    "weekday": 0,
+    "tone": "positive",
+    "th": "ทุกอุปสรรคจะกลายเป็นบทเรียนที่ทำให้คุณแข็งแกร่งขึ้น",
+    "en": "Every obstacle today becomes a lesson that makes you stronger."
+  },
+  {
+    "weekday": 0,
+    "tone": "positive",
+    "th": "เพื่อนใหม่ที่พบวันนี้อาจกลายเป็นคนสำคัญในอนาคต",
+    "en": "A new friend today could become important down the road."
+  },
+  {
+    "weekday": 0,
+    "tone": "positive",
+    "th": "ไอเดียที่เก็บไว้นานควรหยิบมาลงมือทำได้แล้ว",
+    "en": "That idea you've been sitting on is ready to become real."
+  },
+  {
+    "weekday": 0,
+    "tone": "positive",
+    "th": "วันนี้เหมาะกับการขอโปรโมทหรือขึ้นเงินเดือน",
+    "en": "A good day to ask for that promotion or raise."
+  },
+  {
+    "weekday": 0,
+    "tone": "positive",
+    "th": "ทุกสิ่งที่คุณปลูกไว้กำลังจะออกดอกผล",
+    "en": "Everything you've been growing is about to bear fruit."
+  },
+  {
+    "weekday": 0,
+    "tone": "positive",
+    "th": "ความสุขเล็กๆ น้อยๆ วันนี้จะเติมพลังให้คุณทั้งสัปดาห์",
+    "en": "Small joys today will fuel you for the whole week."
+  },
+  {
+    "weekday": 0,
+    "tone": "positive",
+    "th": "คนที่คุณรักจะทำให้วันนี้พิเศษขึ้นมาก",
+    "en": "Someone you love will make today extra special."
+  },
+  {
+    "weekday": 0,
+    "tone": "positive",
+    "th": "การเดินทางวันนี้จะราบรื่นและนำพาสิ่งดีๆ มาให้",
+    "en": "Travel today goes smoothly and brings good things."
+  },
+  {
+    "weekday": 0,
+    "tone": "positive",
+    "th": "ความเชื่อมั่นในตัวเองคือกุญแจของวันนี้",
+    "en": "Belief in yourself is today's key."
+  },
+  {
+    "weekday": 0,
+    "tone": "positive",
+    "th": "ทุกการลงทุนวันนี้มีแนวโน้มให้ผลตอบแทนดี",
+    "en": "Investments made today tend to pay off well."
+  },
+  {
+    "weekday": 0,
+    "tone": "positive",
+    "th": "เสียงหัวเราะจะดังก้องในบ้านคุณวันนี้",
+    "en": "Laughter will fill your home today."
+  },
+  {
+    "weekday": 0,
+    "tone": "positive",
+    "th": "จักรวาลกำลังจัดสรรสิ่งดีๆ ไว้ให้คุณอยู่",
+    "en": "The universe is lining up good things just for you."
+  },
+  {
+    "weekday": 0,
+    "tone": "neutral",
+    "th": "วันธรรมดาที่เหมาะกับการพักผ่อนและจัดระเบียบ",
+    "en": "An ordinary day — perfect for rest and tidying up."
+  },
+  {
+    "weekday": 0,
+    "tone": "neutral",
+    "th": "เรียนรู้และสะสมพลัง พรุ่งนี้จะดีขึ้น",
+    "en": "Learn and recharge; tomorrow will be brighter."
+  },
+  {
+    "weekday": 0,
+    "tone": "neutral",
+    "th": "ใจเย็นๆ ทุกอย่างกำลังไปในทิศทางที่ดี",
+    "en": "Stay calm — things are heading the right way."
+  },
+  {
+    "weekday": 0,
+    "tone": "neutral",
+    "th": "วันนี้เหมาะกับการทบทวนแผนการมากกว่าลงมือทำ",
+    "en": "Better for reviewing your plans than acting on them today."
+  },
+  {
+    "weekday": 0,
+    "tone": "neutral",
+    "th": "ไม่มีอะไรน่าตื่นเต้นเป็นพิเศษ แต่ก็ไม่มีอะไรน่าห่วง",
+    "en": "Nothing exciting, but nothing to worry about either."
+  },
+  {
+    "weekday": 0,
+    "tone": "neutral",
+    "th": "เก็บพลังงานไว้ใช้กับสิ่งที่สำคัญกว่าพรุ่งนี้",
+    "en": "Save your energy for something more important tomorrow."
+  },
+  {
+    "weekday": 0,
+    "tone": "neutral",
+    "th": "เหมาะกับการทำงานที่ต้องใช้ความละเอียดรอบคอบ",
+    "en": "A good day for detail-oriented, careful work."
+  },
+  {
+    "weekday": 0,
+    "tone": "neutral",
+    "th": "คนรอบตัวอาจดูเงียบกว่าปกติ ให้พื้นที่กันบ้าง",
+    "en": "People around you may seem quieter — give each other space."
+  },
+  {
+    "weekday": 0,
+    "tone": "neutral",
+    "th": "เป็นวันที่เหมาะกับการฟังมากกว่าพูด",
+    "en": "A day better spent listening than talking."
+  },
+  {
+    "weekday": 0,
+    "tone": "neutral",
+    "th": "งานประจำดำเนินไปตามปกติ ไม่มีเซอร์ไพรส์",
+    "en": "Routine tasks proceed as usual, no surprises."
+  },
+  {
+    "weekday": 0,
+    "tone": "neutral",
+    "th": "ลองทำสิ่งเดิมๆ ให้ดีขึ้นทีละนิด",
+    "en": "Try improving something familiar, one small step at a time."
+  },
+  {
+    "weekday": 0,
+    "tone": "neutral",
+    "th": "วันนี้เหมาะกับการดูแลตัวเองมากกว่าดูแลคนอื่น",
+    "en": "Better to look after yourself today than others."
+  },
+  {
+    "weekday": 0,
+    "tone": "neutral",
+    "th": "ไม่ต้องรีบตัดสินใจเรื่องใหญ่วันนี้ก็ได้",
+    "en": "No need to rush any big decisions today."
+  },
+  {
+    "weekday": 0,
+    "tone": "neutral",
+    "th": "สมดุลคือคำสำคัญของวันนี้",
+    "en": "Balance is today's keyword."
+  },
+  {
+    "weekday": 0,
+    "tone": "neutral",
+    "th": "เหมาะกับการจัดลำดับความสำคัญของสิ่งที่ต้องทำ",
+    "en": "A good day to re-prioritize your to-do list."
+  },
+  {
+    "weekday": 0,
+    "tone": "neutral",
+    "th": "อากาศในใจสงบ เหมาะกับการทำสมาธิ",
+    "en": "Your inner weather is calm — a good time to meditate."
+  },
+  {
+    "weekday": 0,
+    "tone": "neutral",
+    "th": "เรื่องเงินทรงตัว ไม่มีรายรับรายจ่ายผิดปกติ",
+    "en": "Finances stay level, nothing unusual in or out."
+  },
+  {
+    "weekday": 0,
+    "tone": "neutral",
+    "th": "ความสัมพันธ์อยู่ในช่วงพักตัว ไม่ต้องเร่งอะไร",
+    "en": "Relationships are in a resting phase — no need to push."
+  },
+  {
+    "weekday": 0,
+    "tone": "neutral",
+    "th": "เหมาะกับการอ่านหนังสือหรือหาความรู้เพิ่มเติม",
+    "en": "A fitting day to read or learn something new."
+  },
+  {
+    "weekday": 0,
+    "tone": "neutral",
+    "th": "งานเล็กๆ ที่ค้างไว้นานควรเคลียร์ให้จบวันนี้",
+    "en": "Clear out that small task you've been putting off."
+  },
+  {
+    "weekday": 0,
+    "tone": "neutral",
+    "th": "ร่างกายขอการพักผ่อนมากกว่าการออกแรง",
+    "en": "Your body is asking for rest more than exertion."
+  },
+  {
+    "weekday": 0,
+    "tone": "neutral",
+    "th": "เหมาะกับการทำความสะอาดบ้านหรือที่ทำงาน",
+    "en": "A good day for cleaning up your home or workspace."
+  },
+  {
+    "weekday": 0,
+    "tone": "neutral",
+    "th": "อย่าคาดหวังผลลัพธ์ทันที ให้เวลาทำงานของมัน",
+    "en": "Don't expect instant results — give things time to work."
+  },
+  {
+    "weekday": 0,
+    "tone": "neutral",
+    "th": "เป็นวันที่เหมาะกับการวางแผนระยะยาว",
+    "en": "A good day for long-term planning."
+  },
+  {
+    "weekday": 0,
+    "tone": "neutral",
+    "th": "ความคิดฟุ้งซ่านวันนี้ ลองเขียนบันทึกช่วยจัดระเบียบ",
+    "en": "Thoughts feel scattered — try journaling to sort them out."
+  },
+  {
+    "weekday": 0,
+    "tone": "neutral",
+    "th": "ไม่มีเรื่องด่วน ใช้เวลาไปกับสิ่งที่ชอบบ้าง",
+    "en": "Nothing urgent — spend some time on things you enjoy."
+  },
+  {
+    "weekday": 0,
+    "tone": "neutral",
+    "th": "เหมาะกับการซ่อมแซมสิ่งของหรือความสัมพันธ์เล็กๆ น้อยๆ",
+    "en": "A fitting day for small repairs, of things or relationships."
+  },
+  {
+    "weekday": 0,
+    "tone": "neutral",
+    "th": "วันนี้เหมาะกับการรับฟังคำแนะนำจากคนที่ไว้ใจ",
+    "en": "A good day to take advice from someone you trust."
+  },
+  {
+    "weekday": 0,
+    "tone": "neutral",
+    "th": "งานที่ทำวันนี้อาจไม่หวือหวา แต่มั่นคง",
+    "en": "Today's work may not dazzle, but it's steady."
+  },
+  {
+    "weekday": 0,
+    "tone": "neutral",
+    "th": "เก็บพลังไว้ พรุ่งนี้อาจต้องใช้มันเต็มที่",
+    "en": "Conserve your energy — tomorrow may call for all of it."
+  },
+  {
+    "weekday": 0,
+    "tone": "careful",
+    "th": "ระวังการตัดสินใจเร่งรีบในวันนี้",
+    "en": "Beware of rushed decisions today."
+  },
+  {
+    "weekday": 0,
+    "tone": "careful",
+    "th": "ลดการใช้จ่าย และฟังคนรอบข้างมากขึ้น",
+    "en": "Cut spending and listen to those around you."
+  },
+  {
+    "weekday": 0,
+    "tone": "careful",
+    "th": "พักผ่อนให้พอ ดูแลใจตัวเอง",
+    "en": "Rest well and take care of your heart."
+  },
+  {
+    "weekday": 0,
+    "tone": "careful",
+    "th": "หลีกเลี่ยงการโต้เถียงที่ไม่จำเป็นวันนี้",
+    "en": "Avoid unnecessary arguments today."
+  },
+  {
+    "weekday": 0,
+    "tone": "careful",
+    "th": "ตรวจสอบเอกสารสำคัญให้รอบคอบก่อนเซ็น",
+    "en": "Double-check important documents before signing anything."
+  },
+  {
+    "weekday": 0,
+    "tone": "careful",
+    "th": "ระวังคำพูดที่อาจทำร้ายความรู้สึกคนอื่นโดยไม่ตั้งใจ",
+    "en": "Watch your words — they could hurt without meaning to."
+  },
+  {
+    "weekday": 0,
+    "tone": "careful",
+    "th": "อย่าให้ยืมเงินก้อนใหญ่ในวันนี้",
+    "en": "Avoid lending out large sums of money today."
+  },
+  {
+    "weekday": 0,
+    "tone": "careful",
+    "th": "สุขภาพต้องการการดูแลเป็นพิเศษ อย่าฝืนร่างกาย",
+    "en": "Your health needs extra care — don't push your body too hard."
+  },
+  {
+    "weekday": 0,
+    "tone": "careful",
+    "th": "หลีกเลี่ยงการเดินทางไกลโดยไม่จำเป็น",
+    "en": "Avoid unnecessary long-distance travel."
+  },
+  {
+    "weekday": 0,
+    "tone": "careful",
+    "th": "ระวังของหายหรือลืมของสำคัญ",
+    "en": "Watch out for losing or forgetting something important."
+  },
+  {
+    "weekday": 0,
+    "tone": "careful",
+    "th": "อย่าเพิ่งเชื่อข้อมูลที่ยังไม่ได้ตรวจสอบ",
+    "en": "Don't trust unverified information just yet."
+  },
+  {
+    "weekday": 0,
+    "tone": "careful",
+    "th": "ความสัมพันธ์อาจสั่นคลอน ใช้ความอดทนให้มาก",
+    "en": "A relationship may feel shaky — bring extra patience."
+  },
+  {
+    "weekday": 0,
+    "tone": "careful",
+    "th": "งานที่รีบทำวันนี้เสี่ยงผิดพลาด ตรวจทานซ้ำอีกครั้ง",
+    "en": "Rushed work today risks mistakes — double-check everything."
+  },
+  {
+    "weekday": 0,
+    "tone": "careful",
+    "th": "ระวังอุบัติเหตุเล็กๆ น้อยๆ ในบ้านหรือที่ทำงาน",
+    "en": "Watch for small accidents at home or work."
+  },
+  {
+    "weekday": 0,
+    "tone": "careful",
+    "th": "หลีกเลี่ยงการลงทุนเสี่ยงสูงในวันนี้",
+    "en": "Avoid high-risk investments today."
+  },
+  {
+    "weekday": 0,
+    "tone": "careful",
+    "th": "อารมณ์อาจแปรปรวน ให้เวลาตัวเองสงบลงก่อนตัดสินใจ",
+    "en": "Emotions may swing — take time to settle before deciding."
+  },
+  {
+    "weekday": 0,
+    "tone": "careful",
+    "th": "ระวังคนใกล้ตัวที่พูดจาไม่จริงใจ",
+    "en": "Be wary of someone close who isn't being sincere."
+  },
+  {
+    "weekday": 0,
+    "tone": "careful",
+    "th": "อย่าฝืนทำงานหนักเกินไปจนละเลยการพักผ่อน",
+    "en": "Don't overwork to the point of skipping rest."
+  },
+  {
+    "weekday": 0,
+    "tone": "careful",
+    "th": "ตรวจสอบสุขภาพการเงินก่อนตัดสินใจซื้อของชิ้นใหญ่",
+    "en": "Check your finances carefully before any big purchase."
+  },
+  {
+    "weekday": 0,
+    "tone": "careful",
+    "th": "ระวังการนินทาหรือคำพูดลับหลังวันนี้",
+    "en": "Watch out for gossip or talk behind your back today."
+  },
+  {
+    "weekday": 0,
+    "tone": "careful",
+    "th": "หลีกเลี่ยงการเซ็นสัญญาที่ยังไม่เข้าใจถ่องแท้",
+    "en": "Avoid signing any contract you don't fully understand yet."
+  },
+  {
+    "weekday": 0,
+    "tone": "careful",
+    "th": "พลังงานลดลง ควรงดกิจกรรมที่ใช้แรงหนัก",
+    "en": "Energy runs low — skip anything physically demanding."
+  },
+  {
+    "weekday": 0,
+    "tone": "careful",
+    "th": "ระวังความขัดแย้งในครอบครัวที่อาจปะทุขึ้น",
+    "en": "Watch for family friction that could flare up."
+  },
+  {
+    "weekday": 0,
+    "tone": "careful",
+    "th": "อย่าตัดสินใจเรื่องความรักด้วยอารมณ์ชั่ววูบ",
+    "en": "Don't decide matters of the heart on a passing impulse."
+  },
+  {
+    "weekday": 0,
+    "tone": "careful",
+    "th": "ตรวจสอบรถหรือของใช้ก่อนออกเดินทางไกล",
+    "en": "Check your vehicle or gear before any long trip."
+  },
+  {
+    "weekday": 0,
+    "tone": "careful",
+    "th": "ระวังการพลาดนัดสำคัญ ตั้งเตือนไว้ล่วงหน้า",
+    "en": "Watch for missing an important appointment — set reminders early."
+  },
+  {
+    "weekday": 0,
+    "tone": "careful",
+    "th": "หลีกเลี่ยงการพูดแทนใจคนอื่นวันนี้",
+    "en": "Avoid speaking for others today — let them speak for themselves."
+  },
+  {
+    "weekday": 0,
+    "tone": "careful",
+    "th": "สุขภาพจิตต้องการพื้นที่ปลอดภัย หาเวลาอยู่กับตัวเองบ้าง",
+    "en": "Your mind needs a safe space — carve out time alone."
+  },
+  {
+    "weekday": 0,
+    "tone": "careful",
+    "th": "ระวังของมีคมหรือความร้อนในครัว",
+    "en": "Be careful with sharp objects or heat in the kitchen today."
+  },
+  {
+    "weekday": 0,
+    "tone": "careful",
+    "th": "อย่าฝืนใจทำสิ่งที่ไม่สบายใจเพียงเพราะเกรงใจ",
+    "en": "Don't force yourself into something uncomfortable just to avoid awkwardness."
+  },
+  {
+    "weekday": 1,
+    "tone": "positive",
+    "th": "วันนี้พลังบวกกำลังโอบล้อมคุณ ลองเริ่มสิ่งใหม่ๆ ดู",
+    "en": "Positive energy surrounds you today — start something new."
+  },
+  {
+    "weekday": 1,
+    "tone": "positive",
+    "th": "จังหวะดีมาเยือน อย่ารอช้าที่จะลงมือทำ",
+    "en": "A great moment arrives — don't hesitate to act."
+  },
+  {
+    "weekday": 1,
+    "tone": "positive",
+    "th": "ความตั้งใจของคุณจะเห็นผลในวันนี้",
+    "en": "Your effort will pay off today."
+  },
+  {
+    "weekday": 1,
+    "tone": "positive",
+    "th": "โชคเข้าข้างคุณอย่างเต็มที่ วันนี้เหมาะกับการตัดสินใจสำคัญ",
+    "en": "Luck is fully on your side — a good day for big decisions."
+  },
+  {
+    "weekday": 1,
+    "tone": "positive",
+    "th": "สิ่งที่รอคอยมานานกำลังจะเป็นจริง",
+    "en": "Something you've waited for is about to come true."
+  },
+  {
+    "weekday": 1,
+    "tone": "positive",
+    "th": "เปิดใจรับโอกาสใหม่ที่เข้ามา มันคุ้มค่าแน่นอน",
+    "en": "Stay open to new opportunities — they're worth it."
+  },
+  {
+    "weekday": 1,
+    "tone": "positive",
+    "th": "คนรอบข้างพร้อมสนับสนุนคุณเต็มที่วันนี้",
+    "en": "The people around you are fully behind you today."
+  },
+  {
+    "weekday": 1,
+    "tone": "positive",
+    "th": "ความคิดสร้างสรรค์ของคุณกำลังพลุ่งพล่าน ใช้มันให้เป็นประโยชน์",
+    "en": "Your creativity is flowing — put it to good use."
+  },
+  {
+    "weekday": 1,
+    "tone": "positive",
+    "th": "งานที่ทำค้างไว้จะคืบหน้าอย่างน่าพอใจ",
+    "en": "Work you've been stuck on will finally move forward."
+  },
+  {
+    "weekday": 1,
+    "tone": "positive",
+    "th": "พลังงานดีๆ จะดึงดูดผู้คนที่ใช่เข้ามาหาคุณ",
+    "en": "Good energy will draw the right people to you."
+  },
+  {
+    "weekday": 1,
+    "tone": "positive",
+    "th": "ทุกก้าวที่เดินวันนี้นำไปสู่ความสำเร็จ",
+    "en": "Every step you take today leads toward success."
+  },
+  {
+    "weekday": 1,
+    "tone": "positive",
+    "th": "เป็นวันที่เหมาะกับการเริ่มต้นธุรกิจหรือโปรเจกต์ใหม่",
+    "en": "A great day to launch a new business or project."
+  },
+  {
+    "weekday": 1,
+    "tone": "positive",
+    "th": "ความมั่นใจในตัวเองของคุณจะส่งผลดีต่อทุกเรื่อง",
+    "en": "Your self-confidence will carry you through everything today."
+  },
+  {
+    "weekday": 1,
+    "tone": "positive",
+    "th": "คำพูดของคุณวันนี้มีน้ำหนัก ใช้มันสร้างแรงบันดาลใจ",
+    "en": "Your words carry weight today — use them to inspire."
+  },
+  {
+    "weekday": 1,
+    "tone": "positive",
+    "th": "เงินทองไหลมาเทมาอย่างไม่คาดคิด",
+    "en": "Money flows in from unexpected places."
+  },
+  {
+    "weekday": 1,
+    "tone": "positive",
+    "th": "ความสัมพันธ์ที่ห่างเหินจะกลับมาอบอุ่นอีกครั้ง",
+    "en": "A distant relationship will warm up again."
+  },
+  {
+    "weekday": 1,
+    "tone": "positive",
+    "th": "สุขภาพแข็งแรง พลังงานเต็มเปี่ยมตลอดวัน",
+    "en": "Your health is strong and your energy full all day."
+  },
+  {
+    "weekday": 1,
+    "tone": "positive",
+    "th": "โอกาสทองมาถึงแล้ว อย่าปล่อยให้หลุดมือ",
+    "en": "A golden opportunity has arrived — don't let it slip."
+  },
+  {
+    "weekday": 1,
+    "tone": "positive",
+    "th": "ทุกอุปสรรคจะกลายเป็นบทเรียนที่ทำให้คุณแข็งแกร่งขึ้น",
+    "en": "Every obstacle today becomes a lesson that makes you stronger."
+  },
+  {
+    "weekday": 1,
+    "tone": "positive",
+    "th": "เพื่อนใหม่ที่พบวันนี้อาจกลายเป็นคนสำคัญในอนาคต",
+    "en": "A new friend today could become important down the road."
+  },
+  {
+    "weekday": 1,
+    "tone": "positive",
+    "th": "ไอเดียที่เก็บไว้นานควรหยิบมาลงมือทำได้แล้ว",
+    "en": "That idea you've been sitting on is ready to become real."
+  },
+  {
+    "weekday": 1,
+    "tone": "positive",
+    "th": "วันนี้เหมาะกับการขอโปรโมทหรือขึ้นเงินเดือน",
+    "en": "A good day to ask for that promotion or raise."
+  },
+  {
+    "weekday": 1,
+    "tone": "positive",
+    "th": "ทุกสิ่งที่คุณปลูกไว้กำลังจะออกดอกผล",
+    "en": "Everything you've been growing is about to bear fruit."
+  },
+  {
+    "weekday": 1,
+    "tone": "positive",
+    "th": "ความสุขเล็กๆ น้อยๆ วันนี้จะเติมพลังให้คุณทั้งสัปดาห์",
+    "en": "Small joys today will fuel you for the whole week."
+  },
+  {
+    "weekday": 1,
+    "tone": "positive",
+    "th": "คนที่คุณรักจะทำให้วันนี้พิเศษขึ้นมาก",
+    "en": "Someone you love will make today extra special."
+  },
+  {
+    "weekday": 1,
+    "tone": "positive",
+    "th": "การเดินทางวันนี้จะราบรื่นและนำพาสิ่งดีๆ มาให้",
+    "en": "Travel today goes smoothly and brings good things."
+  },
+  {
+    "weekday": 1,
+    "tone": "positive",
+    "th": "ความเชื่อมั่นในตัวเองคือกุญแจของวันนี้",
+    "en": "Belief in yourself is today's key."
+  },
+  {
+    "weekday": 1,
+    "tone": "positive",
+    "th": "ทุกการลงทุนวันนี้มีแนวโน้มให้ผลตอบแทนดี",
+    "en": "Investments made today tend to pay off well."
+  },
+  {
+    "weekday": 1,
+    "tone": "positive",
+    "th": "เสียงหัวเราะจะดังก้องในบ้านคุณวันนี้",
+    "en": "Laughter will fill your home today."
+  },
+  {
+    "weekday": 1,
+    "tone": "positive",
+    "th": "จักรวาลกำลังจัดสรรสิ่งดีๆ ไว้ให้คุณอยู่",
+    "en": "The universe is lining up good things just for you."
+  },
+  {
+    "weekday": 1,
+    "tone": "neutral",
+    "th": "วันธรรมดาที่เหมาะกับการพักผ่อนและจัดระเบียบ",
+    "en": "An ordinary day — perfect for rest and tidying up."
+  },
+  {
+    "weekday": 1,
+    "tone": "neutral",
+    "th": "เรียนรู้และสะสมพลัง พรุ่งนี้จะดีขึ้น",
+    "en": "Learn and recharge; tomorrow will be brighter."
+  },
+  {
+    "weekday": 1,
+    "tone": "neutral",
+    "th": "ใจเย็นๆ ทุกอย่างกำลังไปในทิศทางที่ดี",
+    "en": "Stay calm — things are heading the right way."
+  },
+  {
+    "weekday": 1,
+    "tone": "neutral",
+    "th": "วันนี้เหมาะกับการทบทวนแผนการมากกว่าลงมือทำ",
+    "en": "Better for reviewing your plans than acting on them today."
+  },
+  {
+    "weekday": 1,
+    "tone": "neutral",
+    "th": "ไม่มีอะไรน่าตื่นเต้นเป็นพิเศษ แต่ก็ไม่มีอะไรน่าห่วง",
+    "en": "Nothing exciting, but nothing to worry about either."
+  },
+  {
+    "weekday": 1,
+    "tone": "neutral",
+    "th": "เก็บพลังงานไว้ใช้กับสิ่งที่สำคัญกว่าพรุ่งนี้",
+    "en": "Save your energy for something more important tomorrow."
+  },
+  {
+    "weekday": 1,
+    "tone": "neutral",
+    "th": "เหมาะกับการทำงานที่ต้องใช้ความละเอียดรอบคอบ",
+    "en": "A good day for detail-oriented, careful work."
+  },
+  {
+    "weekday": 1,
+    "tone": "neutral",
+    "th": "คนรอบตัวอาจดูเงียบกว่าปกติ ให้พื้นที่กันบ้าง",
+    "en": "People around you may seem quieter — give each other space."
+  },
+  {
+    "weekday": 1,
+    "tone": "neutral",
+    "th": "เป็นวันที่เหมาะกับการฟังมากกว่าพูด",
+    "en": "A day better spent listening than talking."
+  },
+  {
+    "weekday": 1,
+    "tone": "neutral",
+    "th": "งานประจำดำเนินไปตามปกติ ไม่มีเซอร์ไพรส์",
+    "en": "Routine tasks proceed as usual, no surprises."
+  },
+  {
+    "weekday": 1,
+    "tone": "neutral",
+    "th": "ลองทำสิ่งเดิมๆ ให้ดีขึ้นทีละนิด",
+    "en": "Try improving something familiar, one small step at a time."
+  },
+  {
+    "weekday": 1,
+    "tone": "neutral",
+    "th": "วันนี้เหมาะกับการดูแลตัวเองมากกว่าดูแลคนอื่น",
+    "en": "Better to look after yourself today than others."
+  },
+  {
+    "weekday": 1,
+    "tone": "neutral",
+    "th": "ไม่ต้องรีบตัดสินใจเรื่องใหญ่วันนี้ก็ได้",
+    "en": "No need to rush any big decisions today."
+  },
+  {
+    "weekday": 1,
+    "tone": "neutral",
+    "th": "สมดุลคือคำสำคัญของวันนี้",
+    "en": "Balance is today's keyword."
+  },
+  {
+    "weekday": 1,
+    "tone": "neutral",
+    "th": "เหมาะกับการจัดลำดับความสำคัญของสิ่งที่ต้องทำ",
+    "en": "A good day to re-prioritize your to-do list."
+  },
+  {
+    "weekday": 1,
+    "tone": "neutral",
+    "th": "อากาศในใจสงบ เหมาะกับการทำสมาธิ",
+    "en": "Your inner weather is calm — a good time to meditate."
+  },
+  {
+    "weekday": 1,
+    "tone": "neutral",
+    "th": "เรื่องเงินทรงตัว ไม่มีรายรับรายจ่ายผิดปกติ",
+    "en": "Finances stay level, nothing unusual in or out."
+  },
+  {
+    "weekday": 1,
+    "tone": "neutral",
+    "th": "ความสัมพันธ์อยู่ในช่วงพักตัว ไม่ต้องเร่งอะไร",
+    "en": "Relationships are in a resting phase — no need to push."
+  },
+  {
+    "weekday": 1,
+    "tone": "neutral",
+    "th": "เหมาะกับการอ่านหนังสือหรือหาความรู้เพิ่มเติม",
+    "en": "A fitting day to read or learn something new."
+  },
+  {
+    "weekday": 1,
+    "tone": "neutral",
+    "th": "งานเล็กๆ ที่ค้างไว้นานควรเคลียร์ให้จบวันนี้",
+    "en": "Clear out that small task you've been putting off."
+  },
+  {
+    "weekday": 1,
+    "tone": "neutral",
+    "th": "ร่างกายขอการพักผ่อนมากกว่าการออกแรง",
+    "en": "Your body is asking for rest more than exertion."
+  },
+  {
+    "weekday": 1,
+    "tone": "neutral",
+    "th": "เหมาะกับการทำความสะอาดบ้านหรือที่ทำงาน",
+    "en": "A good day for cleaning up your home or workspace."
+  },
+  {
+    "weekday": 1,
+    "tone": "neutral",
+    "th": "อย่าคาดหวังผลลัพธ์ทันที ให้เวลาทำงานของมัน",
+    "en": "Don't expect instant results — give things time to work."
+  },
+  {
+    "weekday": 1,
+    "tone": "neutral",
+    "th": "เป็นวันที่เหมาะกับการวางแผนระยะยาว",
+    "en": "A good day for long-term planning."
+  },
+  {
+    "weekday": 1,
+    "tone": "neutral",
+    "th": "ความคิดฟุ้งซ่านวันนี้ ลองเขียนบันทึกช่วยจัดระเบียบ",
+    "en": "Thoughts feel scattered — try journaling to sort them out."
+  },
+  {
+    "weekday": 1,
+    "tone": "neutral",
+    "th": "ไม่มีเรื่องด่วน ใช้เวลาไปกับสิ่งที่ชอบบ้าง",
+    "en": "Nothing urgent — spend some time on things you enjoy."
+  },
+  {
+    "weekday": 1,
+    "tone": "neutral",
+    "th": "เหมาะกับการซ่อมแซมสิ่งของหรือความสัมพันธ์เล็กๆ น้อยๆ",
+    "en": "A fitting day for small repairs, of things or relationships."
+  },
+  {
+    "weekday": 1,
+    "tone": "neutral",
+    "th": "วันนี้เหมาะกับการรับฟังคำแนะนำจากคนที่ไว้ใจ",
+    "en": "A good day to take advice from someone you trust."
+  },
+  {
+    "weekday": 1,
+    "tone": "neutral",
+    "th": "งานที่ทำวันนี้อาจไม่หวือหวา แต่มั่นคง",
+    "en": "Today's work may not dazzle, but it's steady."
+  },
+  {
+    "weekday": 1,
+    "tone": "neutral",
+    "th": "เก็บพลังไว้ พรุ่งนี้อาจต้องใช้มันเต็มที่",
+    "en": "Conserve your energy — tomorrow may call for all of it."
+  },
+  {
+    "weekday": 1,
+    "tone": "careful",
+    "th": "ระวังการตัดสินใจเร่งรีบในวันนี้",
+    "en": "Beware of rushed decisions today."
+  },
+  {
+    "weekday": 1,
+    "tone": "careful",
+    "th": "ลดการใช้จ่าย และฟังคนรอบข้างมากขึ้น",
+    "en": "Cut spending and listen to those around you."
+  },
+  {
+    "weekday": 1,
+    "tone": "careful",
+    "th": "พักผ่อนให้พอ ดูแลใจตัวเอง",
+    "en": "Rest well and take care of your heart."
+  },
+  {
+    "weekday": 1,
+    "tone": "careful",
+    "th": "หลีกเลี่ยงการโต้เถียงที่ไม่จำเป็นวันนี้",
+    "en": "Avoid unnecessary arguments today."
+  },
+  {
+    "weekday": 1,
+    "tone": "careful",
+    "th": "ตรวจสอบเอกสารสำคัญให้รอบคอบก่อนเซ็น",
+    "en": "Double-check important documents before signing anything."
+  },
+  {
+    "weekday": 1,
+    "tone": "careful",
+    "th": "ระวังคำพูดที่อาจทำร้ายความรู้สึกคนอื่นโดยไม่ตั้งใจ",
+    "en": "Watch your words — they could hurt without meaning to."
+  },
+  {
+    "weekday": 1,
+    "tone": "careful",
+    "th": "อย่าให้ยืมเงินก้อนใหญ่ในวันนี้",
+    "en": "Avoid lending out large sums of money today."
+  },
+  {
+    "weekday": 1,
+    "tone": "careful",
+    "th": "สุขภาพต้องการการดูแลเป็นพิเศษ อย่าฝืนร่างกาย",
+    "en": "Your health needs extra care — don't push your body too hard."
+  },
+  {
+    "weekday": 1,
+    "tone": "careful",
+    "th": "หลีกเลี่ยงการเดินทางไกลโดยไม่จำเป็น",
+    "en": "Avoid unnecessary long-distance travel."
+  },
+  {
+    "weekday": 1,
+    "tone": "careful",
+    "th": "ระวังของหายหรือลืมของสำคัญ",
+    "en": "Watch out for losing or forgetting something important."
+  },
+  {
+    "weekday": 1,
+    "tone": "careful",
+    "th": "อย่าเพิ่งเชื่อข้อมูลที่ยังไม่ได้ตรวจสอบ",
+    "en": "Don't trust unverified information just yet."
+  },
+  {
+    "weekday": 1,
+    "tone": "careful",
+    "th": "ความสัมพันธ์อาจสั่นคลอน ใช้ความอดทนให้มาก",
+    "en": "A relationship may feel shaky — bring extra patience."
+  },
+  {
+    "weekday": 1,
+    "tone": "careful",
+    "th": "งานที่รีบทำวันนี้เสี่ยงผิดพลาด ตรวจทานซ้ำอีกครั้ง",
+    "en": "Rushed work today risks mistakes — double-check everything."
+  },
+  {
+    "weekday": 1,
+    "tone": "careful",
+    "th": "ระวังอุบัติเหตุเล็กๆ น้อยๆ ในบ้านหรือที่ทำงาน",
+    "en": "Watch for small accidents at home or work."
+  },
+  {
+    "weekday": 1,
+    "tone": "careful",
+    "th": "หลีกเลี่ยงการลงทุนเสี่ยงสูงในวันนี้",
+    "en": "Avoid high-risk investments today."
+  },
+  {
+    "weekday": 1,
+    "tone": "careful",
+    "th": "อารมณ์อาจแปรปรวน ให้เวลาตัวเองสงบลงก่อนตัดสินใจ",
+    "en": "Emotions may swing — take time to settle before deciding."
+  },
+  {
+    "weekday": 1,
+    "tone": "careful",
+    "th": "ระวังคนใกล้ตัวที่พูดจาไม่จริงใจ",
+    "en": "Be wary of someone close who isn't being sincere."
+  },
+  {
+    "weekday": 1,
+    "tone": "careful",
+    "th": "อย่าฝืนทำงานหนักเกินไปจนละเลยการพักผ่อน",
+    "en": "Don't overwork to the point of skipping rest."
+  },
+  {
+    "weekday": 1,
+    "tone": "careful",
+    "th": "ตรวจสอบสุขภาพการเงินก่อนตัดสินใจซื้อของชิ้นใหญ่",
+    "en": "Check your finances carefully before any big purchase."
+  },
+  {
+    "weekday": 1,
+    "tone": "careful",
+    "th": "ระวังการนินทาหรือคำพูดลับหลังวันนี้",
+    "en": "Watch out for gossip or talk behind your back today."
+  },
+  {
+    "weekday": 1,
+    "tone": "careful",
+    "th": "หลีกเลี่ยงการเซ็นสัญญาที่ยังไม่เข้าใจถ่องแท้",
+    "en": "Avoid signing any contract you don't fully understand yet."
+  },
+  {
+    "weekday": 1,
+    "tone": "careful",
+    "th": "พลังงานลดลง ควรงดกิจกรรมที่ใช้แรงหนัก",
+    "en": "Energy runs low — skip anything physically demanding."
+  },
+  {
+    "weekday": 1,
+    "tone": "careful",
+    "th": "ระวังความขัดแย้งในครอบครัวที่อาจปะทุขึ้น",
+    "en": "Watch for family friction that could flare up."
+  },
+  {
+    "weekday": 1,
+    "tone": "careful",
+    "th": "อย่าตัดสินใจเรื่องความรักด้วยอารมณ์ชั่ววูบ",
+    "en": "Don't decide matters of the heart on a passing impulse."
+  },
+  {
+    "weekday": 1,
+    "tone": "careful",
+    "th": "ตรวจสอบรถหรือของใช้ก่อนออกเดินทางไกล",
+    "en": "Check your vehicle or gear before any long trip."
+  },
+  {
+    "weekday": 1,
+    "tone": "careful",
+    "th": "ระวังการพลาดนัดสำคัญ ตั้งเตือนไว้ล่วงหน้า",
+    "en": "Watch for missing an important appointment — set reminders early."
+  },
+  {
+    "weekday": 1,
+    "tone": "careful",
+    "th": "หลีกเลี่ยงการพูดแทนใจคนอื่นวันนี้",
+    "en": "Avoid speaking for others today — let them speak for themselves."
+  },
+  {
+    "weekday": 1,
+    "tone": "careful",
+    "th": "สุขภาพจิตต้องการพื้นที่ปลอดภัย หาเวลาอยู่กับตัวเองบ้าง",
+    "en": "Your mind needs a safe space — carve out time alone."
+  },
+  {
+    "weekday": 1,
+    "tone": "careful",
+    "th": "ระวังของมีคมหรือความร้อนในครัว",
+    "en": "Be careful with sharp objects or heat in the kitchen today."
+  },
+  {
+    "weekday": 1,
+    "tone": "careful",
+    "th": "อย่าฝืนใจทำสิ่งที่ไม่สบายใจเพียงเพราะเกรงใจ",
+    "en": "Don't force yourself into something uncomfortable just to avoid awkwardness."
+  },
+  {
+    "weekday": 2,
+    "tone": "positive",
+    "th": "วันนี้พลังบวกกำลังโอบล้อมคุณ ลองเริ่มสิ่งใหม่ๆ ดู",
+    "en": "Positive energy surrounds you today — start something new."
+  },
+  {
+    "weekday": 2,
+    "tone": "positive",
+    "th": "จังหวะดีมาเยือน อย่ารอช้าที่จะลงมือทำ",
+    "en": "A great moment arrives — don't hesitate to act."
+  },
+  {
+    "weekday": 2,
+    "tone": "positive",
+    "th": "ความตั้งใจของคุณจะเห็นผลในวันนี้",
+    "en": "Your effort will pay off today."
+  },
+  {
+    "weekday": 2,
+    "tone": "positive",
+    "th": "โชคเข้าข้างคุณอย่างเต็มที่ วันนี้เหมาะกับการตัดสินใจสำคัญ",
+    "en": "Luck is fully on your side — a good day for big decisions."
+  },
+  {
+    "weekday": 2,
+    "tone": "positive",
+    "th": "สิ่งที่รอคอยมานานกำลังจะเป็นจริง",
+    "en": "Something you've waited for is about to come true."
+  },
+  {
+    "weekday": 2,
+    "tone": "positive",
+    "th": "เปิดใจรับโอกาสใหม่ที่เข้ามา มันคุ้มค่าแน่นอน",
+    "en": "Stay open to new opportunities — they're worth it."
+  },
+  {
+    "weekday": 2,
+    "tone": "positive",
+    "th": "คนรอบข้างพร้อมสนับสนุนคุณเต็มที่วันนี้",
+    "en": "The people around you are fully behind you today."
+  },
+  {
+    "weekday": 2,
+    "tone": "positive",
+    "th": "ความคิดสร้างสรรค์ของคุณกำลังพลุ่งพล่าน ใช้มันให้เป็นประโยชน์",
+    "en": "Your creativity is flowing — put it to good use."
+  },
+  {
+    "weekday": 2,
+    "tone": "positive",
+    "th": "งานที่ทำค้างไว้จะคืบหน้าอย่างน่าพอใจ",
+    "en": "Work you've been stuck on will finally move forward."
+  },
+  {
+    "weekday": 2,
+    "tone": "positive",
+    "th": "พลังงานดีๆ จะดึงดูดผู้คนที่ใช่เข้ามาหาคุณ",
+    "en": "Good energy will draw the right people to you."
+  },
+  {
+    "weekday": 2,
+    "tone": "positive",
+    "th": "ทุกก้าวที่เดินวันนี้นำไปสู่ความสำเร็จ",
+    "en": "Every step you take today leads toward success."
+  },
+  {
+    "weekday": 2,
+    "tone": "positive",
+    "th": "เป็นวันที่เหมาะกับการเริ่มต้นธุรกิจหรือโปรเจกต์ใหม่",
+    "en": "A great day to launch a new business or project."
+  },
+  {
+    "weekday": 2,
+    "tone": "positive",
+    "th": "ความมั่นใจในตัวเองของคุณจะส่งผลดีต่อทุกเรื่อง",
+    "en": "Your self-confidence will carry you through everything today."
+  },
+  {
+    "weekday": 2,
+    "tone": "positive",
+    "th": "คำพูดของคุณวันนี้มีน้ำหนัก ใช้มันสร้างแรงบันดาลใจ",
+    "en": "Your words carry weight today — use them to inspire."
+  },
+  {
+    "weekday": 2,
+    "tone": "positive",
+    "th": "เงินทองไหลมาเทมาอย่างไม่คาดคิด",
+    "en": "Money flows in from unexpected places."
+  },
+  {
+    "weekday": 2,
+    "tone": "positive",
+    "th": "ความสัมพันธ์ที่ห่างเหินจะกลับมาอบอุ่นอีกครั้ง",
+    "en": "A distant relationship will warm up again."
+  },
+  {
+    "weekday": 2,
+    "tone": "positive",
+    "th": "สุขภาพแข็งแรง พลังงานเต็มเปี่ยมตลอดวัน",
+    "en": "Your health is strong and your energy full all day."
+  },
+  {
+    "weekday": 2,
+    "tone": "positive",
+    "th": "โอกาสทองมาถึงแล้ว อย่าปล่อยให้หลุดมือ",
+    "en": "A golden opportunity has arrived — don't let it slip."
+  },
+  {
+    "weekday": 2,
+    "tone": "positive",
+    "th": "ทุกอุปสรรคจะกลายเป็นบทเรียนที่ทำให้คุณแข็งแกร่งขึ้น",
+    "en": "Every obstacle today becomes a lesson that makes you stronger."
+  },
+  {
+    "weekday": 2,
+    "tone": "positive",
+    "th": "เพื่อนใหม่ที่พบวันนี้อาจกลายเป็นคนสำคัญในอนาคต",
+    "en": "A new friend today could become important down the road."
+  },
+  {
+    "weekday": 2,
+    "tone": "positive",
+    "th": "ไอเดียที่เก็บไว้นานควรหยิบมาลงมือทำได้แล้ว",
+    "en": "That idea you've been sitting on is ready to become real."
+  },
+  {
+    "weekday": 2,
+    "tone": "positive",
+    "th": "วันนี้เหมาะกับการขอโปรโมทหรือขึ้นเงินเดือน",
+    "en": "A good day to ask for that promotion or raise."
+  },
+  {
+    "weekday": 2,
+    "tone": "positive",
+    "th": "ทุกสิ่งที่คุณปลูกไว้กำลังจะออกดอกผล",
+    "en": "Everything you've been growing is about to bear fruit."
+  },
+  {
+    "weekday": 2,
+    "tone": "positive",
+    "th": "ความสุขเล็กๆ น้อยๆ วันนี้จะเติมพลังให้คุณทั้งสัปดาห์",
+    "en": "Small joys today will fuel you for the whole week."
+  },
+  {
+    "weekday": 2,
+    "tone": "positive",
+    "th": "คนที่คุณรักจะทำให้วันนี้พิเศษขึ้นมาก",
+    "en": "Someone you love will make today extra special."
+  },
+  {
+    "weekday": 2,
+    "tone": "positive",
+    "th": "การเดินทางวันนี้จะราบรื่นและนำพาสิ่งดีๆ มาให้",
+    "en": "Travel today goes smoothly and brings good things."
+  },
+  {
+    "weekday": 2,
+    "tone": "positive",
+    "th": "ความเชื่อมั่นในตัวเองคือกุญแจของวันนี้",
+    "en": "Belief in yourself is today's key."
+  },
+  {
+    "weekday": 2,
+    "tone": "positive",
+    "th": "ทุกการลงทุนวันนี้มีแนวโน้มให้ผลตอบแทนดี",
+    "en": "Investments made today tend to pay off well."
+  },
+  {
+    "weekday": 2,
+    "tone": "positive",
+    "th": "เสียงหัวเราะจะดังก้องในบ้านคุณวันนี้",
+    "en": "Laughter will fill your home today."
+  },
+  {
+    "weekday": 2,
+    "tone": "positive",
+    "th": "จักรวาลกำลังจัดสรรสิ่งดีๆ ไว้ให้คุณอยู่",
+    "en": "The universe is lining up good things just for you."
+  },
+  {
+    "weekday": 2,
+    "tone": "neutral",
+    "th": "วันธรรมดาที่เหมาะกับการพักผ่อนและจัดระเบียบ",
+    "en": "An ordinary day — perfect for rest and tidying up."
+  },
+  {
+    "weekday": 2,
+    "tone": "neutral",
+    "th": "เรียนรู้และสะสมพลัง พรุ่งนี้จะดีขึ้น",
+    "en": "Learn and recharge; tomorrow will be brighter."
+  },
+  {
+    "weekday": 2,
+    "tone": "neutral",
+    "th": "ใจเย็นๆ ทุกอย่างกำลังไปในทิศทางที่ดี",
+    "en": "Stay calm — things are heading the right way."
+  },
+  {
+    "weekday": 2,
+    "tone": "neutral",
+    "th": "วันนี้เหมาะกับการทบทวนแผนการมากกว่าลงมือทำ",
+    "en": "Better for reviewing your plans than acting on them today."
+  },
+  {
+    "weekday": 2,
+    "tone": "neutral",
+    "th": "ไม่มีอะไรน่าตื่นเต้นเป็นพิเศษ แต่ก็ไม่มีอะไรน่าห่วง",
+    "en": "Nothing exciting, but nothing to worry about either."
+  },
+  {
+    "weekday": 2,
+    "tone": "neutral",
+    "th": "เก็บพลังงานไว้ใช้กับสิ่งที่สำคัญกว่าพรุ่งนี้",
+    "en": "Save your energy for something more important tomorrow."
+  },
+  {
+    "weekday": 2,
+    "tone": "neutral",
+    "th": "เหมาะกับการทำงานที่ต้องใช้ความละเอียดรอบคอบ",
+    "en": "A good day for detail-oriented, careful work."
+  },
+  {
+    "weekday": 2,
+    "tone": "neutral",
+    "th": "คนรอบตัวอาจดูเงียบกว่าปกติ ให้พื้นที่กันบ้าง",
+    "en": "People around you may seem quieter — give each other space."
+  },
+  {
+    "weekday": 2,
+    "tone": "neutral",
+    "th": "เป็นวันที่เหมาะกับการฟังมากกว่าพูด",
+    "en": "A day better spent listening than talking."
+  },
+  {
+    "weekday": 2,
+    "tone": "neutral",
+    "th": "งานประจำดำเนินไปตามปกติ ไม่มีเซอร์ไพรส์",
+    "en": "Routine tasks proceed as usual, no surprises."
+  },
+  {
+    "weekday": 2,
+    "tone": "neutral",
+    "th": "ลองทำสิ่งเดิมๆ ให้ดีขึ้นทีละนิด",
+    "en": "Try improving something familiar, one small step at a time."
+  },
+  {
+    "weekday": 2,
+    "tone": "neutral",
+    "th": "วันนี้เหมาะกับการดูแลตัวเองมากกว่าดูแลคนอื่น",
+    "en": "Better to look after yourself today than others."
+  },
+  {
+    "weekday": 2,
+    "tone": "neutral",
+    "th": "ไม่ต้องรีบตัดสินใจเรื่องใหญ่วันนี้ก็ได้",
+    "en": "No need to rush any big decisions today."
+  },
+  {
+    "weekday": 2,
+    "tone": "neutral",
+    "th": "สมดุลคือคำสำคัญของวันนี้",
+    "en": "Balance is today's keyword."
+  },
+  {
+    "weekday": 2,
+    "tone": "neutral",
+    "th": "เหมาะกับการจัดลำดับความสำคัญของสิ่งที่ต้องทำ",
+    "en": "A good day to re-prioritize your to-do list."
+  },
+  {
+    "weekday": 2,
+    "tone": "neutral",
+    "th": "อากาศในใจสงบ เหมาะกับการทำสมาธิ",
+    "en": "Your inner weather is calm — a good time to meditate."
+  },
+  {
+    "weekday": 2,
+    "tone": "neutral",
+    "th": "เรื่องเงินทรงตัว ไม่มีรายรับรายจ่ายผิดปกติ",
+    "en": "Finances stay level, nothing unusual in or out."
+  },
+  {
+    "weekday": 2,
+    "tone": "neutral",
+    "th": "ความสัมพันธ์อยู่ในช่วงพักตัว ไม่ต้องเร่งอะไร",
+    "en": "Relationships are in a resting phase — no need to push."
+  },
+  {
+    "weekday": 2,
+    "tone": "neutral",
+    "th": "เหมาะกับการอ่านหนังสือหรือหาความรู้เพิ่มเติม",
+    "en": "A fitting day to read or learn something new."
+  },
+  {
+    "weekday": 2,
+    "tone": "neutral",
+    "th": "งานเล็กๆ ที่ค้างไว้นานควรเคลียร์ให้จบวันนี้",
+    "en": "Clear out that small task you've been putting off."
+  },
+  {
+    "weekday": 2,
+    "tone": "neutral",
+    "th": "ร่างกายขอการพักผ่อนมากกว่าการออกแรง",
+    "en": "Your body is asking for rest more than exertion."
+  },
+  {
+    "weekday": 2,
+    "tone": "neutral",
+    "th": "เหมาะกับการทำความสะอาดบ้านหรือที่ทำงาน",
+    "en": "A good day for cleaning up your home or workspace."
+  },
+  {
+    "weekday": 2,
+    "tone": "neutral",
+    "th": "อย่าคาดหวังผลลัพธ์ทันที ให้เวลาทำงานของมัน",
+    "en": "Don't expect instant results — give things time to work."
+  },
+  {
+    "weekday": 2,
+    "tone": "neutral",
+    "th": "เป็นวันที่เหมาะกับการวางแผนระยะยาว",
+    "en": "A good day for long-term planning."
+  },
+  {
+    "weekday": 2,
+    "tone": "neutral",
+    "th": "ความคิดฟุ้งซ่านวันนี้ ลองเขียนบันทึกช่วยจัดระเบียบ",
+    "en": "Thoughts feel scattered — try journaling to sort them out."
+  },
+  {
+    "weekday": 2,
+    "tone": "neutral",
+    "th": "ไม่มีเรื่องด่วน ใช้เวลาไปกับสิ่งที่ชอบบ้าง",
+    "en": "Nothing urgent — spend some time on things you enjoy."
+  },
+  {
+    "weekday": 2,
+    "tone": "neutral",
+    "th": "เหมาะกับการซ่อมแซมสิ่งของหรือความสัมพันธ์เล็กๆ น้อยๆ",
+    "en": "A fitting day for small repairs, of things or relationships."
+  },
+  {
+    "weekday": 2,
+    "tone": "neutral",
+    "th": "วันนี้เหมาะกับการรับฟังคำแนะนำจากคนที่ไว้ใจ",
+    "en": "A good day to take advice from someone you trust."
+  },
+  {
+    "weekday": 2,
+    "tone": "neutral",
+    "th": "งานที่ทำวันนี้อาจไม่หวือหวา แต่มั่นคง",
+    "en": "Today's work may not dazzle, but it's steady."
+  },
+  {
+    "weekday": 2,
+    "tone": "neutral",
+    "th": "เก็บพลังไว้ พรุ่งนี้อาจต้องใช้มันเต็มที่",
+    "en": "Conserve your energy — tomorrow may call for all of it."
+  },
+  {
+    "weekday": 2,
+    "tone": "careful",
+    "th": "ระวังการตัดสินใจเร่งรีบในวันนี้",
+    "en": "Beware of rushed decisions today."
+  },
+  {
+    "weekday": 2,
+    "tone": "careful",
+    "th": "ลดการใช้จ่าย และฟังคนรอบข้างมากขึ้น",
+    "en": "Cut spending and listen to those around you."
+  },
+  {
+    "weekday": 2,
+    "tone": "careful",
+    "th": "พักผ่อนให้พอ ดูแลใจตัวเอง",
+    "en": "Rest well and take care of your heart."
+  },
+  {
+    "weekday": 2,
+    "tone": "careful",
+    "th": "หลีกเลี่ยงการโต้เถียงที่ไม่จำเป็นวันนี้",
+    "en": "Avoid unnecessary arguments today."
+  },
+  {
+    "weekday": 2,
+    "tone": "careful",
+    "th": "ตรวจสอบเอกสารสำคัญให้รอบคอบก่อนเซ็น",
+    "en": "Double-check important documents before signing anything."
+  },
+  {
+    "weekday": 2,
+    "tone": "careful",
+    "th": "ระวังคำพูดที่อาจทำร้ายความรู้สึกคนอื่นโดยไม่ตั้งใจ",
+    "en": "Watch your words — they could hurt without meaning to."
+  },
+  {
+    "weekday": 2,
+    "tone": "careful",
+    "th": "อย่าให้ยืมเงินก้อนใหญ่ในวันนี้",
+    "en": "Avoid lending out large sums of money today."
+  },
+  {
+    "weekday": 2,
+    "tone": "careful",
+    "th": "สุขภาพต้องการการดูแลเป็นพิเศษ อย่าฝืนร่างกาย",
+    "en": "Your health needs extra care — don't push your body too hard."
+  },
+  {
+    "weekday": 2,
+    "tone": "careful",
+    "th": "หลีกเลี่ยงการเดินทางไกลโดยไม่จำเป็น",
+    "en": "Avoid unnecessary long-distance travel."
+  },
+  {
+    "weekday": 2,
+    "tone": "careful",
+    "th": "ระวังของหายหรือลืมของสำคัญ",
+    "en": "Watch out for losing or forgetting something important."
+  },
+  {
+    "weekday": 2,
+    "tone": "careful",
+    "th": "อย่าเพิ่งเชื่อข้อมูลที่ยังไม่ได้ตรวจสอบ",
+    "en": "Don't trust unverified information just yet."
+  },
+  {
+    "weekday": 2,
+    "tone": "careful",
+    "th": "ความสัมพันธ์อาจสั่นคลอน ใช้ความอดทนให้มาก",
+    "en": "A relationship may feel shaky — bring extra patience."
+  },
+  {
+    "weekday": 2,
+    "tone": "careful",
+    "th": "งานที่รีบทำวันนี้เสี่ยงผิดพลาด ตรวจทานซ้ำอีกครั้ง",
+    "en": "Rushed work today risks mistakes — double-check everything."
+  },
+  {
+    "weekday": 2,
+    "tone": "careful",
+    "th": "ระวังอุบัติเหตุเล็กๆ น้อยๆ ในบ้านหรือที่ทำงาน",
+    "en": "Watch for small accidents at home or work."
+  },
+  {
+    "weekday": 2,
+    "tone": "careful",
+    "th": "หลีกเลี่ยงการลงทุนเสี่ยงสูงในวันนี้",
+    "en": "Avoid high-risk investments today."
+  },
+  {
+    "weekday": 2,
+    "tone": "careful",
+    "th": "อารมณ์อาจแปรปรวน ให้เวลาตัวเองสงบลงก่อนตัดสินใจ",
+    "en": "Emotions may swing — take time to settle before deciding."
+  },
+  {
+    "weekday": 2,
+    "tone": "careful",
+    "th": "ระวังคนใกล้ตัวที่พูดจาไม่จริงใจ",
+    "en": "Be wary of someone close who isn't being sincere."
+  },
+  {
+    "weekday": 2,
+    "tone": "careful",
+    "th": "อย่าฝืนทำงานหนักเกินไปจนละเลยการพักผ่อน",
+    "en": "Don't overwork to the point of skipping rest."
+  },
+  {
+    "weekday": 2,
+    "tone": "careful",
+    "th": "ตรวจสอบสุขภาพการเงินก่อนตัดสินใจซื้อของชิ้นใหญ่",
+    "en": "Check your finances carefully before any big purchase."
+  },
+  {
+    "weekday": 2,
+    "tone": "careful",
+    "th": "ระวังการนินทาหรือคำพูดลับหลังวันนี้",
+    "en": "Watch out for gossip or talk behind your back today."
+  },
+  {
+    "weekday": 2,
+    "tone": "careful",
+    "th": "หลีกเลี่ยงการเซ็นสัญญาที่ยังไม่เข้าใจถ่องแท้",
+    "en": "Avoid signing any contract you don't fully understand yet."
+  },
+  {
+    "weekday": 2,
+    "tone": "careful",
+    "th": "พลังงานลดลง ควรงดกิจกรรมที่ใช้แรงหนัก",
+    "en": "Energy runs low — skip anything physically demanding."
+  },
+  {
+    "weekday": 2,
+    "tone": "careful",
+    "th": "ระวังความขัดแย้งในครอบครัวที่อาจปะทุขึ้น",
+    "en": "Watch for family friction that could flare up."
+  },
+  {
+    "weekday": 2,
+    "tone": "careful",
+    "th": "อย่าตัดสินใจเรื่องความรักด้วยอารมณ์ชั่ววูบ",
+    "en": "Don't decide matters of the heart on a passing impulse."
+  },
+  {
+    "weekday": 2,
+    "tone": "careful",
+    "th": "ตรวจสอบรถหรือของใช้ก่อนออกเดินทางไกล",
+    "en": "Check your vehicle or gear before any long trip."
+  },
+  {
+    "weekday": 2,
+    "tone": "careful",
+    "th": "ระวังการพลาดนัดสำคัญ ตั้งเตือนไว้ล่วงหน้า",
+    "en": "Watch for missing an important appointment — set reminders early."
+  },
+  {
+    "weekday": 2,
+    "tone": "careful",
+    "th": "หลีกเลี่ยงการพูดแทนใจคนอื่นวันนี้",
+    "en": "Avoid speaking for others today — let them speak for themselves."
+  },
+  {
+    "weekday": 2,
+    "tone": "careful",
+    "th": "สุขภาพจิตต้องการพื้นที่ปลอดภัย หาเวลาอยู่กับตัวเองบ้าง",
+    "en": "Your mind needs a safe space — carve out time alone."
+  },
+  {
+    "weekday": 2,
+    "tone": "careful",
+    "th": "ระวังของมีคมหรือความร้อนในครัว",
+    "en": "Be careful with sharp objects or heat in the kitchen today."
+  },
+  {
+    "weekday": 2,
+    "tone": "careful",
+    "th": "อย่าฝืนใจทำสิ่งที่ไม่สบายใจเพียงเพราะเกรงใจ",
+    "en": "Don't force yourself into something uncomfortable just to avoid awkwardness."
+  },
+  {
+    "weekday": 3,
+    "tone": "positive",
+    "th": "วันนี้พลังบวกกำลังโอบล้อมคุณ ลองเริ่มสิ่งใหม่ๆ ดู",
+    "en": "Positive energy surrounds you today — start something new."
+  },
+  {
+    "weekday": 3,
+    "tone": "positive",
+    "th": "จังหวะดีมาเยือน อย่ารอช้าที่จะลงมือทำ",
+    "en": "A great moment arrives — don't hesitate to act."
+  },
+  {
+    "weekday": 3,
+    "tone": "positive",
+    "th": "ความตั้งใจของคุณจะเห็นผลในวันนี้",
+    "en": "Your effort will pay off today."
+  },
+  {
+    "weekday": 3,
+    "tone": "positive",
+    "th": "โชคเข้าข้างคุณอย่างเต็มที่ วันนี้เหมาะกับการตัดสินใจสำคัญ",
+    "en": "Luck is fully on your side — a good day for big decisions."
+  },
+  {
+    "weekday": 3,
+    "tone": "positive",
+    "th": "สิ่งที่รอคอยมานานกำลังจะเป็นจริง",
+    "en": "Something you've waited for is about to come true."
+  },
+  {
+    "weekday": 3,
+    "tone": "positive",
+    "th": "เปิดใจรับโอกาสใหม่ที่เข้ามา มันคุ้มค่าแน่นอน",
+    "en": "Stay open to new opportunities — they're worth it."
+  },
+  {
+    "weekday": 3,
+    "tone": "positive",
+    "th": "คนรอบข้างพร้อมสนับสนุนคุณเต็มที่วันนี้",
+    "en": "The people around you are fully behind you today."
+  },
+  {
+    "weekday": 3,
+    "tone": "positive",
+    "th": "ความคิดสร้างสรรค์ของคุณกำลังพลุ่งพล่าน ใช้มันให้เป็นประโยชน์",
+    "en": "Your creativity is flowing — put it to good use."
+  },
+  {
+    "weekday": 3,
+    "tone": "positive",
+    "th": "งานที่ทำค้างไว้จะคืบหน้าอย่างน่าพอใจ",
+    "en": "Work you've been stuck on will finally move forward."
+  },
+  {
+    "weekday": 3,
+    "tone": "positive",
+    "th": "พลังงานดีๆ จะดึงดูดผู้คนที่ใช่เข้ามาหาคุณ",
+    "en": "Good energy will draw the right people to you."
+  },
+  {
+    "weekday": 3,
+    "tone": "positive",
+    "th": "ทุกก้าวที่เดินวันนี้นำไปสู่ความสำเร็จ",
+    "en": "Every step you take today leads toward success."
+  },
+  {
+    "weekday": 3,
+    "tone": "positive",
+    "th": "เป็นวันที่เหมาะกับการเริ่มต้นธุรกิจหรือโปรเจกต์ใหม่",
+    "en": "A great day to launch a new business or project."
+  },
+  {
+    "weekday": 3,
+    "tone": "positive",
+    "th": "ความมั่นใจในตัวเองของคุณจะส่งผลดีต่อทุกเรื่อง",
+    "en": "Your self-confidence will carry you through everything today."
+  },
+  {
+    "weekday": 3,
+    "tone": "positive",
+    "th": "คำพูดของคุณวันนี้มีน้ำหนัก ใช้มันสร้างแรงบันดาลใจ",
+    "en": "Your words carry weight today — use them to inspire."
+  },
+  {
+    "weekday": 3,
+    "tone": "positive",
+    "th": "เงินทองไหลมาเทมาอย่างไม่คาดคิด",
+    "en": "Money flows in from unexpected places."
+  },
+  {
+    "weekday": 3,
+    "tone": "positive",
+    "th": "ความสัมพันธ์ที่ห่างเหินจะกลับมาอบอุ่นอีกครั้ง",
+    "en": "A distant relationship will warm up again."
+  },
+  {
+    "weekday": 3,
+    "tone": "positive",
+    "th": "สุขภาพแข็งแรง พลังงานเต็มเปี่ยมตลอดวัน",
+    "en": "Your health is strong and your energy full all day."
+  },
+  {
+    "weekday": 3,
+    "tone": "positive",
+    "th": "โอกาสทองมาถึงแล้ว อย่าปล่อยให้หลุดมือ",
+    "en": "A golden opportunity has arrived — don't let it slip."
+  },
+  {
+    "weekday": 3,
+    "tone": "positive",
+    "th": "ทุกอุปสรรคจะกลายเป็นบทเรียนที่ทำให้คุณแข็งแกร่งขึ้น",
+    "en": "Every obstacle today becomes a lesson that makes you stronger."
+  },
+  {
+    "weekday": 3,
+    "tone": "positive",
+    "th": "เพื่อนใหม่ที่พบวันนี้อาจกลายเป็นคนสำคัญในอนาคต",
+    "en": "A new friend today could become important down the road."
+  },
+  {
+    "weekday": 3,
+    "tone": "positive",
+    "th": "ไอเดียที่เก็บไว้นานควรหยิบมาลงมือทำได้แล้ว",
+    "en": "That idea you've been sitting on is ready to become real."
+  },
+  {
+    "weekday": 3,
+    "tone": "positive",
+    "th": "วันนี้เหมาะกับการขอโปรโมทหรือขึ้นเงินเดือน",
+    "en": "A good day to ask for that promotion or raise."
+  },
+  {
+    "weekday": 3,
+    "tone": "positive",
+    "th": "ทุกสิ่งที่คุณปลูกไว้กำลังจะออกดอกผล",
+    "en": "Everything you've been growing is about to bear fruit."
+  },
+  {
+    "weekday": 3,
+    "tone": "positive",
+    "th": "ความสุขเล็กๆ น้อยๆ วันนี้จะเติมพลังให้คุณทั้งสัปดาห์",
+    "en": "Small joys today will fuel you for the whole week."
+  },
+  {
+    "weekday": 3,
+    "tone": "positive",
+    "th": "คนที่คุณรักจะทำให้วันนี้พิเศษขึ้นมาก",
+    "en": "Someone you love will make today extra special."
+  },
+  {
+    "weekday": 3,
+    "tone": "positive",
+    "th": "การเดินทางวันนี้จะราบรื่นและนำพาสิ่งดีๆ มาให้",
+    "en": "Travel today goes smoothly and brings good things."
+  },
+  {
+    "weekday": 3,
+    "tone": "positive",
+    "th": "ความเชื่อมั่นในตัวเองคือกุญแจของวันนี้",
+    "en": "Belief in yourself is today's key."
+  },
+  {
+    "weekday": 3,
+    "tone": "positive",
+    "th": "ทุกการลงทุนวันนี้มีแนวโน้มให้ผลตอบแทนดี",
+    "en": "Investments made today tend to pay off well."
+  },
+  {
+    "weekday": 3,
+    "tone": "positive",
+    "th": "เสียงหัวเราะจะดังก้องในบ้านคุณวันนี้",
+    "en": "Laughter will fill your home today."
+  },
+  {
+    "weekday": 3,
+    "tone": "positive",
+    "th": "จักรวาลกำลังจัดสรรสิ่งดีๆ ไว้ให้คุณอยู่",
+    "en": "The universe is lining up good things just for you."
+  },
+  {
+    "weekday": 3,
+    "tone": "neutral",
+    "th": "วันธรรมดาที่เหมาะกับการพักผ่อนและจัดระเบียบ",
+    "en": "An ordinary day — perfect for rest and tidying up."
+  },
+  {
+    "weekday": 3,
+    "tone": "neutral",
+    "th": "เรียนรู้และสะสมพลัง พรุ่งนี้จะดีขึ้น",
+    "en": "Learn and recharge; tomorrow will be brighter."
+  },
+  {
+    "weekday": 3,
+    "tone": "neutral",
+    "th": "ใจเย็นๆ ทุกอย่างกำลังไปในทิศทางที่ดี",
+    "en": "Stay calm — things are heading the right way."
+  },
+  {
+    "weekday": 3,
+    "tone": "neutral",
+    "th": "วันนี้เหมาะกับการทบทวนแผนการมากกว่าลงมือทำ",
+    "en": "Better for reviewing your plans than acting on them today."
+  },
+  {
+    "weekday": 3,
+    "tone": "neutral",
+    "th": "ไม่มีอะไรน่าตื่นเต้นเป็นพิเศษ แต่ก็ไม่มีอะไรน่าห่วง",
+    "en": "Nothing exciting, but nothing to worry about either."
+  },
+  {
+    "weekday": 3,
+    "tone": "neutral",
+    "th": "เก็บพลังงานไว้ใช้กับสิ่งที่สำคัญกว่าพรุ่งนี้",
+    "en": "Save your energy for something more important tomorrow."
+  },
+  {
+    "weekday": 3,
+    "tone": "neutral",
+    "th": "เหมาะกับการทำงานที่ต้องใช้ความละเอียดรอบคอบ",
+    "en": "A good day for detail-oriented, careful work."
+  },
+  {
+    "weekday": 3,
+    "tone": "neutral",
+    "th": "คนรอบตัวอาจดูเงียบกว่าปกติ ให้พื้นที่กันบ้าง",
+    "en": "People around you may seem quieter — give each other space."
+  },
+  {
+    "weekday": 3,
+    "tone": "neutral",
+    "th": "เป็นวันที่เหมาะกับการฟังมากกว่าพูด",
+    "en": "A day better spent listening than talking."
+  },
+  {
+    "weekday": 3,
+    "tone": "neutral",
+    "th": "งานประจำดำเนินไปตามปกติ ไม่มีเซอร์ไพรส์",
+    "en": "Routine tasks proceed as usual, no surprises."
+  },
+  {
+    "weekday": 3,
+    "tone": "neutral",
+    "th": "ลองทำสิ่งเดิมๆ ให้ดีขึ้นทีละนิด",
+    "en": "Try improving something familiar, one small step at a time."
+  },
+  {
+    "weekday": 3,
+    "tone": "neutral",
+    "th": "วันนี้เหมาะกับการดูแลตัวเองมากกว่าดูแลคนอื่น",
+    "en": "Better to look after yourself today than others."
+  },
+  {
+    "weekday": 3,
+    "tone": "neutral",
+    "th": "ไม่ต้องรีบตัดสินใจเรื่องใหญ่วันนี้ก็ได้",
+    "en": "No need to rush any big decisions today."
+  },
+  {
+    "weekday": 3,
+    "tone": "neutral",
+    "th": "สมดุลคือคำสำคัญของวันนี้",
+    "en": "Balance is today's keyword."
+  },
+  {
+    "weekday": 3,
+    "tone": "neutral",
+    "th": "เหมาะกับการจัดลำดับความสำคัญของสิ่งที่ต้องทำ",
+    "en": "A good day to re-prioritize your to-do list."
+  },
+  {
+    "weekday": 3,
+    "tone": "neutral",
+    "th": "อากาศในใจสงบ เหมาะกับการทำสมาธิ",
+    "en": "Your inner weather is calm — a good time to meditate."
+  },
+  {
+    "weekday": 3,
+    "tone": "neutral",
+    "th": "เรื่องเงินทรงตัว ไม่มีรายรับรายจ่ายผิดปกติ",
+    "en": "Finances stay level, nothing unusual in or out."
+  },
+  {
+    "weekday": 3,
+    "tone": "neutral",
+    "th": "ความสัมพันธ์อยู่ในช่วงพักตัว ไม่ต้องเร่งอะไร",
+    "en": "Relationships are in a resting phase — no need to push."
+  },
+  {
+    "weekday": 3,
+    "tone": "neutral",
+    "th": "เหมาะกับการอ่านหนังสือหรือหาความรู้เพิ่มเติม",
+    "en": "A fitting day to read or learn something new."
+  },
+  {
+    "weekday": 3,
+    "tone": "neutral",
+    "th": "งานเล็กๆ ที่ค้างไว้นานควรเคลียร์ให้จบวันนี้",
+    "en": "Clear out that small task you've been putting off."
+  },
+  {
+    "weekday": 3,
+    "tone": "neutral",
+    "th": "ร่างกายขอการพักผ่อนมากกว่าการออกแรง",
+    "en": "Your body is asking for rest more than exertion."
+  },
+  {
+    "weekday": 3,
+    "tone": "neutral",
+    "th": "เหมาะกับการทำความสะอาดบ้านหรือที่ทำงาน",
+    "en": "A good day for cleaning up your home or workspace."
+  },
+  {
+    "weekday": 3,
+    "tone": "neutral",
+    "th": "อย่าคาดหวังผลลัพธ์ทันที ให้เวลาทำงานของมัน",
+    "en": "Don't expect instant results — give things time to work."
+  },
+  {
+    "weekday": 3,
+    "tone": "neutral",
+    "th": "เป็นวันที่เหมาะกับการวางแผนระยะยาว",
+    "en": "A good day for long-term planning."
+  },
+  {
+    "weekday": 3,
+    "tone": "neutral",
+    "th": "ความคิดฟุ้งซ่านวันนี้ ลองเขียนบันทึกช่วยจัดระเบียบ",
+    "en": "Thoughts feel scattered — try journaling to sort them out."
+  },
+  {
+    "weekday": 3,
+    "tone": "neutral",
+    "th": "ไม่มีเรื่องด่วน ใช้เวลาไปกับสิ่งที่ชอบบ้าง",
+    "en": "Nothing urgent — spend some time on things you enjoy."
+  },
+  {
+    "weekday": 3,
+    "tone": "neutral",
+    "th": "เหมาะกับการซ่อมแซมสิ่งของหรือความสัมพันธ์เล็กๆ น้อยๆ",
+    "en": "A fitting day for small repairs, of things or relationships."
+  },
+  {
+    "weekday": 3,
+    "tone": "neutral",
+    "th": "วันนี้เหมาะกับการรับฟังคำแนะนำจากคนที่ไว้ใจ",
+    "en": "A good day to take advice from someone you trust."
+  },
+  {
+    "weekday": 3,
+    "tone": "neutral",
+    "th": "งานที่ทำวันนี้อาจไม่หวือหวา แต่มั่นคง",
+    "en": "Today's work may not dazzle, but it's steady."
+  },
+  {
+    "weekday": 3,
+    "tone": "neutral",
+    "th": "เก็บพลังไว้ พรุ่งนี้อาจต้องใช้มันเต็มที่",
+    "en": "Conserve your energy — tomorrow may call for all of it."
+  },
+  {
+    "weekday": 3,
+    "tone": "careful",
+    "th": "ระวังการตัดสินใจเร่งรีบในวันนี้",
+    "en": "Beware of rushed decisions today."
+  },
+  {
+    "weekday": 3,
+    "tone": "careful",
+    "th": "ลดการใช้จ่าย และฟังคนรอบข้างมากขึ้น",
+    "en": "Cut spending and listen to those around you."
+  },
+  {
+    "weekday": 3,
+    "tone": "careful",
+    "th": "พักผ่อนให้พอ ดูแลใจตัวเอง",
+    "en": "Rest well and take care of your heart."
+  },
+  {
+    "weekday": 3,
+    "tone": "careful",
+    "th": "หลีกเลี่ยงการโต้เถียงที่ไม่จำเป็นวันนี้",
+    "en": "Avoid unnecessary arguments today."
+  },
+  {
+    "weekday": 3,
+    "tone": "careful",
+    "th": "ตรวจสอบเอกสารสำคัญให้รอบคอบก่อนเซ็น",
+    "en": "Double-check important documents before signing anything."
+  },
+  {
+    "weekday": 3,
+    "tone": "careful",
+    "th": "ระวังคำพูดที่อาจทำร้ายความรู้สึกคนอื่นโดยไม่ตั้งใจ",
+    "en": "Watch your words — they could hurt without meaning to."
+  },
+  {
+    "weekday": 3,
+    "tone": "careful",
+    "th": "อย่าให้ยืมเงินก้อนใหญ่ในวันนี้",
+    "en": "Avoid lending out large sums of money today."
+  },
+  {
+    "weekday": 3,
+    "tone": "careful",
+    "th": "สุขภาพต้องการการดูแลเป็นพิเศษ อย่าฝืนร่างกาย",
+    "en": "Your health needs extra care — don't push your body too hard."
+  },
+  {
+    "weekday": 3,
+    "tone": "careful",
+    "th": "หลีกเลี่ยงการเดินทางไกลโดยไม่จำเป็น",
+    "en": "Avoid unnecessary long-distance travel."
+  },
+  {
+    "weekday": 3,
+    "tone": "careful",
+    "th": "ระวังของหายหรือลืมของสำคัญ",
+    "en": "Watch out for losing or forgetting something important."
+  },
+  {
+    "weekday": 3,
+    "tone": "careful",
+    "th": "อย่าเพิ่งเชื่อข้อมูลที่ยังไม่ได้ตรวจสอบ",
+    "en": "Don't trust unverified information just yet."
+  },
+  {
+    "weekday": 3,
+    "tone": "careful",
+    "th": "ความสัมพันธ์อาจสั่นคลอน ใช้ความอดทนให้มาก",
+    "en": "A relationship may feel shaky — bring extra patience."
+  },
+  {
+    "weekday": 3,
+    "tone": "careful",
+    "th": "งานที่รีบทำวันนี้เสี่ยงผิดพลาด ตรวจทานซ้ำอีกครั้ง",
+    "en": "Rushed work today risks mistakes — double-check everything."
+  },
+  {
+    "weekday": 3,
+    "tone": "careful",
+    "th": "ระวังอุบัติเหตุเล็กๆ น้อยๆ ในบ้านหรือที่ทำงาน",
+    "en": "Watch for small accidents at home or work."
+  },
+  {
+    "weekday": 3,
+    "tone": "careful",
+    "th": "หลีกเลี่ยงการลงทุนเสี่ยงสูงในวันนี้",
+    "en": "Avoid high-risk investments today."
+  },
+  {
+    "weekday": 3,
+    "tone": "careful",
+    "th": "อารมณ์อาจแปรปรวน ให้เวลาตัวเองสงบลงก่อนตัดสินใจ",
+    "en": "Emotions may swing — take time to settle before deciding."
+  },
+  {
+    "weekday": 3,
+    "tone": "careful",
+    "th": "ระวังคนใกล้ตัวที่พูดจาไม่จริงใจ",
+    "en": "Be wary of someone close who isn't being sincere."
+  },
+  {
+    "weekday": 3,
+    "tone": "careful",
+    "th": "อย่าฝืนทำงานหนักเกินไปจนละเลยการพักผ่อน",
+    "en": "Don't overwork to the point of skipping rest."
+  },
+  {
+    "weekday": 3,
+    "tone": "careful",
+    "th": "ตรวจสอบสุขภาพการเงินก่อนตัดสินใจซื้อของชิ้นใหญ่",
+    "en": "Check your finances carefully before any big purchase."
+  },
+  {
+    "weekday": 3,
+    "tone": "careful",
+    "th": "ระวังการนินทาหรือคำพูดลับหลังวันนี้",
+    "en": "Watch out for gossip or talk behind your back today."
+  },
+  {
+    "weekday": 3,
+    "tone": "careful",
+    "th": "หลีกเลี่ยงการเซ็นสัญญาที่ยังไม่เข้าใจถ่องแท้",
+    "en": "Avoid signing any contract you don't fully understand yet."
+  },
+  {
+    "weekday": 3,
+    "tone": "careful",
+    "th": "พลังงานลดลง ควรงดกิจกรรมที่ใช้แรงหนัก",
+    "en": "Energy runs low — skip anything physically demanding."
+  },
+  {
+    "weekday": 3,
+    "tone": "careful",
+    "th": "ระวังความขัดแย้งในครอบครัวที่อาจปะทุขึ้น",
+    "en": "Watch for family friction that could flare up."
+  },
+  {
+    "weekday": 3,
+    "tone": "careful",
+    "th": "อย่าตัดสินใจเรื่องความรักด้วยอารมณ์ชั่ววูบ",
+    "en": "Don't decide matters of the heart on a passing impulse."
+  },
+  {
+    "weekday": 3,
+    "tone": "careful",
+    "th": "ตรวจสอบรถหรือของใช้ก่อนออกเดินทางไกล",
+    "en": "Check your vehicle or gear before any long trip."
+  },
+  {
+    "weekday": 3,
+    "tone": "careful",
+    "th": "ระวังการพลาดนัดสำคัญ ตั้งเตือนไว้ล่วงหน้า",
+    "en": "Watch for missing an important appointment — set reminders early."
+  },
+  {
+    "weekday": 3,
+    "tone": "careful",
+    "th": "หลีกเลี่ยงการพูดแทนใจคนอื่นวันนี้",
+    "en": "Avoid speaking for others today — let them speak for themselves."
+  },
+  {
+    "weekday": 3,
+    "tone": "careful",
+    "th": "สุขภาพจิตต้องการพื้นที่ปลอดภัย หาเวลาอยู่กับตัวเองบ้าง",
+    "en": "Your mind needs a safe space — carve out time alone."
+  },
+  {
+    "weekday": 3,
+    "tone": "careful",
+    "th": "ระวังของมีคมหรือความร้อนในครัว",
+    "en": "Be careful with sharp objects or heat in the kitchen today."
+  },
+  {
+    "weekday": 3,
+    "tone": "careful",
+    "th": "อย่าฝืนใจทำสิ่งที่ไม่สบายใจเพียงเพราะเกรงใจ",
+    "en": "Don't force yourself into something uncomfortable just to avoid awkwardness."
+  },
+  {
+    "weekday": 4,
+    "tone": "positive",
+    "th": "วันนี้พลังบวกกำลังโอบล้อมคุณ ลองเริ่มสิ่งใหม่ๆ ดู",
+    "en": "Positive energy surrounds you today — start something new."
+  },
+  {
+    "weekday": 4,
+    "tone": "positive",
+    "th": "จังหวะดีมาเยือน อย่ารอช้าที่จะลงมือทำ",
+    "en": "A great moment arrives — don't hesitate to act."
+  },
+  {
+    "weekday": 4,
+    "tone": "positive",
+    "th": "ความตั้งใจของคุณจะเห็นผลในวันนี้",
+    "en": "Your effort will pay off today."
+  },
+  {
+    "weekday": 4,
+    "tone": "positive",
+    "th": "โชคเข้าข้างคุณอย่างเต็มที่ วันนี้เหมาะกับการตัดสินใจสำคัญ",
+    "en": "Luck is fully on your side — a good day for big decisions."
+  },
+  {
+    "weekday": 4,
+    "tone": "positive",
+    "th": "สิ่งที่รอคอยมานานกำลังจะเป็นจริง",
+    "en": "Something you've waited for is about to come true."
+  },
+  {
+    "weekday": 4,
+    "tone": "positive",
+    "th": "เปิดใจรับโอกาสใหม่ที่เข้ามา มันคุ้มค่าแน่นอน",
+    "en": "Stay open to new opportunities — they're worth it."
+  },
+  {
+    "weekday": 4,
+    "tone": "positive",
+    "th": "คนรอบข้างพร้อมสนับสนุนคุณเต็มที่วันนี้",
+    "en": "The people around you are fully behind you today."
+  },
+  {
+    "weekday": 4,
+    "tone": "positive",
+    "th": "ความคิดสร้างสรรค์ของคุณกำลังพลุ่งพล่าน ใช้มันให้เป็นประโยชน์",
+    "en": "Your creativity is flowing — put it to good use."
+  },
+  {
+    "weekday": 4,
+    "tone": "positive",
+    "th": "งานที่ทำค้างไว้จะคืบหน้าอย่างน่าพอใจ",
+    "en": "Work you've been stuck on will finally move forward."
+  },
+  {
+    "weekday": 4,
+    "tone": "positive",
+    "th": "พลังงานดีๆ จะดึงดูดผู้คนที่ใช่เข้ามาหาคุณ",
+    "en": "Good energy will draw the right people to you."
+  },
+  {
+    "weekday": 4,
+    "tone": "positive",
+    "th": "ทุกก้าวที่เดินวันนี้นำไปสู่ความสำเร็จ",
+    "en": "Every step you take today leads toward success."
+  },
+  {
+    "weekday": 4,
+    "tone": "positive",
+    "th": "เป็นวันที่เหมาะกับการเริ่มต้นธุรกิจหรือโปรเจกต์ใหม่",
+    "en": "A great day to launch a new business or project."
+  },
+  {
+    "weekday": 4,
+    "tone": "positive",
+    "th": "ความมั่นใจในตัวเองของคุณจะส่งผลดีต่อทุกเรื่อง",
+    "en": "Your self-confidence will carry you through everything today."
+  },
+  {
+    "weekday": 4,
+    "tone": "positive",
+    "th": "คำพูดของคุณวันนี้มีน้ำหนัก ใช้มันสร้างแรงบันดาลใจ",
+    "en": "Your words carry weight today — use them to inspire."
+  },
+  {
+    "weekday": 4,
+    "tone": "positive",
+    "th": "เงินทองไหลมาเทมาอย่างไม่คาดคิด",
+    "en": "Money flows in from unexpected places."
+  },
+  {
+    "weekday": 4,
+    "tone": "positive",
+    "th": "ความสัมพันธ์ที่ห่างเหินจะกลับมาอบอุ่นอีกครั้ง",
+    "en": "A distant relationship will warm up again."
+  },
+  {
+    "weekday": 4,
+    "tone": "positive",
+    "th": "สุขภาพแข็งแรง พลังงานเต็มเปี่ยมตลอดวัน",
+    "en": "Your health is strong and your energy full all day."
+  },
+  {
+    "weekday": 4,
+    "tone": "positive",
+    "th": "โอกาสทองมาถึงแล้ว อย่าปล่อยให้หลุดมือ",
+    "en": "A golden opportunity has arrived — don't let it slip."
+  },
+  {
+    "weekday": 4,
+    "tone": "positive",
+    "th": "ทุกอุปสรรคจะกลายเป็นบทเรียนที่ทำให้คุณแข็งแกร่งขึ้น",
+    "en": "Every obstacle today becomes a lesson that makes you stronger."
+  },
+  {
+    "weekday": 4,
+    "tone": "positive",
+    "th": "เพื่อนใหม่ที่พบวันนี้อาจกลายเป็นคนสำคัญในอนาคต",
+    "en": "A new friend today could become important down the road."
+  },
+  {
+    "weekday": 4,
+    "tone": "positive",
+    "th": "ไอเดียที่เก็บไว้นานควรหยิบมาลงมือทำได้แล้ว",
+    "en": "That idea you've been sitting on is ready to become real."
+  },
+  {
+    "weekday": 4,
+    "tone": "positive",
+    "th": "วันนี้เหมาะกับการขอโปรโมทหรือขึ้นเงินเดือน",
+    "en": "A good day to ask for that promotion or raise."
+  },
+  {
+    "weekday": 4,
+    "tone": "positive",
+    "th": "ทุกสิ่งที่คุณปลูกไว้กำลังจะออกดอกผล",
+    "en": "Everything you've been growing is about to bear fruit."
+  },
+  {
+    "weekday": 4,
+    "tone": "positive",
+    "th": "ความสุขเล็กๆ น้อยๆ วันนี้จะเติมพลังให้คุณทั้งสัปดาห์",
+    "en": "Small joys today will fuel you for the whole week."
+  },
+  {
+    "weekday": 4,
+    "tone": "positive",
+    "th": "คนที่คุณรักจะทำให้วันนี้พิเศษขึ้นมาก",
+    "en": "Someone you love will make today extra special."
+  },
+  {
+    "weekday": 4,
+    "tone": "positive",
+    "th": "การเดินทางวันนี้จะราบรื่นและนำพาสิ่งดีๆ มาให้",
+    "en": "Travel today goes smoothly and brings good things."
+  },
+  {
+    "weekday": 4,
+    "tone": "positive",
+    "th": "ความเชื่อมั่นในตัวเองคือกุญแจของวันนี้",
+    "en": "Belief in yourself is today's key."
+  },
+  {
+    "weekday": 4,
+    "tone": "positive",
+    "th": "ทุกการลงทุนวันนี้มีแนวโน้มให้ผลตอบแทนดี",
+    "en": "Investments made today tend to pay off well."
+  },
+  {
+    "weekday": 4,
+    "tone": "positive",
+    "th": "เสียงหัวเราะจะดังก้องในบ้านคุณวันนี้",
+    "en": "Laughter will fill your home today."
+  },
+  {
+    "weekday": 4,
+    "tone": "positive",
+    "th": "จักรวาลกำลังจัดสรรสิ่งดีๆ ไว้ให้คุณอยู่",
+    "en": "The universe is lining up good things just for you."
+  },
+  {
+    "weekday": 4,
+    "tone": "neutral",
+    "th": "วันธรรมดาที่เหมาะกับการพักผ่อนและจัดระเบียบ",
+    "en": "An ordinary day — perfect for rest and tidying up."
+  },
+  {
+    "weekday": 4,
+    "tone": "neutral",
+    "th": "เรียนรู้และสะสมพลัง พรุ่งนี้จะดีขึ้น",
+    "en": "Learn and recharge; tomorrow will be brighter."
+  },
+  {
+    "weekday": 4,
+    "tone": "neutral",
+    "th": "ใจเย็นๆ ทุกอย่างกำลังไปในทิศทางที่ดี",
+    "en": "Stay calm — things are heading the right way."
+  },
+  {
+    "weekday": 4,
+    "tone": "neutral",
+    "th": "วันนี้เหมาะกับการทบทวนแผนการมากกว่าลงมือทำ",
+    "en": "Better for reviewing your plans than acting on them today."
+  },
+  {
+    "weekday": 4,
+    "tone": "neutral",
+    "th": "ไม่มีอะไรน่าตื่นเต้นเป็นพิเศษ แต่ก็ไม่มีอะไรน่าห่วง",
+    "en": "Nothing exciting, but nothing to worry about either."
+  },
+  {
+    "weekday": 4,
+    "tone": "neutral",
+    "th": "เก็บพลังงานไว้ใช้กับสิ่งที่สำคัญกว่าพรุ่งนี้",
+    "en": "Save your energy for something more important tomorrow."
+  },
+  {
+    "weekday": 4,
+    "tone": "neutral",
+    "th": "เหมาะกับการทำงานที่ต้องใช้ความละเอียดรอบคอบ",
+    "en": "A good day for detail-oriented, careful work."
+  },
+  {
+    "weekday": 4,
+    "tone": "neutral",
+    "th": "คนรอบตัวอาจดูเงียบกว่าปกติ ให้พื้นที่กันบ้าง",
+    "en": "People around you may seem quieter — give each other space."
+  },
+  {
+    "weekday": 4,
+    "tone": "neutral",
+    "th": "เป็นวันที่เหมาะกับการฟังมากกว่าพูด",
+    "en": "A day better spent listening than talking."
+  },
+  {
+    "weekday": 4,
+    "tone": "neutral",
+    "th": "งานประจำดำเนินไปตามปกติ ไม่มีเซอร์ไพรส์",
+    "en": "Routine tasks proceed as usual, no surprises."
+  },
+  {
+    "weekday": 4,
+    "tone": "neutral",
+    "th": "ลองทำสิ่งเดิมๆ ให้ดีขึ้นทีละนิด",
+    "en": "Try improving something familiar, one small step at a time."
+  },
+  {
+    "weekday": 4,
+    "tone": "neutral",
+    "th": "วันนี้เหมาะกับการดูแลตัวเองมากกว่าดูแลคนอื่น",
+    "en": "Better to look after yourself today than others."
+  },
+  {
+    "weekday": 4,
+    "tone": "neutral",
+    "th": "ไม่ต้องรีบตัดสินใจเรื่องใหญ่วันนี้ก็ได้",
+    "en": "No need to rush any big decisions today."
+  },
+  {
+    "weekday": 4,
+    "tone": "neutral",
+    "th": "สมดุลคือคำสำคัญของวันนี้",
+    "en": "Balance is today's keyword."
+  },
+  {
+    "weekday": 4,
+    "tone": "neutral",
+    "th": "เหมาะกับการจัดลำดับความสำคัญของสิ่งที่ต้องทำ",
+    "en": "A good day to re-prioritize your to-do list."
+  },
+  {
+    "weekday": 4,
+    "tone": "neutral",
+    "th": "อากาศในใจสงบ เหมาะกับการทำสมาธิ",
+    "en": "Your inner weather is calm — a good time to meditate."
+  },
+  {
+    "weekday": 4,
+    "tone": "neutral",
+    "th": "เรื่องเงินทรงตัว ไม่มีรายรับรายจ่ายผิดปกติ",
+    "en": "Finances stay level, nothing unusual in or out."
+  },
+  {
+    "weekday": 4,
+    "tone": "neutral",
+    "th": "ความสัมพันธ์อยู่ในช่วงพักตัว ไม่ต้องเร่งอะไร",
+    "en": "Relationships are in a resting phase — no need to push."
+  },
+  {
+    "weekday": 4,
+    "tone": "neutral",
+    "th": "เหมาะกับการอ่านหนังสือหรือหาความรู้เพิ่มเติม",
+    "en": "A fitting day to read or learn something new."
+  },
+  {
+    "weekday": 4,
+    "tone": "neutral",
+    "th": "งานเล็กๆ ที่ค้างไว้นานควรเคลียร์ให้จบวันนี้",
+    "en": "Clear out that small task you've been putting off."
+  },
+  {
+    "weekday": 4,
+    "tone": "neutral",
+    "th": "ร่างกายขอการพักผ่อนมากกว่าการออกแรง",
+    "en": "Your body is asking for rest more than exertion."
+  },
+  {
+    "weekday": 4,
+    "tone": "neutral",
+    "th": "เหมาะกับการทำความสะอาดบ้านหรือที่ทำงาน",
+    "en": "A good day for cleaning up your home or workspace."
+  },
+  {
+    "weekday": 4,
+    "tone": "neutral",
+    "th": "อย่าคาดหวังผลลัพธ์ทันที ให้เวลาทำงานของมัน",
+    "en": "Don't expect instant results — give things time to work."
+  },
+  {
+    "weekday": 4,
+    "tone": "neutral",
+    "th": "เป็นวันที่เหมาะกับการวางแผนระยะยาว",
+    "en": "A good day for long-term planning."
+  },
+  {
+    "weekday": 4,
+    "tone": "neutral",
+    "th": "ความคิดฟุ้งซ่านวันนี้ ลองเขียนบันทึกช่วยจัดระเบียบ",
+    "en": "Thoughts feel scattered — try journaling to sort them out."
+  },
+  {
+    "weekday": 4,
+    "tone": "neutral",
+    "th": "ไม่มีเรื่องด่วน ใช้เวลาไปกับสิ่งที่ชอบบ้าง",
+    "en": "Nothing urgent — spend some time on things you enjoy."
+  },
+  {
+    "weekday": 4,
+    "tone": "neutral",
+    "th": "เหมาะกับการซ่อมแซมสิ่งของหรือความสัมพันธ์เล็กๆ น้อยๆ",
+    "en": "A fitting day for small repairs, of things or relationships."
+  },
+  {
+    "weekday": 4,
+    "tone": "neutral",
+    "th": "วันนี้เหมาะกับการรับฟังคำแนะนำจากคนที่ไว้ใจ",
+    "en": "A good day to take advice from someone you trust."
+  },
+  {
+    "weekday": 4,
+    "tone": "neutral",
+    "th": "งานที่ทำวันนี้อาจไม่หวือหวา แต่มั่นคง",
+    "en": "Today's work may not dazzle, but it's steady."
+  },
+  {
+    "weekday": 4,
+    "tone": "neutral",
+    "th": "เก็บพลังไว้ พรุ่งนี้อาจต้องใช้มันเต็มที่",
+    "en": "Conserve your energy — tomorrow may call for all of it."
+  },
+  {
+    "weekday": 4,
+    "tone": "careful",
+    "th": "ระวังการตัดสินใจเร่งรีบในวันนี้",
+    "en": "Beware of rushed decisions today."
+  },
+  {
+    "weekday": 4,
+    "tone": "careful",
+    "th": "ลดการใช้จ่าย และฟังคนรอบข้างมากขึ้น",
+    "en": "Cut spending and listen to those around you."
+  },
+  {
+    "weekday": 4,
+    "tone": "careful",
+    "th": "พักผ่อนให้พอ ดูแลใจตัวเอง",
+    "en": "Rest well and take care of your heart."
+  },
+  {
+    "weekday": 4,
+    "tone": "careful",
+    "th": "หลีกเลี่ยงการโต้เถียงที่ไม่จำเป็นวันนี้",
+    "en": "Avoid unnecessary arguments today."
+  },
+  {
+    "weekday": 4,
+    "tone": "careful",
+    "th": "ตรวจสอบเอกสารสำคัญให้รอบคอบก่อนเซ็น",
+    "en": "Double-check important documents before signing anything."
+  },
+  {
+    "weekday": 4,
+    "tone": "careful",
+    "th": "ระวังคำพูดที่อาจทำร้ายความรู้สึกคนอื่นโดยไม่ตั้งใจ",
+    "en": "Watch your words — they could hurt without meaning to."
+  },
+  {
+    "weekday": 4,
+    "tone": "careful",
+    "th": "อย่าให้ยืมเงินก้อนใหญ่ในวันนี้",
+    "en": "Avoid lending out large sums of money today."
+  },
+  {
+    "weekday": 4,
+    "tone": "careful",
+    "th": "สุขภาพต้องการการดูแลเป็นพิเศษ อย่าฝืนร่างกาย",
+    "en": "Your health needs extra care — don't push your body too hard."
+  },
+  {
+    "weekday": 4,
+    "tone": "careful",
+    "th": "หลีกเลี่ยงการเดินทางไกลโดยไม่จำเป็น",
+    "en": "Avoid unnecessary long-distance travel."
+  },
+  {
+    "weekday": 4,
+    "tone": "careful",
+    "th": "ระวังของหายหรือลืมของสำคัญ",
+    "en": "Watch out for losing or forgetting something important."
+  },
+  {
+    "weekday": 4,
+    "tone": "careful",
+    "th": "อย่าเพิ่งเชื่อข้อมูลที่ยังไม่ได้ตรวจสอบ",
+    "en": "Don't trust unverified information just yet."
+  },
+  {
+    "weekday": 4,
+    "tone": "careful",
+    "th": "ความสัมพันธ์อาจสั่นคลอน ใช้ความอดทนให้มาก",
+    "en": "A relationship may feel shaky — bring extra patience."
+  },
+  {
+    "weekday": 4,
+    "tone": "careful",
+    "th": "งานที่รีบทำวันนี้เสี่ยงผิดพลาด ตรวจทานซ้ำอีกครั้ง",
+    "en": "Rushed work today risks mistakes — double-check everything."
+  },
+  {
+    "weekday": 4,
+    "tone": "careful",
+    "th": "ระวังอุบัติเหตุเล็กๆ น้อยๆ ในบ้านหรือที่ทำงาน",
+    "en": "Watch for small accidents at home or work."
+  },
+  {
+    "weekday": 4,
+    "tone": "careful",
+    "th": "หลีกเลี่ยงการลงทุนเสี่ยงสูงในวันนี้",
+    "en": "Avoid high-risk investments today."
+  },
+  {
+    "weekday": 4,
+    "tone": "careful",
+    "th": "อารมณ์อาจแปรปรวน ให้เวลาตัวเองสงบลงก่อนตัดสินใจ",
+    "en": "Emotions may swing — take time to settle before deciding."
+  },
+  {
+    "weekday": 4,
+    "tone": "careful",
+    "th": "ระวังคนใกล้ตัวที่พูดจาไม่จริงใจ",
+    "en": "Be wary of someone close who isn't being sincere."
+  },
+  {
+    "weekday": 4,
+    "tone": "careful",
+    "th": "อย่าฝืนทำงานหนักเกินไปจนละเลยการพักผ่อน",
+    "en": "Don't overwork to the point of skipping rest."
+  },
+  {
+    "weekday": 4,
+    "tone": "careful",
+    "th": "ตรวจสอบสุขภาพการเงินก่อนตัดสินใจซื้อของชิ้นใหญ่",
+    "en": "Check your finances carefully before any big purchase."
+  },
+  {
+    "weekday": 4,
+    "tone": "careful",
+    "th": "ระวังการนินทาหรือคำพูดลับหลังวันนี้",
+    "en": "Watch out for gossip or talk behind your back today."
+  },
+  {
+    "weekday": 4,
+    "tone": "careful",
+    "th": "หลีกเลี่ยงการเซ็นสัญญาที่ยังไม่เข้าใจถ่องแท้",
+    "en": "Avoid signing any contract you don't fully understand yet."
+  },
+  {
+    "weekday": 4,
+    "tone": "careful",
+    "th": "พลังงานลดลง ควรงดกิจกรรมที่ใช้แรงหนัก",
+    "en": "Energy runs low — skip anything physically demanding."
+  },
+  {
+    "weekday": 4,
+    "tone": "careful",
+    "th": "ระวังความขัดแย้งในครอบครัวที่อาจปะทุขึ้น",
+    "en": "Watch for family friction that could flare up."
+  },
+  {
+    "weekday": 4,
+    "tone": "careful",
+    "th": "อย่าตัดสินใจเรื่องความรักด้วยอารมณ์ชั่ววูบ",
+    "en": "Don't decide matters of the heart on a passing impulse."
+  },
+  {
+    "weekday": 4,
+    "tone": "careful",
+    "th": "ตรวจสอบรถหรือของใช้ก่อนออกเดินทางไกล",
+    "en": "Check your vehicle or gear before any long trip."
+  },
+  {
+    "weekday": 4,
+    "tone": "careful",
+    "th": "ระวังการพลาดนัดสำคัญ ตั้งเตือนไว้ล่วงหน้า",
+    "en": "Watch for missing an important appointment — set reminders early."
+  },
+  {
+    "weekday": 4,
+    "tone": "careful",
+    "th": "หลีกเลี่ยงการพูดแทนใจคนอื่นวันนี้",
+    "en": "Avoid speaking for others today — let them speak for themselves."
+  },
+  {
+    "weekday": 4,
+    "tone": "careful",
+    "th": "สุขภาพจิตต้องการพื้นที่ปลอดภัย หาเวลาอยู่กับตัวเองบ้าง",
+    "en": "Your mind needs a safe space — carve out time alone."
+  },
+  {
+    "weekday": 4,
+    "tone": "careful",
+    "th": "ระวังของมีคมหรือความร้อนในครัว",
+    "en": "Be careful with sharp objects or heat in the kitchen today."
+  },
+  {
+    "weekday": 4,
+    "tone": "careful",
+    "th": "อย่าฝืนใจทำสิ่งที่ไม่สบายใจเพียงเพราะเกรงใจ",
+    "en": "Don't force yourself into something uncomfortable just to avoid awkwardness."
+  },
+  {
+    "weekday": 5,
+    "tone": "positive",
+    "th": "วันนี้พลังบวกกำลังโอบล้อมคุณ ลองเริ่มสิ่งใหม่ๆ ดู",
+    "en": "Positive energy surrounds you today — start something new."
+  },
+  {
+    "weekday": 5,
+    "tone": "positive",
+    "th": "จังหวะดีมาเยือน อย่ารอช้าที่จะลงมือทำ",
+    "en": "A great moment arrives — don't hesitate to act."
+  },
+  {
+    "weekday": 5,
+    "tone": "positive",
+    "th": "ความตั้งใจของคุณจะเห็นผลในวันนี้",
+    "en": "Your effort will pay off today."
+  },
+  {
+    "weekday": 5,
+    "tone": "positive",
+    "th": "โชคเข้าข้างคุณอย่างเต็มที่ วันนี้เหมาะกับการตัดสินใจสำคัญ",
+    "en": "Luck is fully on your side — a good day for big decisions."
+  },
+  {
+    "weekday": 5,
+    "tone": "positive",
+    "th": "สิ่งที่รอคอยมานานกำลังจะเป็นจริง",
+    "en": "Something you've waited for is about to come true."
+  },
+  {
+    "weekday": 5,
+    "tone": "positive",
+    "th": "เปิดใจรับโอกาสใหม่ที่เข้ามา มันคุ้มค่าแน่นอน",
+    "en": "Stay open to new opportunities — they're worth it."
+  },
+  {
+    "weekday": 5,
+    "tone": "positive",
+    "th": "คนรอบข้างพร้อมสนับสนุนคุณเต็มที่วันนี้",
+    "en": "The people around you are fully behind you today."
+  },
+  {
+    "weekday": 5,
+    "tone": "positive",
+    "th": "ความคิดสร้างสรรค์ของคุณกำลังพลุ่งพล่าน ใช้มันให้เป็นประโยชน์",
+    "en": "Your creativity is flowing — put it to good use."
+  },
+  {
+    "weekday": 5,
+    "tone": "positive",
+    "th": "งานที่ทำค้างไว้จะคืบหน้าอย่างน่าพอใจ",
+    "en": "Work you've been stuck on will finally move forward."
+  },
+  {
+    "weekday": 5,
+    "tone": "positive",
+    "th": "พลังงานดีๆ จะดึงดูดผู้คนที่ใช่เข้ามาหาคุณ",
+    "en": "Good energy will draw the right people to you."
+  },
+  {
+    "weekday": 5,
+    "tone": "positive",
+    "th": "ทุกก้าวที่เดินวันนี้นำไปสู่ความสำเร็จ",
+    "en": "Every step you take today leads toward success."
+  },
+  {
+    "weekday": 5,
+    "tone": "positive",
+    "th": "เป็นวันที่เหมาะกับการเริ่มต้นธุรกิจหรือโปรเจกต์ใหม่",
+    "en": "A great day to launch a new business or project."
+  },
+  {
+    "weekday": 5,
+    "tone": "positive",
+    "th": "ความมั่นใจในตัวเองของคุณจะส่งผลดีต่อทุกเรื่อง",
+    "en": "Your self-confidence will carry you through everything today."
+  },
+  {
+    "weekday": 5,
+    "tone": "positive",
+    "th": "คำพูดของคุณวันนี้มีน้ำหนัก ใช้มันสร้างแรงบันดาลใจ",
+    "en": "Your words carry weight today — use them to inspire."
+  },
+  {
+    "weekday": 5,
+    "tone": "positive",
+    "th": "เงินทองไหลมาเทมาอย่างไม่คาดคิด",
+    "en": "Money flows in from unexpected places."
+  },
+  {
+    "weekday": 5,
+    "tone": "positive",
+    "th": "ความสัมพันธ์ที่ห่างเหินจะกลับมาอบอุ่นอีกครั้ง",
+    "en": "A distant relationship will warm up again."
+  },
+  {
+    "weekday": 5,
+    "tone": "positive",
+    "th": "สุขภาพแข็งแรง พลังงานเต็มเปี่ยมตลอดวัน",
+    "en": "Your health is strong and your energy full all day."
+  },
+  {
+    "weekday": 5,
+    "tone": "positive",
+    "th": "โอกาสทองมาถึงแล้ว อย่าปล่อยให้หลุดมือ",
+    "en": "A golden opportunity has arrived — don't let it slip."
+  },
+  {
+    "weekday": 5,
+    "tone": "positive",
+    "th": "ทุกอุปสรรคจะกลายเป็นบทเรียนที่ทำให้คุณแข็งแกร่งขึ้น",
+    "en": "Every obstacle today becomes a lesson that makes you stronger."
+  },
+  {
+    "weekday": 5,
+    "tone": "positive",
+    "th": "เพื่อนใหม่ที่พบวันนี้อาจกลายเป็นคนสำคัญในอนาคต",
+    "en": "A new friend today could become important down the road."
+  },
+  {
+    "weekday": 5,
+    "tone": "positive",
+    "th": "ไอเดียที่เก็บไว้นานควรหยิบมาลงมือทำได้แล้ว",
+    "en": "That idea you've been sitting on is ready to become real."
+  },
+  {
+    "weekday": 5,
+    "tone": "positive",
+    "th": "วันนี้เหมาะกับการขอโปรโมทหรือขึ้นเงินเดือน",
+    "en": "A good day to ask for that promotion or raise."
+  },
+  {
+    "weekday": 5,
+    "tone": "positive",
+    "th": "ทุกสิ่งที่คุณปลูกไว้กำลังจะออกดอกผล",
+    "en": "Everything you've been growing is about to bear fruit."
+  },
+  {
+    "weekday": 5,
+    "tone": "positive",
+    "th": "ความสุขเล็กๆ น้อยๆ วันนี้จะเติมพลังให้คุณทั้งสัปดาห์",
+    "en": "Small joys today will fuel you for the whole week."
+  },
+  {
+    "weekday": 5,
+    "tone": "positive",
+    "th": "คนที่คุณรักจะทำให้วันนี้พิเศษขึ้นมาก",
+    "en": "Someone you love will make today extra special."
+  },
+  {
+    "weekday": 5,
+    "tone": "positive",
+    "th": "การเดินทางวันนี้จะราบรื่นและนำพาสิ่งดีๆ มาให้",
+    "en": "Travel today goes smoothly and brings good things."
+  },
+  {
+    "weekday": 5,
+    "tone": "positive",
+    "th": "ความเชื่อมั่นในตัวเองคือกุญแจของวันนี้",
+    "en": "Belief in yourself is today's key."
+  },
+  {
+    "weekday": 5,
+    "tone": "positive",
+    "th": "ทุกการลงทุนวันนี้มีแนวโน้มให้ผลตอบแทนดี",
+    "en": "Investments made today tend to pay off well."
+  },
+  {
+    "weekday": 5,
+    "tone": "positive",
+    "th": "เสียงหัวเราะจะดังก้องในบ้านคุณวันนี้",
+    "en": "Laughter will fill your home today."
+  },
+  {
+    "weekday": 5,
+    "tone": "positive",
+    "th": "จักรวาลกำลังจัดสรรสิ่งดีๆ ไว้ให้คุณอยู่",
+    "en": "The universe is lining up good things just for you."
+  },
+  {
+    "weekday": 5,
+    "tone": "neutral",
+    "th": "วันธรรมดาที่เหมาะกับการพักผ่อนและจัดระเบียบ",
+    "en": "An ordinary day — perfect for rest and tidying up."
+  },
+  {
+    "weekday": 5,
+    "tone": "neutral",
+    "th": "เรียนรู้และสะสมพลัง พรุ่งนี้จะดีขึ้น",
+    "en": "Learn and recharge; tomorrow will be brighter."
+  },
+  {
+    "weekday": 5,
+    "tone": "neutral",
+    "th": "ใจเย็นๆ ทุกอย่างกำลังไปในทิศทางที่ดี",
+    "en": "Stay calm — things are heading the right way."
+  },
+  {
+    "weekday": 5,
+    "tone": "neutral",
+    "th": "วันนี้เหมาะกับการทบทวนแผนการมากกว่าลงมือทำ",
+    "en": "Better for reviewing your plans than acting on them today."
+  },
+  {
+    "weekday": 5,
+    "tone": "neutral",
+    "th": "ไม่มีอะไรน่าตื่นเต้นเป็นพิเศษ แต่ก็ไม่มีอะไรน่าห่วง",
+    "en": "Nothing exciting, but nothing to worry about either."
+  },
+  {
+    "weekday": 5,
+    "tone": "neutral",
+    "th": "เก็บพลังงานไว้ใช้กับสิ่งที่สำคัญกว่าพรุ่งนี้",
+    "en": "Save your energy for something more important tomorrow."
+  },
+  {
+    "weekday": 5,
+    "tone": "neutral",
+    "th": "เหมาะกับการทำงานที่ต้องใช้ความละเอียดรอบคอบ",
+    "en": "A good day for detail-oriented, careful work."
+  },
+  {
+    "weekday": 5,
+    "tone": "neutral",
+    "th": "คนรอบตัวอาจดูเงียบกว่าปกติ ให้พื้นที่กันบ้าง",
+    "en": "People around you may seem quieter — give each other space."
+  },
+  {
+    "weekday": 5,
+    "tone": "neutral",
+    "th": "เป็นวันที่เหมาะกับการฟังมากกว่าพูด",
+    "en": "A day better spent listening than talking."
+  },
+  {
+    "weekday": 5,
+    "tone": "neutral",
+    "th": "งานประจำดำเนินไปตามปกติ ไม่มีเซอร์ไพรส์",
+    "en": "Routine tasks proceed as usual, no surprises."
+  },
+  {
+    "weekday": 5,
+    "tone": "neutral",
+    "th": "ลองทำสิ่งเดิมๆ ให้ดีขึ้นทีละนิด",
+    "en": "Try improving something familiar, one small step at a time."
+  },
+  {
+    "weekday": 5,
+    "tone": "neutral",
+    "th": "วันนี้เหมาะกับการดูแลตัวเองมากกว่าดูแลคนอื่น",
+    "en": "Better to look after yourself today than others."
+  },
+  {
+    "weekday": 5,
+    "tone": "neutral",
+    "th": "ไม่ต้องรีบตัดสินใจเรื่องใหญ่วันนี้ก็ได้",
+    "en": "No need to rush any big decisions today."
+  },
+  {
+    "weekday": 5,
+    "tone": "neutral",
+    "th": "สมดุลคือคำสำคัญของวันนี้",
+    "en": "Balance is today's keyword."
+  },
+  {
+    "weekday": 5,
+    "tone": "neutral",
+    "th": "เหมาะกับการจัดลำดับความสำคัญของสิ่งที่ต้องทำ",
+    "en": "A good day to re-prioritize your to-do list."
+  },
+  {
+    "weekday": 5,
+    "tone": "neutral",
+    "th": "อากาศในใจสงบ เหมาะกับการทำสมาธิ",
+    "en": "Your inner weather is calm — a good time to meditate."
+  },
+  {
+    "weekday": 5,
+    "tone": "neutral",
+    "th": "เรื่องเงินทรงตัว ไม่มีรายรับรายจ่ายผิดปกติ",
+    "en": "Finances stay level, nothing unusual in or out."
+  },
+  {
+    "weekday": 5,
+    "tone": "neutral",
+    "th": "ความสัมพันธ์อยู่ในช่วงพักตัว ไม่ต้องเร่งอะไร",
+    "en": "Relationships are in a resting phase — no need to push."
+  },
+  {
+    "weekday": 5,
+    "tone": "neutral",
+    "th": "เหมาะกับการอ่านหนังสือหรือหาความรู้เพิ่มเติม",
+    "en": "A fitting day to read or learn something new."
+  },
+  {
+    "weekday": 5,
+    "tone": "neutral",
+    "th": "งานเล็กๆ ที่ค้างไว้นานควรเคลียร์ให้จบวันนี้",
+    "en": "Clear out that small task you've been putting off."
+  },
+  {
+    "weekday": 5,
+    "tone": "neutral",
+    "th": "ร่างกายขอการพักผ่อนมากกว่าการออกแรง",
+    "en": "Your body is asking for rest more than exertion."
+  },
+  {
+    "weekday": 5,
+    "tone": "neutral",
+    "th": "เหมาะกับการทำความสะอาดบ้านหรือที่ทำงาน",
+    "en": "A good day for cleaning up your home or workspace."
+  },
+  {
+    "weekday": 5,
+    "tone": "neutral",
+    "th": "อย่าคาดหวังผลลัพธ์ทันที ให้เวลาทำงานของมัน",
+    "en": "Don't expect instant results — give things time to work."
+  },
+  {
+    "weekday": 5,
+    "tone": "neutral",
+    "th": "เป็นวันที่เหมาะกับการวางแผนระยะยาว",
+    "en": "A good day for long-term planning."
+  },
+  {
+    "weekday": 5,
+    "tone": "neutral",
+    "th": "ความคิดฟุ้งซ่านวันนี้ ลองเขียนบันทึกช่วยจัดระเบียบ",
+    "en": "Thoughts feel scattered — try journaling to sort them out."
+  },
+  {
+    "weekday": 5,
+    "tone": "neutral",
+    "th": "ไม่มีเรื่องด่วน ใช้เวลาไปกับสิ่งที่ชอบบ้าง",
+    "en": "Nothing urgent — spend some time on things you enjoy."
+  },
+  {
+    "weekday": 5,
+    "tone": "neutral",
+    "th": "เหมาะกับการซ่อมแซมสิ่งของหรือความสัมพันธ์เล็กๆ น้อยๆ",
+    "en": "A fitting day for small repairs, of things or relationships."
+  },
+  {
+    "weekday": 5,
+    "tone": "neutral",
+    "th": "วันนี้เหมาะกับการรับฟังคำแนะนำจากคนที่ไว้ใจ",
+    "en": "A good day to take advice from someone you trust."
+  },
+  {
+    "weekday": 5,
+    "tone": "neutral",
+    "th": "งานที่ทำวันนี้อาจไม่หวือหวา แต่มั่นคง",
+    "en": "Today's work may not dazzle, but it's steady."
+  },
+  {
+    "weekday": 5,
+    "tone": "neutral",
+    "th": "เก็บพลังไว้ พรุ่งนี้อาจต้องใช้มันเต็มที่",
+    "en": "Conserve your energy — tomorrow may call for all of it."
+  },
+  {
+    "weekday": 5,
+    "tone": "careful",
+    "th": "ระวังการตัดสินใจเร่งรีบในวันนี้",
+    "en": "Beware of rushed decisions today."
+  },
+  {
+    "weekday": 5,
+    "tone": "careful",
+    "th": "ลดการใช้จ่าย และฟังคนรอบข้างมากขึ้น",
+    "en": "Cut spending and listen to those around you."
+  },
+  {
+    "weekday": 5,
+    "tone": "careful",
+    "th": "พักผ่อนให้พอ ดูแลใจตัวเอง",
+    "en": "Rest well and take care of your heart."
+  },
+  {
+    "weekday": 5,
+    "tone": "careful",
+    "th": "หลีกเลี่ยงการโต้เถียงที่ไม่จำเป็นวันนี้",
+    "en": "Avoid unnecessary arguments today."
+  },
+  {
+    "weekday": 5,
+    "tone": "careful",
+    "th": "ตรวจสอบเอกสารสำคัญให้รอบคอบก่อนเซ็น",
+    "en": "Double-check important documents before signing anything."
+  },
+  {
+    "weekday": 5,
+    "tone": "careful",
+    "th": "ระวังคำพูดที่อาจทำร้ายความรู้สึกคนอื่นโดยไม่ตั้งใจ",
+    "en": "Watch your words — they could hurt without meaning to."
+  },
+  {
+    "weekday": 5,
+    "tone": "careful",
+    "th": "อย่าให้ยืมเงินก้อนใหญ่ในวันนี้",
+    "en": "Avoid lending out large sums of money today."
+  },
+  {
+    "weekday": 5,
+    "tone": "careful",
+    "th": "สุขภาพต้องการการดูแลเป็นพิเศษ อย่าฝืนร่างกาย",
+    "en": "Your health needs extra care — don't push your body too hard."
+  },
+  {
+    "weekday": 5,
+    "tone": "careful",
+    "th": "หลีกเลี่ยงการเดินทางไกลโดยไม่จำเป็น",
+    "en": "Avoid unnecessary long-distance travel."
+  },
+  {
+    "weekday": 5,
+    "tone": "careful",
+    "th": "ระวังของหายหรือลืมของสำคัญ",
+    "en": "Watch out for losing or forgetting something important."
+  },
+  {
+    "weekday": 5,
+    "tone": "careful",
+    "th": "อย่าเพิ่งเชื่อข้อมูลที่ยังไม่ได้ตรวจสอบ",
+    "en": "Don't trust unverified information just yet."
+  },
+  {
+    "weekday": 5,
+    "tone": "careful",
+    "th": "ความสัมพันธ์อาจสั่นคลอน ใช้ความอดทนให้มาก",
+    "en": "A relationship may feel shaky — bring extra patience."
+  },
+  {
+    "weekday": 5,
+    "tone": "careful",
+    "th": "งานที่รีบทำวันนี้เสี่ยงผิดพลาด ตรวจทานซ้ำอีกครั้ง",
+    "en": "Rushed work today risks mistakes — double-check everything."
+  },
+  {
+    "weekday": 5,
+    "tone": "careful",
+    "th": "ระวังอุบัติเหตุเล็กๆ น้อยๆ ในบ้านหรือที่ทำงาน",
+    "en": "Watch for small accidents at home or work."
+  },
+  {
+    "weekday": 5,
+    "tone": "careful",
+    "th": "หลีกเลี่ยงการลงทุนเสี่ยงสูงในวันนี้",
+    "en": "Avoid high-risk investments today."
+  },
+  {
+    "weekday": 5,
+    "tone": "careful",
+    "th": "อารมณ์อาจแปรปรวน ให้เวลาตัวเองสงบลงก่อนตัดสินใจ",
+    "en": "Emotions may swing — take time to settle before deciding."
+  },
+  {
+    "weekday": 5,
+    "tone": "careful",
+    "th": "ระวังคนใกล้ตัวที่พูดจาไม่จริงใจ",
+    "en": "Be wary of someone close who isn't being sincere."
+  },
+  {
+    "weekday": 5,
+    "tone": "careful",
+    "th": "อย่าฝืนทำงานหนักเกินไปจนละเลยการพักผ่อน",
+    "en": "Don't overwork to the point of skipping rest."
+  },
+  {
+    "weekday": 5,
+    "tone": "careful",
+    "th": "ตรวจสอบสุขภาพการเงินก่อนตัดสินใจซื้อของชิ้นใหญ่",
+    "en": "Check your finances carefully before any big purchase."
+  },
+  {
+    "weekday": 5,
+    "tone": "careful",
+    "th": "ระวังการนินทาหรือคำพูดลับหลังวันนี้",
+    "en": "Watch out for gossip or talk behind your back today."
+  },
+  {
+    "weekday": 5,
+    "tone": "careful",
+    "th": "หลีกเลี่ยงการเซ็นสัญญาที่ยังไม่เข้าใจถ่องแท้",
+    "en": "Avoid signing any contract you don't fully understand yet."
+  },
+  {
+    "weekday": 5,
+    "tone": "careful",
+    "th": "พลังงานลดลง ควรงดกิจกรรมที่ใช้แรงหนัก",
+    "en": "Energy runs low — skip anything physically demanding."
+  },
+  {
+    "weekday": 5,
+    "tone": "careful",
+    "th": "ระวังความขัดแย้งในครอบครัวที่อาจปะทุขึ้น",
+    "en": "Watch for family friction that could flare up."
+  },
+  {
+    "weekday": 5,
+    "tone": "careful",
+    "th": "อย่าตัดสินใจเรื่องความรักด้วยอารมณ์ชั่ววูบ",
+    "en": "Don't decide matters of the heart on a passing impulse."
+  },
+  {
+    "weekday": 5,
+    "tone": "careful",
+    "th": "ตรวจสอบรถหรือของใช้ก่อนออกเดินทางไกล",
+    "en": "Check your vehicle or gear before any long trip."
+  },
+  {
+    "weekday": 5,
+    "tone": "careful",
+    "th": "ระวังการพลาดนัดสำคัญ ตั้งเตือนไว้ล่วงหน้า",
+    "en": "Watch for missing an important appointment — set reminders early."
+  },
+  {
+    "weekday": 5,
+    "tone": "careful",
+    "th": "หลีกเลี่ยงการพูดแทนใจคนอื่นวันนี้",
+    "en": "Avoid speaking for others today — let them speak for themselves."
+  },
+  {
+    "weekday": 5,
+    "tone": "careful",
+    "th": "สุขภาพจิตต้องการพื้นที่ปลอดภัย หาเวลาอยู่กับตัวเองบ้าง",
+    "en": "Your mind needs a safe space — carve out time alone."
+  },
+  {
+    "weekday": 5,
+    "tone": "careful",
+    "th": "ระวังของมีคมหรือความร้อนในครัว",
+    "en": "Be careful with sharp objects or heat in the kitchen today."
+  },
+  {
+    "weekday": 5,
+    "tone": "careful",
+    "th": "อย่าฝืนใจทำสิ่งที่ไม่สบายใจเพียงเพราะเกรงใจ",
+    "en": "Don't force yourself into something uncomfortable just to avoid awkwardness."
+  },
+  {
+    "weekday": 6,
+    "tone": "positive",
+    "th": "วันนี้พลังบวกกำลังโอบล้อมคุณ ลองเริ่มสิ่งใหม่ๆ ดู",
+    "en": "Positive energy surrounds you today — start something new."
+  },
+  {
+    "weekday": 6,
+    "tone": "positive",
+    "th": "จังหวะดีมาเยือน อย่ารอช้าที่จะลงมือทำ",
+    "en": "A great moment arrives — don't hesitate to act."
+  },
+  {
+    "weekday": 6,
+    "tone": "positive",
+    "th": "ความตั้งใจของคุณจะเห็นผลในวันนี้",
+    "en": "Your effort will pay off today."
+  },
+  {
+    "weekday": 6,
+    "tone": "positive",
+    "th": "โชคเข้าข้างคุณอย่างเต็มที่ วันนี้เหมาะกับการตัดสินใจสำคัญ",
+    "en": "Luck is fully on your side — a good day for big decisions."
+  },
+  {
+    "weekday": 6,
+    "tone": "positive",
+    "th": "สิ่งที่รอคอยมานานกำลังจะเป็นจริง",
+    "en": "Something you've waited for is about to come true."
+  },
+  {
+    "weekday": 6,
+    "tone": "positive",
+    "th": "เปิดใจรับโอกาสใหม่ที่เข้ามา มันคุ้มค่าแน่นอน",
+    "en": "Stay open to new opportunities — they're worth it."
+  },
+  {
+    "weekday": 6,
+    "tone": "positive",
+    "th": "คนรอบข้างพร้อมสนับสนุนคุณเต็มที่วันนี้",
+    "en": "The people around you are fully behind you today."
+  },
+  {
+    "weekday": 6,
+    "tone": "positive",
+    "th": "ความคิดสร้างสรรค์ของคุณกำลังพลุ่งพล่าน ใช้มันให้เป็นประโยชน์",
+    "en": "Your creativity is flowing — put it to good use."
+  },
+  {
+    "weekday": 6,
+    "tone": "positive",
+    "th": "งานที่ทำค้างไว้จะคืบหน้าอย่างน่าพอใจ",
+    "en": "Work you've been stuck on will finally move forward."
+  },
+  {
+    "weekday": 6,
+    "tone": "positive",
+    "th": "พลังงานดีๆ จะดึงดูดผู้คนที่ใช่เข้ามาหาคุณ",
+    "en": "Good energy will draw the right people to you."
+  },
+  {
+    "weekday": 6,
+    "tone": "positive",
+    "th": "ทุกก้าวที่เดินวันนี้นำไปสู่ความสำเร็จ",
+    "en": "Every step you take today leads toward success."
+  },
+  {
+    "weekday": 6,
+    "tone": "positive",
+    "th": "เป็นวันที่เหมาะกับการเริ่มต้นธุรกิจหรือโปรเจกต์ใหม่",
+    "en": "A great day to launch a new business or project."
+  },
+  {
+    "weekday": 6,
+    "tone": "positive",
+    "th": "ความมั่นใจในตัวเองของคุณจะส่งผลดีต่อทุกเรื่อง",
+    "en": "Your self-confidence will carry you through everything today."
+  },
+  {
+    "weekday": 6,
+    "tone": "positive",
+    "th": "คำพูดของคุณวันนี้มีน้ำหนัก ใช้มันสร้างแรงบันดาลใจ",
+    "en": "Your words carry weight today — use them to inspire."
+  },
+  {
+    "weekday": 6,
+    "tone": "positive",
+    "th": "เงินทองไหลมาเทมาอย่างไม่คาดคิด",
+    "en": "Money flows in from unexpected places."
+  },
+  {
+    "weekday": 6,
+    "tone": "positive",
+    "th": "ความสัมพันธ์ที่ห่างเหินจะกลับมาอบอุ่นอีกครั้ง",
+    "en": "A distant relationship will warm up again."
+  },
+  {
+    "weekday": 6,
+    "tone": "positive",
+    "th": "สุขภาพแข็งแรง พลังงานเต็มเปี่ยมตลอดวัน",
+    "en": "Your health is strong and your energy full all day."
+  },
+  {
+    "weekday": 6,
+    "tone": "positive",
+    "th": "โอกาสทองมาถึงแล้ว อย่าปล่อยให้หลุดมือ",
+    "en": "A golden opportunity has arrived — don't let it slip."
+  },
+  {
+    "weekday": 6,
+    "tone": "positive",
+    "th": "ทุกอุปสรรคจะกลายเป็นบทเรียนที่ทำให้คุณแข็งแกร่งขึ้น",
+    "en": "Every obstacle today becomes a lesson that makes you stronger."
+  },
+  {
+    "weekday": 6,
+    "tone": "positive",
+    "th": "เพื่อนใหม่ที่พบวันนี้อาจกลายเป็นคนสำคัญในอนาคต",
+    "en": "A new friend today could become important down the road."
+  },
+  {
+    "weekday": 6,
+    "tone": "positive",
+    "th": "ไอเดียที่เก็บไว้นานควรหยิบมาลงมือทำได้แล้ว",
+    "en": "That idea you've been sitting on is ready to become real."
+  },
+  {
+    "weekday": 6,
+    "tone": "positive",
+    "th": "วันนี้เหมาะกับการขอโปรโมทหรือขึ้นเงินเดือน",
+    "en": "A good day to ask for that promotion or raise."
+  },
+  {
+    "weekday": 6,
+    "tone": "positive",
+    "th": "ทุกสิ่งที่คุณปลูกไว้กำลังจะออกดอกผล",
+    "en": "Everything you've been growing is about to bear fruit."
+  },
+  {
+    "weekday": 6,
+    "tone": "positive",
+    "th": "ความสุขเล็กๆ น้อยๆ วันนี้จะเติมพลังให้คุณทั้งสัปดาห์",
+    "en": "Small joys today will fuel you for the whole week."
+  },
+  {
+    "weekday": 6,
+    "tone": "positive",
+    "th": "คนที่คุณรักจะทำให้วันนี้พิเศษขึ้นมาก",
+    "en": "Someone you love will make today extra special."
+  },
+  {
+    "weekday": 6,
+    "tone": "positive",
+    "th": "การเดินทางวันนี้จะราบรื่นและนำพาสิ่งดีๆ มาให้",
+    "en": "Travel today goes smoothly and brings good things."
+  },
+  {
+    "weekday": 6,
+    "tone": "positive",
+    "th": "ความเชื่อมั่นในตัวเองคือกุญแจของวันนี้",
+    "en": "Belief in yourself is today's key."
+  },
+  {
+    "weekday": 6,
+    "tone": "positive",
+    "th": "ทุกการลงทุนวันนี้มีแนวโน้มให้ผลตอบแทนดี",
+    "en": "Investments made today tend to pay off well."
+  },
+  {
+    "weekday": 6,
+    "tone": "positive",
+    "th": "เสียงหัวเราะจะดังก้องในบ้านคุณวันนี้",
+    "en": "Laughter will fill your home today."
+  },
+  {
+    "weekday": 6,
+    "tone": "positive",
+    "th": "จักรวาลกำลังจัดสรรสิ่งดีๆ ไว้ให้คุณอยู่",
+    "en": "The universe is lining up good things just for you."
+  },
+  {
+    "weekday": 6,
+    "tone": "neutral",
+    "th": "วันธรรมดาที่เหมาะกับการพักผ่อนและจัดระเบียบ",
+    "en": "An ordinary day — perfect for rest and tidying up."
+  },
+  {
+    "weekday": 6,
+    "tone": "neutral",
+    "th": "เรียนรู้และสะสมพลัง พรุ่งนี้จะดีขึ้น",
+    "en": "Learn and recharge; tomorrow will be brighter."
+  },
+  {
+    "weekday": 6,
+    "tone": "neutral",
+    "th": "ใจเย็นๆ ทุกอย่างกำลังไปในทิศทางที่ดี",
+    "en": "Stay calm — things are heading the right way."
+  },
+  {
+    "weekday": 6,
+    "tone": "neutral",
+    "th": "วันนี้เหมาะกับการทบทวนแผนการมากกว่าลงมือทำ",
+    "en": "Better for reviewing your plans than acting on them today."
+  },
+  {
+    "weekday": 6,
+    "tone": "neutral",
+    "th": "ไม่มีอะไรน่าตื่นเต้นเป็นพิเศษ แต่ก็ไม่มีอะไรน่าห่วง",
+    "en": "Nothing exciting, but nothing to worry about either."
+  },
+  {
+    "weekday": 6,
+    "tone": "neutral",
+    "th": "เก็บพลังงานไว้ใช้กับสิ่งที่สำคัญกว่าพรุ่งนี้",
+    "en": "Save your energy for something more important tomorrow."
+  },
+  {
+    "weekday": 6,
+    "tone": "neutral",
+    "th": "เหมาะกับการทำงานที่ต้องใช้ความละเอียดรอบคอบ",
+    "en": "A good day for detail-oriented, careful work."
+  },
+  {
+    "weekday": 6,
+    "tone": "neutral",
+    "th": "คนรอบตัวอาจดูเงียบกว่าปกติ ให้พื้นที่กันบ้าง",
+    "en": "People around you may seem quieter — give each other space."
+  },
+  {
+    "weekday": 6,
+    "tone": "neutral",
+    "th": "เป็นวันที่เหมาะกับการฟังมากกว่าพูด",
+    "en": "A day better spent listening than talking."
+  },
+  {
+    "weekday": 6,
+    "tone": "neutral",
+    "th": "งานประจำดำเนินไปตามปกติ ไม่มีเซอร์ไพรส์",
+    "en": "Routine tasks proceed as usual, no surprises."
+  },
+  {
+    "weekday": 6,
+    "tone": "neutral",
+    "th": "ลองทำสิ่งเดิมๆ ให้ดีขึ้นทีละนิด",
+    "en": "Try improving something familiar, one small step at a time."
+  },
+  {
+    "weekday": 6,
+    "tone": "neutral",
+    "th": "วันนี้เหมาะกับการดูแลตัวเองมากกว่าดูแลคนอื่น",
+    "en": "Better to look after yourself today than others."
+  },
+  {
+    "weekday": 6,
+    "tone": "neutral",
+    "th": "ไม่ต้องรีบตัดสินใจเรื่องใหญ่วันนี้ก็ได้",
+    "en": "No need to rush any big decisions today."
+  },
+  {
+    "weekday": 6,
+    "tone": "neutral",
+    "th": "สมดุลคือคำสำคัญของวันนี้",
+    "en": "Balance is today's keyword."
+  },
+  {
+    "weekday": 6,
+    "tone": "neutral",
+    "th": "เหมาะกับการจัดลำดับความสำคัญของสิ่งที่ต้องทำ",
+    "en": "A good day to re-prioritize your to-do list."
+  },
+  {
+    "weekday": 6,
+    "tone": "neutral",
+    "th": "อากาศในใจสงบ เหมาะกับการทำสมาธิ",
+    "en": "Your inner weather is calm — a good time to meditate."
+  },
+  {
+    "weekday": 6,
+    "tone": "neutral",
+    "th": "เรื่องเงินทรงตัว ไม่มีรายรับรายจ่ายผิดปกติ",
+    "en": "Finances stay level, nothing unusual in or out."
+  },
+  {
+    "weekday": 6,
+    "tone": "neutral",
+    "th": "ความสัมพันธ์อยู่ในช่วงพักตัว ไม่ต้องเร่งอะไร",
+    "en": "Relationships are in a resting phase — no need to push."
+  },
+  {
+    "weekday": 6,
+    "tone": "neutral",
+    "th": "เหมาะกับการอ่านหนังสือหรือหาความรู้เพิ่มเติม",
+    "en": "A fitting day to read or learn something new."
+  },
+  {
+    "weekday": 6,
+    "tone": "neutral",
+    "th": "งานเล็กๆ ที่ค้างไว้นานควรเคลียร์ให้จบวันนี้",
+    "en": "Clear out that small task you've been putting off."
+  },
+  {
+    "weekday": 6,
+    "tone": "neutral",
+    "th": "ร่างกายขอการพักผ่อนมากกว่าการออกแรง",
+    "en": "Your body is asking for rest more than exertion."
+  },
+  {
+    "weekday": 6,
+    "tone": "neutral",
+    "th": "เหมาะกับการทำความสะอาดบ้านหรือที่ทำงาน",
+    "en": "A good day for cleaning up your home or workspace."
+  },
+  {
+    "weekday": 6,
+    "tone": "neutral",
+    "th": "อย่าคาดหวังผลลัพธ์ทันที ให้เวลาทำงานของมัน",
+    "en": "Don't expect instant results — give things time to work."
+  },
+  {
+    "weekday": 6,
+    "tone": "neutral",
+    "th": "เป็นวันที่เหมาะกับการวางแผนระยะยาว",
+    "en": "A good day for long-term planning."
+  },
+  {
+    "weekday": 6,
+    "tone": "neutral",
+    "th": "ความคิดฟุ้งซ่านวันนี้ ลองเขียนบันทึกช่วยจัดระเบียบ",
+    "en": "Thoughts feel scattered — try journaling to sort them out."
+  },
+  {
+    "weekday": 6,
+    "tone": "neutral",
+    "th": "ไม่มีเรื่องด่วน ใช้เวลาไปกับสิ่งที่ชอบบ้าง",
+    "en": "Nothing urgent — spend some time on things you enjoy."
+  },
+  {
+    "weekday": 6,
+    "tone": "neutral",
+    "th": "เหมาะกับการซ่อมแซมสิ่งของหรือความสัมพันธ์เล็กๆ น้อยๆ",
+    "en": "A fitting day for small repairs, of things or relationships."
+  },
+  {
+    "weekday": 6,
+    "tone": "neutral",
+    "th": "วันนี้เหมาะกับการรับฟังคำแนะนำจากคนที่ไว้ใจ",
+    "en": "A good day to take advice from someone you trust."
+  },
+  {
+    "weekday": 6,
+    "tone": "neutral",
+    "th": "งานที่ทำวันนี้อาจไม่หวือหวา แต่มั่นคง",
+    "en": "Today's work may not dazzle, but it's steady."
+  },
+  {
+    "weekday": 6,
+    "tone": "neutral",
+    "th": "เก็บพลังไว้ พรุ่งนี้อาจต้องใช้มันเต็มที่",
+    "en": "Conserve your energy — tomorrow may call for all of it."
+  },
+  {
+    "weekday": 6,
+    "tone": "careful",
+    "th": "ระวังการตัดสินใจเร่งรีบในวันนี้",
+    "en": "Beware of rushed decisions today."
+  },
+  {
+    "weekday": 6,
+    "tone": "careful",
+    "th": "ลดการใช้จ่าย และฟังคนรอบข้างมากขึ้น",
+    "en": "Cut spending and listen to those around you."
+  },
+  {
+    "weekday": 6,
+    "tone": "careful",
+    "th": "พักผ่อนให้พอ ดูแลใจตัวเอง",
+    "en": "Rest well and take care of your heart."
+  },
+  {
+    "weekday": 6,
+    "tone": "careful",
+    "th": "หลีกเลี่ยงการโต้เถียงที่ไม่จำเป็นวันนี้",
+    "en": "Avoid unnecessary arguments today."
+  },
+  {
+    "weekday": 6,
+    "tone": "careful",
+    "th": "ตรวจสอบเอกสารสำคัญให้รอบคอบก่อนเซ็น",
+    "en": "Double-check important documents before signing anything."
+  },
+  {
+    "weekday": 6,
+    "tone": "careful",
+    "th": "ระวังคำพูดที่อาจทำร้ายความรู้สึกคนอื่นโดยไม่ตั้งใจ",
+    "en": "Watch your words — they could hurt without meaning to."
+  },
+  {
+    "weekday": 6,
+    "tone": "careful",
+    "th": "อย่าให้ยืมเงินก้อนใหญ่ในวันนี้",
+    "en": "Avoid lending out large sums of money today."
+  },
+  {
+    "weekday": 6,
+    "tone": "careful",
+    "th": "สุขภาพต้องการการดูแลเป็นพิเศษ อย่าฝืนร่างกาย",
+    "en": "Your health needs extra care — don't push your body too hard."
+  },
+  {
+    "weekday": 6,
+    "tone": "careful",
+    "th": "หลีกเลี่ยงการเดินทางไกลโดยไม่จำเป็น",
+    "en": "Avoid unnecessary long-distance travel."
+  },
+  {
+    "weekday": 6,
+    "tone": "careful",
+    "th": "ระวังของหายหรือลืมของสำคัญ",
+    "en": "Watch out for losing or forgetting something important."
+  },
+  {
+    "weekday": 6,
+    "tone": "careful",
+    "th": "อย่าเพิ่งเชื่อข้อมูลที่ยังไม่ได้ตรวจสอบ",
+    "en": "Don't trust unverified information just yet."
+  },
+  {
+    "weekday": 6,
+    "tone": "careful",
+    "th": "ความสัมพันธ์อาจสั่นคลอน ใช้ความอดทนให้มาก",
+    "en": "A relationship may feel shaky — bring extra patience."
+  },
+  {
+    "weekday": 6,
+    "tone": "careful",
+    "th": "งานที่รีบทำวันนี้เสี่ยงผิดพลาด ตรวจทานซ้ำอีกครั้ง",
+    "en": "Rushed work today risks mistakes — double-check everything."
+  },
+  {
+    "weekday": 6,
+    "tone": "careful",
+    "th": "ระวังอุบัติเหตุเล็กๆ น้อยๆ ในบ้านหรือที่ทำงาน",
+    "en": "Watch for small accidents at home or work."
+  },
+  {
+    "weekday": 6,
+    "tone": "careful",
+    "th": "หลีกเลี่ยงการลงทุนเสี่ยงสูงในวันนี้",
+    "en": "Avoid high-risk investments today."
+  },
+  {
+    "weekday": 6,
+    "tone": "careful",
+    "th": "อารมณ์อาจแปรปรวน ให้เวลาตัวเองสงบลงก่อนตัดสินใจ",
+    "en": "Emotions may swing — take time to settle before deciding."
+  },
+  {
+    "weekday": 6,
+    "tone": "careful",
+    "th": "ระวังคนใกล้ตัวที่พูดจาไม่จริงใจ",
+    "en": "Be wary of someone close who isn't being sincere."
+  },
+  {
+    "weekday": 6,
+    "tone": "careful",
+    "th": "อย่าฝืนทำงานหนักเกินไปจนละเลยการพักผ่อน",
+    "en": "Don't overwork to the point of skipping rest."
+  },
+  {
+    "weekday": 6,
+    "tone": "careful",
+    "th": "ตรวจสอบสุขภาพการเงินก่อนตัดสินใจซื้อของชิ้นใหญ่",
+    "en": "Check your finances carefully before any big purchase."
+  },
+  {
+    "weekday": 6,
+    "tone": "careful",
+    "th": "ระวังการนินทาหรือคำพูดลับหลังวันนี้",
+    "en": "Watch out for gossip or talk behind your back today."
+  },
+  {
+    "weekday": 6,
+    "tone": "careful",
+    "th": "หลีกเลี่ยงการเซ็นสัญญาที่ยังไม่เข้าใจถ่องแท้",
+    "en": "Avoid signing any contract you don't fully understand yet."
+  },
+  {
+    "weekday": 6,
+    "tone": "careful",
+    "th": "พลังงานลดลง ควรงดกิจกรรมที่ใช้แรงหนัก",
+    "en": "Energy runs low — skip anything physically demanding."
+  },
+  {
+    "weekday": 6,
+    "tone": "careful",
+    "th": "ระวังความขัดแย้งในครอบครัวที่อาจปะทุขึ้น",
+    "en": "Watch for family friction that could flare up."
+  },
+  {
+    "weekday": 6,
+    "tone": "careful",
+    "th": "อย่าตัดสินใจเรื่องความรักด้วยอารมณ์ชั่ววูบ",
+    "en": "Don't decide matters of the heart on a passing impulse."
+  },
+  {
+    "weekday": 6,
+    "tone": "careful",
+    "th": "ตรวจสอบรถหรือของใช้ก่อนออกเดินทางไกล",
+    "en": "Check your vehicle or gear before any long trip."
+  },
+  {
+    "weekday": 6,
+    "tone": "careful",
+    "th": "ระวังการพลาดนัดสำคัญ ตั้งเตือนไว้ล่วงหน้า",
+    "en": "Watch for missing an important appointment — set reminders early."
+  },
+  {
+    "weekday": 6,
+    "tone": "careful",
+    "th": "หลีกเลี่ยงการพูดแทนใจคนอื่นวันนี้",
+    "en": "Avoid speaking for others today — let them speak for themselves."
+  },
+  {
+    "weekday": 6,
+    "tone": "careful",
+    "th": "สุขภาพจิตต้องการพื้นที่ปลอดภัย หาเวลาอยู่กับตัวเองบ้าง",
+    "en": "Your mind needs a safe space — carve out time alone."
+  },
+  {
+    "weekday": 6,
+    "tone": "careful",
+    "th": "ระวังของมีคมหรือความร้อนในครัว",
+    "en": "Be careful with sharp objects or heat in the kitchen today."
+  },
+  {
+    "weekday": 6,
+    "tone": "careful",
+    "th": "อย่าฝืนใจทำสิ่งที่ไม่สบายใจเพียงเพราะเกรงใจ",
+    "en": "Don't force yourself into something uncomfortable just to avoid awkwardness."
+  }
+]

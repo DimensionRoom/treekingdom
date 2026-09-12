@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 import ImageUploader from "./ImageUploader";
-import { Loader2, Plus, Trash2, ChevronDown, ChevronUp } from "lucide-react";
+import { Loader2, Plus, Trash2, ChevronDown, ChevronUp, Check, ChevronsUpDown } from "lucide-react";
 import { ARCHETYPES } from "@/lib/personality";
 import { saleInfo } from "@/lib/price";
+import { cn } from "@/lib/utils";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 
 function NumberInput({
@@ -50,7 +54,7 @@ function NumberInput({
   );
 }
 
-type Entity = "plants" | "supplies" | "categories" | "plant_varieties" | "personality_examples" | "tags";
+type Entity = "plants" | "supplies" | "categories" | "plant_varieties" | "personality_examples" | "tags" | "origins";
 
 interface Option { value: string; label: string }
 interface Props {
@@ -63,6 +67,11 @@ interface Props {
   plantIdOptions?: Option[];
   varietyOptions?: (Option & { plantId: string })[];
   tagOptions?: (Option & { color: string; emoji: string | null })[];
+  originOptions?: (Option & { link: string | null })[];
+  /** Quick-creates a new origins master record from the Origin combobox's
+   *  search text; returns the new option so it can be selected immediately,
+   *  or null on failure (the caller already toasts the error). */
+  onCreateOrigin?: (name: string) => Promise<(Option & { link: string | null }) | null>;
 }
 
 const defaults: Record<Entity, any> = {
@@ -127,6 +136,12 @@ const defaults: Record<Entity, any> = {
     name: { th: "", en: "" },
     sort_order: 0,
   },
+  origins: {
+    key: "",
+    name: { th: "", en: "" },
+    link: "",
+    sort_order: 0,
+  },
   plant_varieties: {
     id: "",
     plant_id: "",
@@ -139,6 +154,7 @@ const defaults: Record<Entity, any> = {
     care_tip: null,
     origin: null,
     origin_url: null,
+    origin_id: null,
     forms: [],
     image: null,
     images: [],
@@ -180,6 +196,12 @@ const Field = ({ label, children }: { label: string; children: React.ReactNode }
   </div>
 );
 
+// Radix's <SelectItem> rejects value="" outright (it reserves the empty
+// string to mean "nothing selected"), but a couple of call sites deliberately
+// offer an explicit "— none —" option whose value IS "". This sentinel maps
+// "" <-> a real string at the component boundary so callers never see it.
+const EMPTY_ITEM = "__empty__";
+
 const SelectOrCustom = ({
   value,
   onChange,
@@ -195,23 +217,28 @@ const SelectOrCustom = ({
 }) => {
   const known = options.some((o) => o.value === value);
   const [custom, setCustom] = useState(!known && !!value);
+  const itemValue = (v: string) => (v === "" ? EMPTY_ITEM : v);
+
   return (
     <div className="space-y-1">
-      <select
+      <Select
         disabled={disabled}
-        className={fieldCls}
-        value={custom ? "__custom__" : value}
-        onChange={(e) => {
-          if (e.target.value === "__custom__") { setCustom(true); onChange(""); }
-          else { setCustom(false); onChange(e.target.value); }
+        value={custom ? "__custom__" : itemValue(value)}
+        onValueChange={(v) => {
+          if (v === "__custom__") { setCustom(true); onChange(""); }
+          else { setCustom(false); onChange(v === EMPTY_ITEM ? "" : v); }
         }}
       >
-        <option value="">— select —</option>
-        {options.map((o) => (
-          <option key={o.value} value={o.value}>{o.label}</option>
-        ))}
-        {allowCustom && <option value="__custom__">+ custom…</option>}
-      </select>
+        <SelectTrigger className={fieldCls}>
+          <SelectValue placeholder="— select —" />
+        </SelectTrigger>
+        <SelectContent>
+          {options.map((o) => (
+            <SelectItem key={itemValue(o.value)} value={itemValue(o.value)}>{o.label}</SelectItem>
+          ))}
+          {allowCustom && <SelectItem value="__custom__">+ custom…</SelectItem>}
+        </SelectContent>
+      </Select>
       {custom && (
         <input
           autoFocus
@@ -302,6 +329,180 @@ const BilingualText = ({
         />
       </div>
     </Field>
+  );
+};
+
+/**
+ * A variety's origin: pick a shop/nursery from the `origins` master list (see
+ * origins-external.sql), or type free text when the variety's provenance is
+ * just a native-range description rather than a reusable shop record. Picking
+ * a master clears the free-text fields and vice versa, so the two never
+ * disagree about which one is authoritative — see VarietySection.tsx's own
+ * "master wins when set" resolution on the display side.
+ *
+ * Caller should mount this with `key={data.id ?? "new"}` so its local `mode`
+ * resets when the editor switches to a different variety (EntityForm's own
+ * `data` state resyncs from `record` the same way, but a child component's
+ * useState does not follow along on its own).
+ */
+interface OriginFormData {
+  id?: string;
+  origin_id?: string | null;
+  origin?: { th?: string; en?: string } | null;
+  origin_url?: string | null;
+}
+
+const OriginField = ({
+  data,
+  patch,
+  options,
+  onCreateOrigin,
+}: {
+  data: OriginFormData;
+  patch: (p: Partial<OriginFormData>) => void;
+  options: (Option & { link: string | null })[];
+  onCreateOrigin?: (name: string) => Promise<(Option & { link: string | null }) | null>;
+}) => {
+  const hasCustomText = !!(data.origin?.th?.trim() || data.origin?.en?.trim() || data.origin_url);
+  const [mode, setMode] = useState<string>(
+    data.origin_id ? data.origin_id : hasCustomText ? "custom" : "none",
+  );
+  const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const [creating, setCreating] = useState(false);
+  // Holds a just-created option so it can be shown as selected immediately,
+  // before the `options` prop catches up on the next query refetch.
+  const [createdMaster, setCreatedMaster] = useState<(Option & { link: string | null }) | null>(null);
+
+  const master = options.find((o) => o.value === mode) ?? (createdMaster?.value === mode ? createdMaster : undefined);
+  const currentLabel =
+    mode === "none" ? "— ไม่ระบุ —" : mode === "custom" ? "✎ พิมพ์เอง (ไม่ใช้ master)" : master?.label ?? "…";
+
+  const select = (v: string) => {
+    setMode(v);
+    if (v === "none") patch({ origin_id: null, origin: null, origin_url: null });
+    else if (v === "custom") patch({ origin_id: null });
+    else patch({ origin_id: v, origin: null, origin_url: null });
+    setOpen(false);
+  };
+
+  const exactMatch = options.some((o) => o.label.trim().toLowerCase() === query.trim().toLowerCase());
+  const showCreate = !!onCreateOrigin && query.trim().length > 0 && !exactMatch;
+
+  const handleCreate = async () => {
+    if (!onCreateOrigin) return;
+    const name = query.trim();
+    if (!name || creating) return;
+    setCreating(true);
+    try {
+      const created = await onCreateOrigin(name);
+      if (created) {
+        setCreatedMaster(created);
+        select(created.value);
+        setQuery("");
+      }
+    } finally {
+      setCreating(false);
+    }
+  };
+
+  return (
+    <div className="space-y-2">
+      <Field label="Origin">
+        <Popover open={open} onOpenChange={setOpen}>
+          <PopoverTrigger asChild>
+            <button
+              type="button"
+              role="combobox"
+              aria-expanded={open}
+              className={cn(fieldCls, "flex items-center justify-between text-left")}
+            >
+              <span className="truncate">{currentLabel}</span>
+              <ChevronsUpDown className="w-4 h-4 shrink-0 opacity-50" />
+            </button>
+          </PopoverTrigger>
+          <PopoverContent className="p-0 w-[var(--radix-popover-trigger-width)]" align="start">
+            <Command>
+              <CommandInput placeholder="พิมพ์ค้นหาแหล่งที่มา…" value={query} onValueChange={setQuery} />
+              <CommandList>
+                <CommandGroup>
+                  <CommandItem value="__none__" onSelect={() => select("none")}>
+                    <Check className={cn("mr-2 h-4 w-4", mode === "none" ? "opacity-100" : "opacity-0")} />
+                    — ไม่ระบุ —
+                  </CommandItem>
+                  <CommandItem value="__custom__" onSelect={() => select("custom")}>
+                    <Check className={cn("mr-2 h-4 w-4", mode === "custom" ? "opacity-100" : "opacity-0")} />
+                    ✎ พิมพ์เอง (ไม่ใช้ master)
+                  </CommandItem>
+                </CommandGroup>
+
+                {options.length > 0 && (
+                  <CommandGroup heading="แหล่งที่มา">
+                    {options.map((o) => (
+                      <CommandItem key={o.value} value={o.label} onSelect={() => select(o.value)}>
+                        <Check className={cn("mr-2 h-4 w-4", mode === o.value ? "opacity-100" : "opacity-0")} />
+                        {o.label}
+                      </CommandItem>
+                    ))}
+                  </CommandGroup>
+                )}
+
+                <CommandEmpty>ไม่พบแหล่งที่มา</CommandEmpty>
+
+                {showCreate && (
+                  <CommandGroup>
+                    {/* value = the raw query text, so cmdk's fuzzy filter never
+                        hides this item — it always matches itself, which is
+                        what keeps it visible while everything else may not. */}
+                    <CommandItem value={query} disabled={creating} onSelect={handleCreate}>
+                      {creating ? (
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      ) : (
+                        <Plus className="mr-2 h-4 w-4" />
+                      )}
+                      เพิ่ม "{query.trim()}" เป็นแหล่งที่มาใหม่
+                    </CommandItem>
+                  </CommandGroup>
+                )}
+              </CommandList>
+            </Command>
+          </PopoverContent>
+        </Popover>
+      </Field>
+
+      {master && (
+        <p className="text-xs text-muted-foreground pl-1">
+          {master.label}
+          {master.link && (
+            <>
+              {" · "}
+              <a href={master.link} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                {master.link}
+              </a>
+            </>
+          )}
+        </p>
+      )}
+
+      {mode === "custom" && (
+        <>
+          <BilingualText
+            label="Origin text"
+            value={data.origin ?? { th: "", en: "" }}
+            onChange={(v) => patch({ origin: v })}
+          />
+          <Field label="Origin link (optional — e.g. the nursery/shop's Facebook or LINE page)">
+            <input
+              type="url"
+              className={fieldCls}
+              placeholder="https://facebook.com/..."
+              value={data.origin_url ?? ""}
+              onChange={(e) => patch({ origin_url: e.target.value || null })}
+            />
+          </Field>
+        </>
+      )}
+    </div>
   );
 };
 
@@ -599,7 +800,7 @@ const FormsEditor = ({
 const EntityForm = ({
   entity, record, onSubmit, onCancel,
   categoryOptions = [], supplyCategoryOptions = [], plantIdOptions = [], varietyOptions = [],
-  tagOptions = [],
+  tagOptions = [], originOptions = [], onCreateOrigin,
 }: Props) => {
   const [data, setData] = useState<any>(record ?? defaults[entity]);
   const [busy, setBusy] = useState(false);
@@ -996,6 +1197,40 @@ const EntityForm = ({
             </>
           )}
 
+          {entity === "origins" && (
+            <>
+              <Field label="Key (slug)">
+                <input
+                  className={fieldCls}
+                  value={data.key ?? ""}
+                  onChange={(e) => patch({ key: e.target.value })}
+                  disabled={!!record}
+                />
+              </Field>
+              <BilingualText
+                label="Name"
+                value={data.name}
+                onChange={(v) => patch({ name: v })}
+              />
+              <Field label="Link (optional — the shop/nursery's own page)">
+                <input
+                  type="url"
+                  className={fieldCls}
+                  placeholder="https://facebook.com/..."
+                  value={data.link ?? ""}
+                  onChange={(e) => patch({ link: e.target.value || null })}
+                />
+              </Field>
+              <Field label="Sort order">
+                <NumberInput
+                  className={fieldCls}
+                  value={data.sort_order}
+                  onChange={(n) => patch({ sort_order: n })}
+                />
+              </Field>
+            </>
+          )}
+
           {entity === "categories" && (
             <>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -1166,20 +1401,13 @@ const EntityForm = ({
                 onChange={(v) => patch({ care_tip: v })}
                 textarea
               />
-              <BilingualText
-                label="Origin"
-                value={data.origin ?? { th: "", en: "" }}
-                onChange={(v) => patch({ origin: v })}
+              <OriginField
+                key={data.id ?? "new"}
+                data={data}
+                patch={patch}
+                options={originOptions}
+                onCreateOrigin={onCreateOrigin}
               />
-              <Field label="Origin link (optional — e.g. the nursery/shop's Facebook or LINE page)">
-                <input
-                  type="url"
-                  className={fieldCls}
-                  placeholder="https://facebook.com/..."
-                  value={data.origin_url ?? ""}
-                  onChange={(e) => patch({ origin_url: e.target.value || null })}
-                />
-              </Field>
               <ImageUploader
                 label="Images"
                 value={

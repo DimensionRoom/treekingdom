@@ -10,12 +10,13 @@ import {
   Dialog, DialogContent, DialogHeader, DialogTitle,
 } from "@/components/ui/dialog";
 import EntityForm from "@/components/admin/EntityForm";
+import FortuneMessagesPanel from "@/components/admin/FortuneMessagesPanel";
 import { deleteImage, getPublicUrl } from "@/lib/storage";
 import { saleInfo } from "@/lib/price";
 import Seo from "@/components/Seo";
 import ImageWithFallback from "@/components/ImageWithFallback";
 
-type Entity = "plants" | "supplies" | "categories" | "plant_varieties" | "personality_examples" | "tags";
+type Entity = "plants" | "supplies" | "categories" | "plant_varieties" | "personality_examples" | "tags" | "origins";
 
 /** A mutation-form row edited inline inside its parent variety. */
 type FormRow = {
@@ -33,10 +34,11 @@ const ENTITY_META: Record<Entity, { emoji: string; th: string; en: string; empty
   categories: { emoji: "🏷️", th: "หมวดหมู่", en: "Categories", emptyTh: "ยังไม่มีหมวดหมู่", emptyEn: "No categories yet" },
   personality_examples: { emoji: "✨", th: "บุคลิกภาพ", en: "Personality", emptyTh: "ยังไม่มีตัวอย่างบุคลิกภาพ", emptyEn: "No personality examples yet" },
   tags: { emoji: "🔖", th: "แท็ก", en: "Tags", emptyTh: "ยังไม่มีแท็ก", emptyEn: "No tags yet" },
+  origins: { emoji: "📍", th: "แหล่งที่มา", en: "Origins", emptyTh: "ยังไม่มีแหล่งที่มา", emptyEn: "No origins yet" },
 };
 
 // Tab order: plants and their varieties sit next to each other.
-const ENTITIES: Entity[] = ["plants", "plant_varieties", "supplies", "categories", "tags", "personality_examples"];
+const ENTITIES: Entity[] = ["plants", "plant_varieties", "supplies", "categories", "tags", "origins", "personality_examples"];
 
 const EMPTY: any[] = [];
 
@@ -57,6 +59,9 @@ const AdminPage = () => {
   const [editing, setEditing] = useState<any | null>(null);
   const [creating, setCreating] = useState(false);
   const [search, setSearch] = useState("");
+  // Not a CRUD entity like the ENTITIES tabs — a standalone panel for topping
+  // up the daily-fortune message pool (see fortune-messages-external.sql).
+  const [fortunePanelOpen, setFortunePanelOpen] = useState(false);
 
   const tabParam = params.get("tab") as Entity | null;
   const tab: Entity = tabParam && ENTITIES.includes(tabParam) ? tabParam : "plants";
@@ -149,6 +154,42 @@ const AdminPage = () => {
     [tagRows],
   );
 
+  const originRows = rowsOf("origins");
+  const originOptions = useMemo(
+    () =>
+      originRows.map((o) => ({
+        value: o.key,
+        label: `${o.name?.th ?? o.key}${o.name?.en ? ` / ${o.name.en}` : ""}`,
+        link: o.link ?? null,
+      })),
+    [originRows],
+  );
+
+  // Inline "+ add" from the Origin combobox in the variety form — a quick
+  // record with just a name; the admin can add a link/English name later
+  // from the Origins tab. Slug is derived from the name since Thai input
+  // has no latin characters to slugify, hence the timestamp fallback.
+  const createOrigin = async (name: string): Promise<{ value: string; label: string; link: string | null } | null> => {
+    const slug = name.toLowerCase().trim().normalize("NFKD")
+      .replace(/[\u0300-\u036f]/g, "") // strip accents (Thai input just falls through to the timestamp fallback below)
+      .replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+    const base = slug || `origin-${Date.now().toString(36)}`;
+    const existingKeys = new Set(originRows.map((o) => o.key));
+    let key = base;
+    for (let n = 2; existingKeys.has(key); n++) key = `${base}-${n}`;
+
+    const { error } = await (supabase as any)
+      .from("origins")
+      .insert({ key, name: { th: name, en: name }, sort_order: 0 });
+    if (error) {
+      toast.error(error.message);
+      return null;
+    }
+    qc.invalidateQueries({ queryKey: ["admin", "table", "origins"] });
+    qc.invalidateQueries({ queryKey: ["origins"] }); // the public-facing hook
+    return { value: key, label: name, link: null };
+  };
+
   const q = search.trim().toLowerCase();
   const filtered = q ? rows.filter((r: any) => rowMatches(r, q)) : rows;
   // Same query run against the other tables, so nothing hides behind a tab.
@@ -161,7 +202,7 @@ const AdminPage = () => {
 
   const handleDelete = async (row: any) => {
     if (!confirm(lang === "th" ? "ลบรายการนี้?" : "Delete this item?")) return;
-    const pkCol = tab === "categories" || tab === "tags" ? "key" : "id";
+    const pkCol = tab === "categories" || tab === "tags" || tab === "origins" ? "key" : "id";
     const pk = row[pkCol];
     // best-effort cleanup of attached images
     const paths: string[] = [
@@ -246,7 +287,7 @@ const AdminPage = () => {
     }
 
     const { error } = await (supabase as any).from(tab).upsert(recordToWrite, {
-      onConflict: tab === "categories" || tab === "tags" ? "key" : "id",
+      onConflict: tab === "categories" || tab === "tags" || tab === "origins" ? "key" : "id",
     });
     if (error) {
       toast.error(error.message);
@@ -374,6 +415,22 @@ const AdminPage = () => {
         </div>
       )}
 
+      <div className="flex gap-2 mb-4 overflow-x-auto scrollbar-hide -mx-4 px-4">
+        <button
+          onClick={() => setFortunePanelOpen((v) => !v)}
+          className={`px-4 py-1.5 rounded-full text-sm font-medium border-2 whitespace-nowrap inline-flex items-center gap-1.5 ${
+            fortunePanelOpen ? "bg-primary text-primary-foreground border-primary" : "bg-card border-border"
+          }`}
+        >
+          <span>🔮</span>
+          {lang === "th" ? "ดวงรายวัน" : "Daily fortune"}
+        </button>
+      </div>
+
+      {fortunePanelOpen ? (
+        <FortuneMessagesPanel />
+      ) : (
+      <>
       <div className="relative mb-4">
         <Search className="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
         <input
@@ -527,6 +584,7 @@ const AdminPage = () => {
                             {r.emoji ? `${r.emoji} ` : ""}{r.name?.th ?? r.key}
                           </span>
                         )}
+                        {tab === "origins" && (r.link || "— no link —")}
                       </td>
                       <td className="p-3 text-right" onClick={(e) => e.stopPropagation()}>
                         <div className="inline-flex gap-1">
@@ -567,6 +625,8 @@ const AdminPage = () => {
           </div>
         </div>
       )}
+      </>
+      )}
 
       <Dialog
         open={!!editing || creating}
@@ -592,6 +652,8 @@ const AdminPage = () => {
             plantIdOptions={plantIdOptions}
             varietyOptions={varietyOptions}
             tagOptions={tagOptions}
+            originOptions={originOptions}
+            onCreateOrigin={createOrigin}
           />
         </DialogContent>
       </Dialog>
