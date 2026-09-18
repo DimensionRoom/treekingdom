@@ -1,7 +1,7 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { allCategories, PlantCategory } from "@/data/plants";
+import { allCategories, PlantCategory, type Plant } from "@/data/plants";
 import { usePlants, useCategoryInfo, useViewCounts } from "@/hooks/useCloudData";
 import PlantCard from "@/components/PlantCard";
 import FilterChips from "@/components/FilterChips";
@@ -24,6 +24,18 @@ const sortOptions = [
 ] as const;
 type SortValue = (typeof sortOptions)[number]["value"];
 
+/**
+ * How many cards to render at a time. Caps what's *drawn*, not what's
+ * loaded — filtering, sorting, the result count and the chip counts all
+ * still run over the full list, so nothing about search or filters changes.
+ * Divisible by 2/3/4 so the last row is never ragged at any breakpoint.
+ */
+const PAGE_SIZE = 24;
+
+/** Stable identity for "no plants yet" — a fresh `[]` each render would
+ *  invalidate the useMemo below on every single render. */
+const NO_PLANTS: Plant[] = [];
+
 const PlantsPage = () => {
   const { t, lang } = useLanguage();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -34,10 +46,20 @@ const PlantsPage = () => {
   // short debounce so every keystroke doesn't spam history/query-client re-runs.
   const [search, setSearch] = useState(() => searchParams.get("q") ?? "");
   const [sortOpen, setSortOpen] = useState(false);
+  const [visible, setVisible] = useState(PAGE_SIZE);
+  // Bumped whenever the result set is replaced wholesale, to re-trigger the
+  // entrance animation even when the new set happens to be the same size.
+  const [animPass, setAnimPass] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
+  // How many cards have already played their entrance animation. Lets
+  // "show more" animate only the cards it just revealed instead of
+  // re-running gsap.from(opacity: 0) over the ones already on screen,
+  // which would blink the whole grid on every click.
+  const animatedCount = useRef(0);
 
   const { data } = usePlants();
-  const plants = data?.plants ?? [];
+  const plants = data?.plants ?? NO_PLANTS;
+  const hasData = plants.length > 0;
   const categoryInfo = useCategoryInfo();
   const { data: viewCounts } = useViewCounts();
 
@@ -56,7 +78,7 @@ const PlantsPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search]);
 
-  const filtered = plants
+  const filtered = useMemo(() => plants
     .filter((p) => {
       const matchesCat = !activeCategory || p.category === activeCategory;
       // Also match the plant's category label (e.g. "แคคตัส/ไม้อวบน้ำ") —
@@ -85,7 +107,14 @@ const PlantsPage = () => {
         default:
           return 0; // "default" — leave plants' own sort_order-based order alone
       }
-    });
+    }),
+    [plants, activeCategory, search, sortBy, categoryInfo, viewCounts],
+  );
+
+  // Only this slice is rendered; `filtered` above stays whole so the result
+  // count, the chip counts and every filter keep seeing all of it.
+  const shown = filtered.slice(0, visible);
+  const remaining = filtered.length - shown.length;
 
   const setCategory = (value: string) => {
     setSearchParams(
@@ -130,19 +159,47 @@ const PlantsPage = () => {
     };
   });
 
-  // Only re-run the entrance animation when the result *set* changes for a
-  // structural reason (category switch) — not on every keystroke, which used
-  // to restart gsap.from(opacity:0) on each character and could leave cards
-  // stuck invisible if a re-render interrupted the tween mid-flight.
+  // Switching category or sort is a different set of plants, so it starts
+  // back at the first page and everything counts as unseen. Search is
+  // deliberately absent: it narrows the same set live as you type, and
+  // resetting here would re-run the entrance animation on every character.
+  useEffect(() => {
+    setVisible(PAGE_SIZE);
+    animatedCount.current = 0;
+    setAnimPass((n) => n + 1);
+  }, [activeCategory, sortBy]);
+
+  // Entrance animation. Two things trigger it and nothing else: a fresh set
+  // (animPass, bumped above) and "show more" (visible). A plain count-based
+  // trigger would have fired on every keystroke too, which is the flicker
+  // the original version of this effect was written to avoid — and it would
+  // have silently skipped the animation when two categories happened to
+  // hold the same number of plants.
   useEffect(() => {
     if (!containerRef.current) return;
     const ctx = gsap.context(() => {
-      gsap.from(".plant-card-item", {
-        y: 30, opacity: 0, duration: 0.4, stagger: 0.05, ease: "power2.out",
+      // Only the cards this pass just revealed: re-running gsap.from() over
+      // ones already on screen would blink the whole grid on every click.
+      const fresh = gsap.utils.toArray<HTMLElement>(".plant-card-item").slice(animatedCount.current);
+      if (fresh.length === 0) return;
+      gsap.from(fresh, {
+        y: 30,
+        duration: 0.4,
+        opacity: 0,
+        ease: "power2.out",
+        // `amount` spreads the whole stagger across a fixed window instead of
+        // adding 0.05s per card: at 65 cards `each: 0.05` meant the last one
+        // sat at opacity 0 for 3.2s, so anyone scrolling met blank space.
+        stagger: { amount: 0.5 },
       });
     }, containerRef);
+    animatedCount.current = containerRef.current.childElementCount;
     return () => ctx.revert();
-  }, [activeCategory, sortBy]);
+    // hasData flips false -> true once, when the query resolves. Without it
+    // the first run happens against an empty grid, leaving animatedCount at
+    // 0 — so the first "show more" would have re-animated every card on
+    // screen, not just the new ones. Typing never changes it.
+  }, [animPass, visible, hasData]);
 
   return (
     <div className="section-padding">
@@ -230,12 +287,23 @@ const PlantsPage = () => {
 
         {/* Plant grid */}
         <div ref={containerRef} className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
-          {filtered.map((plant) => (
+          {shown.map((plant) => (
             <div key={plant.id} className="plant-card-item">
               <PlantCard plant={plant} />
             </div>
           ))}
         </div>
+
+        {remaining > 0 && (
+          <div className="flex justify-center mt-8">
+            <button
+              onClick={() => setVisible((v) => v + PAGE_SIZE)}
+              className="px-6 py-2.5 rounded-full bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity focus:outline-none focus:ring-2 focus:ring-primary/40 focus:ring-offset-2"
+            >
+              {t("plants.showMore").replace("{n}", String(remaining))}
+            </button>
+          </div>
+        )}
 
         {filtered.length === 0 && (
           <div className="text-center py-16 text-muted-foreground">

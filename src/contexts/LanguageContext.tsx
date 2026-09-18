@@ -39,6 +39,7 @@ const translations: Record<string, Record<Lang, string>> = {
   "filter.clear": { th: "ล้างตัวกรอง", en: "Clear filters" },
   "filter.noResults.clear": { th: "ล้างตัวกรองทั้งหมด", en: "Clear all filters" },
   "sort.label": { th: "เรียงโดย:", en: "Sort:" },
+  "plants.showMore": { th: "ดูเพิ่ม ({n})", en: "Show more ({n})" },
   "care.title": { th: "วิธีดูแล", en: "Care Guide" },
   "care.light": { th: "แสง", en: "Light" },
   "care.water": { th: "น้ำ", en: "Water" },
