@@ -1,9 +1,10 @@
 import { Link, useLocation } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Plant, categoryInfo as fallbackInfo } from "@/data/plants";
-import { useCategoryInfo, usePlants } from "@/hooks/useCloudData";
+import { useCategoryInfo, usePlants, useViewCounts } from "@/hooks/useCloudData";
 import TagBadges from "@/components/TagBadges";
 import ImageWithFallback from "@/components/ImageWithFallback";
+import ViewCount from "@/components/ViewCount";
 
 interface PlantCardProps {
   plant: Plant;
@@ -17,6 +18,7 @@ const PlantCard = ({ plant }: PlantCardProps) => {
   const catName = lang === "th" ? info.th : info.en;
   const { data: plantsData } = usePlants();
   const images = (plantsData?.images ?? {})[plant.id] ?? [];
+  const { data: viewCounts } = useViewCounts();
 
   return (
     <Link
@@ -46,9 +48,12 @@ const PlantCard = ({ plant }: PlantCardProps) => {
         <p className="text-muted-foreground text-xs sm:text-sm line-clamp-2 mb-2 sm:mb-3">
           {plant.description[lang]}
         </p>
-        <span className={`${info.color} text-xs font-semibold`}>
-          {catName}
-        </span>
+        <div className="flex items-center justify-between gap-2">
+          <span className={`${info.color} text-xs font-semibold`}>
+            {catName}
+          </span>
+          <ViewCount views={viewCounts?.[`plant:${plant.id}`]} className="text-xs" />
+        </div>
       </div>
     </Link>
   );

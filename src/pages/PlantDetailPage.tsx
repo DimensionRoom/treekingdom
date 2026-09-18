@@ -19,6 +19,9 @@ import ImageLightbox from "@/components/ImageLightbox";
 import { saleInfo } from "@/lib/price";
 import Seo from "@/components/Seo";
 import { SITE_NAME, absoluteUrl } from "@/lib/site";
+import { bumpView } from "@/lib/viewTracking";
+import { useViewCounts } from "@/hooks/useCloudData";
+import ViewCount from "@/components/ViewCount";
 
 const PlantDetailPage = () => {
   const { id } = useParams();
@@ -31,6 +34,7 @@ const PlantDetailPage = () => {
   const plantImages = data?.images ?? {};
   const categoryInfo = useCategoryInfo();
   const plant = plants.find((p) => p.id === id);
+  const { data: viewCounts } = useViewCounts();
   const relatedSupplies = (suppliesData?.supplies ?? []).filter((s) => s.plantId === id);
   const supplyImages = suppliesData?.images ?? {};
   const ref = useRef<HTMLDivElement>(null);
@@ -56,6 +60,16 @@ const PlantDetailPage = () => {
       });
     }
   }, [id]);
+
+  // Only counts once the id has actually resolved to a real plant — a typo'd
+  // or removed id that falls through to the 404 state shouldn't tally.
+  useEffect(() => {
+    if (plant) bumpView("plant", plant.id);
+    // plant?.id on purpose — `plant` is re-derived from `plants.find(...)`
+    // every render, so depending on it directly would re-fire this on every
+    // render rather than only when the route's id actually changes.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [plant?.id]);
 
   useEffect(() => {
     if (!carouselApi) return;
@@ -221,9 +235,12 @@ const PlantDetailPage = () => {
             <h1 className="font-display font-bold text-2xl md:text-3xl text-card-foreground mb-1">
               {plant.name[lang]}
             </h1>
-            <span className={(categoryInfo[plant.category]?.color) ?? "badge-humid"}>
-              {(categoryInfo[plant.category]?.emoji) ?? "🌱"} {lang === "th" ? (categoryInfo[plant.category]?.th ?? plant.category) : (categoryInfo[plant.category]?.en ?? plant.category)}
-            </span>
+            <div className="flex flex-wrap items-center gap-2">
+              <span className={(categoryInfo[plant.category]?.color) ?? "badge-humid"}>
+                {(categoryInfo[plant.category]?.emoji) ?? "🌱"} {lang === "th" ? (categoryInfo[plant.category]?.th ?? plant.category) : (categoryInfo[plant.category]?.en ?? plant.category)}
+              </span>
+              <ViewCount views={viewCounts?.[`plant:${plant.id}`]} className="text-xs" />
+            </div>
             <TagBadges tags={plant.tags} className="mt-2" />
           </div>
           <ShareButton title={plant.name[lang]} />

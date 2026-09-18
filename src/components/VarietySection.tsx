@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { useOriginMap } from "@/hooks/useCloudData";
+import { useOriginMap, useViewCounts } from "@/hooks/useCloudData";
+import { bumpView } from "@/lib/viewTracking";
+import ViewCount from "@/components/ViewCount";
 import { PlantVariety, PlantLevels } from "@/data/plants";
 import { varietyImages } from "@/data/varietyImages";
 import TagBadges from "@/components/TagBadges";
@@ -34,6 +36,7 @@ const LEVEL_ICONS: { key: keyof PlantLevels; icon: typeof Sun }[] = [
 const VarietySection = ({ varieties, plantName, parentLevels }: VarietySectionProps) => {
   const { lang, t } = useLanguage();
   const originMap = useOriginMap();
+  const { data: viewCounts } = useViewCounts();
   const [params, setParams] = useSearchParams();
   // The prop stays a flat array; the form/parent link lives on each row.
   const topLevel = varieties.filter((v) => !v.parentId);
@@ -100,6 +103,16 @@ const VarietySection = ({ varieties, plantName, parentLevels }: VarietySectionPr
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selected?.id]);
 
+  // Only top-level varieties open a sheet at all (forms don't get their own
+  // page), so this never double-counts a form as its parent.
+  useEffect(() => {
+    if (selected) bumpView("variety", selected.id);
+    // selected?.id on purpose: `selected` is a fresh object every render, so
+    // depending on it directly would re-fire this on every render while the
+    // sheet stays open on the same variety, not just on an actual switch.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selected?.id]);
+
   // Lock body scroll when modal is open
   useEffect(() => {
     if (selected) {
@@ -155,6 +168,7 @@ const VarietySection = ({ varieties, plantName, parentLevels }: VarietySectionPr
                     {v.features[lang]}
                   </p>
                 </div>
+                <ViewCount views={viewCounts?.[`variety:${v.id}`]} className="shrink-0 text-[10px]" />
                 {formsOf(v.id).length > 0 && (
                   <Network className="w-4 h-4 shrink-0 text-muted-foreground" aria-label="has forms" />
                 )}
@@ -282,9 +296,12 @@ const VarietySection = ({ varieties, plantName, parentLevels }: VarietySectionPr
                     />
                   </div>
                 </div>
-                <p className="text-muted-foreground text-xs mb-3">
-                  {lang === "th" ? `สายพันธุ์ของ${plantName}` : `Variety of ${plantName}`}
-                </p>
+                <div className="flex items-center gap-2 mb-3">
+                  <p className="text-muted-foreground text-xs">
+                    {lang === "th" ? `สายพันธุ์ของ${plantName}` : `Variety of ${plantName}`}
+                  </p>
+                  <ViewCount views={viewCounts?.[`variety:${selected.id}`]} className="text-xs" />
+                </div>
 
                 {treeOpen && selectedForms.length > 0 && (
                   <div className="mb-3 rounded-xl bg-muted/40 border border-border p-3">

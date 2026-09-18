@@ -6,7 +6,8 @@ import Seo from "@/components/Seo";
 import { SITE_NAME, SITE_TITLE, SITE_DESCRIPTION, SITE_URL } from "@/lib/site";
 import PlantCard from "@/components/PlantCard";
 import { allCategories } from "@/data/plants";
-import { usePlants, useCategoryInfo } from "@/hooks/useCloudData";
+import { usePlants, useCategoryInfo, useViewCounts } from "@/hooks/useCloudData";
+import ViewCount from "@/components/ViewCount";
 import { ArrowRight, Droplets, Sun, Thermometer, Leaf } from "lucide-react";
 import AutoScroll from "embla-carousel-auto-scroll";
 import {
@@ -23,8 +24,17 @@ const Index = () => {
   const { data } = usePlants();
   const plants = data?.plants ?? [];
   const categoryInfo = useCategoryInfo();
+  const { data: viewCounts } = useViewCounts();
 
   const featuredPlants = plants.slice(0, 4);
+
+  // Hidden entirely until real traffic exists — an all-zero ranked list at
+  // launch would be a meaningless "#1 #2 #3" of whatever loaded first.
+  const topPlants = plants
+    .map((p) => ({ plant: p, views: viewCounts?.[`plant:${p.id}`] ?? 0 }))
+    .filter((x) => x.views > 0)
+    .sort((a, b) => b.views - a.views)
+    .slice(0, 5);
 
   const tips = [
     { icon: <Sun className="w-7 h-7" />, emoji: "☀️", title: lang === "th" ? "แสงที่เหมาะสม" : "Right Light", desc: lang === "th" ? "เลือกตำแหน่งที่มีแสงเหมาะกับชนิดพืช" : "Place plants where they get the right amount of light", color: "from-accent/20 to-accent/5" },
@@ -109,6 +119,59 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {topPlants.length > 0 && (
+        <section className="section-padding relative bg-gradient-to-b from-primary/5 via-transparent to-transparent">
+          <div className="container mx-auto max-w-2xl">
+            <div className="anim-item text-center mb-8 md:mb-10">
+              <h2 className="font-display font-bold text-2xl md:text-4xl text-foreground mb-3">
+                {t("popular.title")}
+              </h2>
+              <p className="text-muted-foreground max-w-lg mx-auto text-sm md:text-lg">{t("popular.sub")}</p>
+            </div>
+            <ol className="anim-item space-y-2">
+              {topPlants.map(({ plant, views }, i) => {
+                const info = categoryInfo[plant.category];
+                const thumb = (data?.images ?? {})[plant.id]?.[0];
+                return (
+                  <li key={plant.id}>
+                    <Link
+                      to={`/plants/${plant.id}`}
+                      state={{ from: "/" }}
+                      className="flex items-center gap-3 p-2.5 sm:p-3 rounded-2xl bg-card border-2 border-border hover:border-primary/40 hover:bg-primary/5 transition-all group"
+                    >
+                      <span className="font-display font-bold text-xl sm:text-2xl w-8 text-center text-primary/70 shrink-0">
+                        {i + 1}
+                      </span>
+                      {thumb ? (
+                        <img
+                          src={thumb}
+                          alt={plant.name[lang]}
+                          loading="lazy"
+                          className="w-12 h-12 rounded-xl object-cover shrink-0"
+                        />
+                      ) : (
+                        <span className="w-12 h-12 rounded-xl bg-muted flex items-center justify-center text-xl shrink-0">
+                          {info?.emoji ?? "🌱"}
+                        </span>
+                      )}
+                      <span className="min-w-0 flex-1">
+                        <span className="block font-semibold text-sm sm:text-base text-card-foreground truncate group-hover:text-primary transition-colors">
+                          {plant.name[lang]}
+                        </span>
+                        <span className="block text-xs text-muted-foreground truncate">
+                          {lang === "th" ? info?.th : info?.en}
+                        </span>
+                      </span>
+                      <ViewCount views={views} className="text-xs shrink-0" />
+                    </Link>
+                  </li>
+                );
+              })}
+            </ol>
+          </div>
+        </section>
+      )}
 
       {/* Quick Tips */}
       <section className="section-padding bg-gradient-to-b from-muted/50 via-muted/30 to-background relative overflow-hidden">

@@ -2,26 +2,44 @@ import { useState, useEffect, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { allCategories, PlantCategory } from "@/data/plants";
-import { usePlants, useCategoryInfo } from "@/hooks/useCloudData";
+import { usePlants, useCategoryInfo, useViewCounts } from "@/hooks/useCloudData";
 import PlantCard from "@/components/PlantCard";
 import FilterChips from "@/components/FilterChips";
 import Seo from "@/components/Seo";
-import { Search, X } from "lucide-react";
+import { Search, X, ChevronsUpDown, Check } from "lucide-react";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Command, CommandGroup, CommandItem, CommandList } from "@/components/ui/command";
+import { cn } from "@/lib/utils";
 import gsap from "gsap";
+
+// "default" isn't a real sort — it means "leave the current sort_order-based
+// order alone", i.e. today's behavior before this feature existed. It's a
+// selectable option (not just "no ?sort param") so it has a place in the
+// dropdown alongside the others, rather than being an unlabeled empty state.
+const sortOptions = [
+  { value: "default", labelTh: "ค่าเริ่มต้น", labelEn: "Default" },
+  { value: "popular", labelTh: "ยอดนิยม", labelEn: "Most viewed" },
+  { value: "name-asc", labelTh: "ชื่อ ก-ฮ", labelEn: "Name A-Z" },
+  { value: "name-desc", labelTh: "ชื่อ ฮ-ก", labelEn: "Name Z-A" },
+] as const;
+type SortValue = (typeof sortOptions)[number]["value"];
 
 const PlantsPage = () => {
   const { t, lang } = useLanguage();
   const [searchParams, setSearchParams] = useSearchParams();
   const activeCategory = (searchParams.get("cat") as PlantCategory | null) || null;
+  const sortBy = (searchParams.get("sort") as SortValue | null) || "default";
 
   // Local state drives typing + filtering instantly; the URL is updated on a
   // short debounce so every keystroke doesn't spam history/query-client re-runs.
   const [search, setSearch] = useState(() => searchParams.get("q") ?? "");
+  const [sortOpen, setSortOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const { data } = usePlants();
   const plants = data?.plants ?? [];
   const categoryInfo = useCategoryInfo();
+  const { data: viewCounts } = useViewCounts();
 
   useEffect(() => {
     const id = setTimeout(() => {
@@ -38,14 +56,27 @@ const PlantsPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search]);
 
-  const filtered = plants.filter((p) => {
-    const matchesCat = !activeCategory || p.category === activeCategory;
-    const matchesSearch =
-      !search ||
-      p.name.th.includes(search) ||
-      p.name.en.toLowerCase().includes(search.toLowerCase());
-    return matchesCat && matchesSearch;
-  });
+  const filtered = plants
+    .filter((p) => {
+      const matchesCat = !activeCategory || p.category === activeCategory;
+      const matchesSearch =
+        !search ||
+        p.name.th.includes(search) ||
+        p.name.en.toLowerCase().includes(search.toLowerCase());
+      return matchesCat && matchesSearch;
+    })
+    .sort((a, b) => {
+      switch (sortBy) {
+        case "popular":
+          return (viewCounts?.[`plant:${b.id}`] ?? 0) - (viewCounts?.[`plant:${a.id}`] ?? 0);
+        case "name-asc":
+          return a.name.en.localeCompare(b.name.en);
+        case "name-desc":
+          return b.name.en.localeCompare(a.name.en);
+        default:
+          return 0; // "default" — leave plants' own sort_order-based order alone
+      }
+    });
 
   const setCategory = (value: string) => {
     setSearchParams(
@@ -57,6 +88,21 @@ const PlantsPage = () => {
       { replace: true },
     );
   };
+
+  const setSort = (value: SortValue) => {
+    setSearchParams(
+      (p) => {
+        if (value === "default") p.delete("sort");
+        else p.set("sort", value);
+        return p;
+      },
+      { replace: true },
+    );
+    setSortOpen(false);
+  };
+
+  const activeSortLabel =
+    sortOptions.find((s) => s.value === sortBy)?.[lang === "th" ? "labelTh" : "labelEn"] ?? "";
 
   const clearFilters = () => {
     setSearch("");
@@ -87,7 +133,7 @@ const PlantsPage = () => {
       });
     }, containerRef);
     return () => ctx.revert();
-  }, [activeCategory]);
+  }, [activeCategory, sortBy]);
 
   return (
     <div className="section-padding">
@@ -105,15 +151,47 @@ const PlantsPage = () => {
         </h1>
         <p className="text-muted-foreground mb-6">{t("categories.sub")}</p>
 
-        <div className="relative mb-4">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-          <input
-            type="text"
-            placeholder={t("search.plants")}
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-10 pr-4 py-2.5 rounded-full bg-muted border-2 border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/40"
-          />
+        <div className="flex flex-col md:flex-row gap-4 mb-4">
+          <div className="relative flex-1">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+            <input
+              type="text"
+              placeholder={t("search.plants")}
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="w-full pl-10 pr-4 py-2.5 rounded-full bg-muted border-2 border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/40"
+            />
+          </div>
+          <Popover open={sortOpen} onOpenChange={setSortOpen}>
+            <PopoverTrigger asChild>
+              <button
+                role="combobox"
+                aria-expanded={sortOpen}
+                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-md bg-transparent text-sm text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/30"
+              >
+                <span className="opacity-70">{t("sort.label")}</span>
+                <span className="text-foreground">{activeSortLabel}</span>
+                <ChevronsUpDown className="w-3.5 h-3.5 shrink-0 opacity-60" />
+              </button>
+            </PopoverTrigger>
+            <PopoverContent className="p-0 w-52" align="end">
+              <Command>
+                <CommandList>
+                  <CommandGroup>
+                    {sortOptions.map((opt) => {
+                      const label = lang === "th" ? opt.labelTh : opt.labelEn;
+                      return (
+                        <CommandItem key={opt.value} value={label} onSelect={() => setSort(opt.value)}>
+                          <Check className={cn("mr-2 h-4 w-4", sortBy === opt.value ? "opacity-100" : "opacity-0")} />
+                          {label}
+                        </CommandItem>
+                      );
+                    })}
+                  </CommandGroup>
+                </CommandList>
+              </Command>
+            </PopoverContent>
+          </Popover>
         </div>
 
         <FilterChips

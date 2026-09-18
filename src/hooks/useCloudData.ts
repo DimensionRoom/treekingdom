@@ -70,6 +70,10 @@ export type TagRecord = {
   key: string;
   emoji: string | null;
   color: string;
+  /** Set together, these override `color` with an exact hex background/text
+   *  pair instead of one of the fixed badge-* preset classes. */
+  bgColor: string | null;
+  textColor: string | null;
   name: { th: string; en: string };
 };
 
@@ -88,6 +92,8 @@ export const useTags = () =>
         key: t.key,
         emoji: t.emoji ?? null,
         color: t.color ?? "badge-humid",
+        bgColor: t.bg_color ?? null,
+        textColor: t.text_color ?? null,
         name: (t.name ?? { th: t.key, en: t.key }) as { th: string; en: string },
       }));
     },
@@ -137,6 +143,33 @@ export const useOriginMap = (): Record<string, OriginRecord> => {
   (data ?? []).forEach((o) => { map[o.key] = o; });
   return map;
 };
+
+// ---------- View counts (plants + varieties) ----------
+export type ViewCountMap = Record<string, number>; // "plant:<id>" / "variety:<id>" -> views
+
+/**
+ * All view tallies, keyed "type:id" for O(1) lookup by callers. Table may not
+ * exist yet (view-counts-external.sql not run) — fail soft to an empty map,
+ * same convention as every other optional table; ViewCount just renders
+ * nothing when a key is missing. Short staleTime — unlike content tables,
+ * this one is expected to change on every page view.
+ */
+export const useViewCounts = () =>
+  useQuery({
+    queryKey: ["view_counts"],
+    queryFn: async (): Promise<ViewCountMap> => {
+      const { data, error } = await (supabase as any)
+        .from("view_counts")
+        .select("entity_type,entity_id,views");
+      if (error) return {};
+      const map: ViewCountMap = {};
+      (data ?? []).forEach((r: { entity_type: string; entity_id: string; views: number }) => {
+        map[`${r.entity_type}:${r.entity_id}`] = r.views;
+      });
+      return map;
+    },
+    staleTime: 60 * 1000,
+  });
 
 // ---------- Fortune messages ----------
 /**
