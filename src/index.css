@@ -211,3 +211,22 @@
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
+/* Shared navigation uses the same proportions and colors on every route. */
+.site-header {
+  background: #fff;
+  border-bottom: 1px solid #f0f4f1;
+}
+.site-header-inner {
+  width: calc(100% - clamp(16px, 3vw, 64px) * 2);
+  max-width: none;
+  padding-inline: 0;
+  height: 68px;
+}
+.site-header-nav a {
+  font-size: 12px;
+  padding: 8px 13px;
+}
+.site-header-nav a.bg-primary {
+  background: #2f7f68;
+}

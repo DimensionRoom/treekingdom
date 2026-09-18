@@ -25,8 +25,8 @@ const Header = () => {
       : location.pathname === path || location.pathname.startsWith(`${path}/`);
 
   return (
-    <header className="sticky top-0 z-50 bg-card/80 backdrop-blur-md border-b-2 border-border">
-      <div className="container mx-auto px-4 flex items-center justify-between h-16">
+    <header className="site-header sticky top-0 z-50 bg-card/80 backdrop-blur-md border-b-2 border-border">
+      <div className="site-header-inner container mx-auto px-4 flex items-center justify-between h-16">
         <Link to="/" className="flex items-center gap-2 group">
           <img src={logoIcon} alt="TreeKingdom" className="w-9 h-9 group-hover:rotate-12 transition-transform duration-300" />
           <span className="font-display font-bold text-xl text-foreground">
@@ -35,7 +35,7 @@ const Header = () => {
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-2">
+        <nav className="site-header-nav hidden md:flex items-center gap-2">
           {links.map((link) => {
             const active = isActive(link.to);
             const isHighlight = "highlight" in link && link.highlight;

@@ -1,308 +1,91 @@
-import { useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { ArrowRight, BookOpen, ChevronRight, Heart, Leaf, Search } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import HeroSection from "@/components/HeroSection";
-import Seo from "@/components/Seo";
-import { SITE_NAME, SITE_TITLE, SITE_DESCRIPTION, SITE_URL } from "@/lib/site";
-import PlantCard from "@/components/PlantCard";
-import { allCategories } from "@/data/plants";
 import { usePlants, useCategoryInfo, useViewCounts } from "@/hooks/useCloudData";
-import ViewCount from "@/components/ViewCount";
-import { ArrowRight, Droplets, Sun, Thermometer, Leaf } from "lucide-react";
-import AutoScroll from "embla-carousel-auto-scroll";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
+import Seo from "@/components/Seo";
+import ImageWithFallback from "@/components/ImageWithFallback";
+import { SITE_NAME, SITE_TITLE, SITE_DESCRIPTION, SITE_URL } from "@/lib/site";
+import type { PlantCategory } from "@/data/plants";
+import "./home.css";
 
-const Index = () => {
-  const { t, lang } = useLanguage();
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { data } = usePlants();
-  const plants = data?.plants ?? [];
+// "water" points at its own category-water.svg rather than reusing
+// care-water.png — that PNG is the "watering tip" illustration (a potted
+// plant with droplets), a different idea from "plants that grow in water"
+// and duplicating it across both slots read as a mistake.
+const categories: { key: PlantCategory; image: string; ext?: "png" | "svg" }[] = [
+  { key: "tree", image: "category-tree" },
+  { key: "flower", image: "category-flower" },
+  { key: "foliage", image: "category-foliage" },
+  { key: "cactus", image: "category-cactus" },
+  { key: "water", image: "category-water", ext: "svg" },
+];
+
+const Illustration = ({ name, ext = "png", className = "" }: { name: string; ext?: "png" | "svg"; className?: string }) => (
+  <img className={className} src={`/images/${name}.${ext}`} alt="" loading="lazy" width={96} height={96} />
+);
+
+export default function Index() {
+  const { lang } = useLanguage();
+  const th = lang === "th";
+  const navigate = useNavigate();
+  const [search, setSearch] = useState("");
+  const [favorites, setFavorites] = useState<string[]>([]);
+  const [onlyFavorites, setOnlyFavorites] = useState(false);
+  const [openTip, setOpenTip] = useState<number | null>(null);
+  const { data, isPending, isError, refetch } = usePlants();
+  const { data: views } = useViewCounts();
   const categoryInfo = useCategoryInfo();
-  const { data: viewCounts } = useViewCounts();
-
-  const featuredPlants = plants.slice(0, 4);
-
-  // Hidden entirely until real traffic exists — an all-zero ranked list at
-  // launch would be a meaningless "#1 #2 #3" of whatever loaded first.
-  const topPlants = plants
-    .map((p) => ({ plant: p, views: viewCounts?.[`plant:${p.id}`] ?? 0 }))
-    .filter((x) => x.views > 0)
-    .sort((a, b) => b.views - a.views)
-    .slice(0, 5);
-
+  const plants = data?.plants ?? [];
+  const featured = onlyFavorites ? plants.filter(p => favorites.includes(p.id)) : plants.slice(0, 5);
+  const popular = plants.map(plant => ({ plant, views: views?.[`plant:${plant.id}`] ?? 0 })).filter(p => p.views > 0).sort((a, b) => b.views - a.views).slice(0, 3);
+  const label = (key: string) => th ? categoryInfo[key]?.th : categoryInfo[key]?.en;
   const tips = [
-    { icon: <Sun className="w-7 h-7" />, emoji: "☀️", title: lang === "th" ? "แสงที่เหมาะสม" : "Right Light", desc: lang === "th" ? "เลือกตำแหน่งที่มีแสงเหมาะกับชนิดพืช" : "Place plants where they get the right amount of light", color: "from-accent/20 to-accent/5" },
-    { icon: <Droplets className="w-7 h-7" />, emoji: "💧", title: lang === "th" ? "รดน้ำพอดี" : "Water Wisely", desc: lang === "th" ? "รดน้ำตามความต้องการของต้นไม้แต่ละชนิด" : "Water according to each plant's specific needs", color: "from-primary/20 to-primary/5" },
-    { icon: <Thermometer className="w-7 h-7" />, emoji: "🌡️", title: lang === "th" ? "อุณหภูมิเหมาะสม" : "Temperature", desc: lang === "th" ? "รักษาอุณหภูมิให้เหมาะกับพืชแต่ละประเภท" : "Maintain optimal temperature for each plant type", color: "from-secondary/20 to-secondary/5" },
+    { image: "care-light", title: th ? "แสงที่เหมาะสม" : "The right light", description: th ? "เลือกปริมาณแสงให้เหมาะกับแต่ละชนิด" : "Find the right light for each plant", detail: th ? "สังเกตแสงในบริเวณที่ปลูก และเลือกตำแหน่งตามความต้องการของพรรณไม้ ดูรายละเอียดแสงที่เหมาะสมได้ในหน้าพรรณไม้แต่ละชนิด" : "Observe the light in your space and match it to your plant. Check each plant’s care guide for its specific light requirements." },
+    { image: "care-water", title: th ? "รดน้ำพอดี" : "Water wisely", description: th ? "รดน้ำอย่างเข้าใจ ให้รากเติบโตแข็งแรง" : "Keep roots healthy with thoughtful watering", detail: th ? "ตรวจความชื้นของดินก่อนรดน้ำ เลือกกระถางที่ระบายน้ำได้ดี และปรับความถี่ตามชนิดต้นไม้และสภาพอากาศ" : "Check soil moisture before watering, use a well-draining pot, and adjust watering to the plant and weather." },
+    { image: "care-nutrients", title: th ? "ดูแลธาตุอาหาร" : "Nourish your plants", description: th ? "ปุ๋ยและอาหารเสริมที่เหมาะสม" : "Choose suitable nutrients and fertilizer", detail: th ? "เลือกปุ๋ยให้เหมาะกับชนิดพืช ใช้ตามคำแนะนำบนฉลาก และหลีกเลี่ยงการให้ปุ๋ยมากเกินไป" : "Choose a fertilizer suited to your plant, follow the label, and avoid overfeeding." },
+    { image: "care-pruning", title: th ? "ตัดแต่งกิ่ง" : "Prune with care", description: th ? "ช่วยให้ต้นไม้แข็งแรงและสวยงาม" : "Encourage healthy, beautiful growth", detail: th ? "ใช้กรรไกรที่สะอาด ตัดใบแห้งและกิ่งที่เสียหาย และศึกษาช่วงเวลาตัดแต่งที่เหมาะกับพรรณไม้แต่ละชนิด" : "Use clean shears, remove dry leaves and damaged stems, and check the right pruning season for your plant." },
   ];
-
-  useEffect(() => {
-    const scroller = document.querySelector("main");
-    if (!containerRef.current || !scroller) return;
-
-    const elements = containerRef.current.querySelectorAll(".anim-item");
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const el = entry.target as HTMLElement;
-            const delay = el.dataset.delay || "0";
-            el.style.transitionDelay = `${delay}ms`;
-            el.classList.add("anim-visible");
-            observer.unobserve(el);
-          }
-        });
-      },
-      { root: scroller, threshold: 0.1 }
-    );
-
-    elements.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <div ref={containerRef}>
-      <Seo
-        title={SITE_TITLE[lang]}
-        description={SITE_DESCRIPTION[lang]}
-        jsonLd={[
-          {
-            "@context": "https://schema.org",
-            "@type": "WebSite",
-            name: SITE_NAME,
-            url: SITE_URL,
-          },
-          {
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            name: SITE_NAME,
-            url: SITE_URL,
-          },
-        ]}
-      />
-      <HeroSection />
-
-      {/* Featured plants */}
-      <section className="section-padding relative">
-        <div className="absolute top-0 right-0 w-72 h-72 bg-primary/5 cute-blob -z-10" />
-        <div className="absolute bottom-0 left-0 w-48 h-48 bg-accent/5 cute-blob -z-10" />
-
-        <div className="container mx-auto">
-          <div className="anim-item text-center mb-8 md:mb-14">
-            <h2 className="font-display font-bold text-2xl md:text-5xl text-foreground mb-3 md:mb-4">
-              🌟 {t("featured")}
-            </h2>
-            <p className="text-muted-foreground max-w-lg mx-auto text-sm md:text-lg">{t("featured.sub")}</p>
-          </div>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-7">
-            {featuredPlants.map((plant, i) => (
-              <div key={plant.id} className="anim-item" data-delay={i * 120}>
-                <PlantCard plant={plant} />
-              </div>
-            ))}
-          </div>
-          <div className="text-center mt-8 md:mt-14 anim-item" data-delay="200">
-            <Link
-              to="/plants"
-              className="inline-flex items-center gap-2 px-8 py-3 md:px-10 md:py-4 bg-primary text-primary-foreground font-bold rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-300 cute-shadow group text-base md:text-lg"
-            >
-              <Leaf className="w-5 h-5" />
-              {t("nav.plants")} <ArrowRight className="w-5 h-5 group-hover:translate-x-1.5 transition-transform" />
-            </Link>
-          </div>
+  const allLink = (to: string, text: string) => <Link className="home-outline" to={to}>{text}<ArrowRight size={15} /></Link>;
+  return <div className="home-page">
+    <Seo title={SITE_TITLE[lang]} description={SITE_DESCRIPTION[lang]} jsonLd={[{ "@context": "https://schema.org", "@type": "WebSite", name: SITE_NAME, url: SITE_URL }]} />
+    <section className="home-hero">
+      <div className="home-wrap home-hero-grid">
+        <div className="home-hero-copy">
+          <h1>{th ? "โลกของพรรณไม้" : "A world of plants"}<br /><span>{th ? "เริ่มต้นได้ที่นี่" : "starts right here."}</span></h1>
+          <p className="home-intro">{th ? <>ค้นพบพรรณไม้หลากหลายสายพันธุ์ พร้อมวิธีดูแล<br className="desktop-break" />และแรงบันดาลใจสำหรับคนรักต้นไม้</> : "Discover wonderful plants, practical care guides, and inspiration for a greener life."}</p>
+          <div className="home-benefits"><span><Leaf />{th ? "ข้อมูลครบถ้วน" : "Plant knowledge"}</span><span><BookOpen />{th ? "วิธีดูแลละเอียด" : "Care guides"}</span><span><Heart />{th ? "เหมาะสำหรับทุกคน" : "For everyone"}</span></div>
+          <form className="home-search" role="search" onSubmit={e => { e.preventDefault(); navigate(`/plants${search.trim() ? `?q=${encodeURIComponent(search.trim())}` : ""}`); }}>
+            <Search size={24} /><input aria-label={th ? "ค้นหาพรรณไม้" : "Search plants"} placeholder={th ? "ค้นหาพรรณไม้ หรือคำที่คุณสนใจ..." : "Search for your next favorite plant..."} value={search} onChange={e => setSearch(e.target.value)} /><button aria-label={th ? "ค้นหา" : "Search"}><ArrowRight /></button>
+          </form>
+          <div className="home-tags">{["flower", "foliage", "herb", "cactus", "water"].map(key => <Link key={key} to={`/plants?cat=${key}`}># {label(key)}</Link>)}</div>
         </div>
-      </section>
-
-      {topPlants.length > 0 && (
-        <section className="section-padding relative bg-gradient-to-b from-primary/5 via-transparent to-transparent">
-          <div className="container mx-auto max-w-2xl">
-            <div className="anim-item text-center mb-8 md:mb-10">
-              <h2 className="font-display font-bold text-2xl md:text-4xl text-foreground mb-3">
-                {t("popular.title")}
-              </h2>
-              <p className="text-muted-foreground max-w-lg mx-auto text-sm md:text-lg">{t("popular.sub")}</p>
-            </div>
-            <ol className="anim-item space-y-2">
-              {topPlants.map(({ plant, views }, i) => {
-                const info = categoryInfo[plant.category];
-                const thumb = (data?.images ?? {})[plant.id]?.[0];
-                return (
-                  <li key={plant.id}>
-                    <Link
-                      to={`/plants/${plant.id}`}
-                      state={{ from: "/" }}
-                      className="flex items-center gap-3 p-2.5 sm:p-3 rounded-2xl bg-card border-2 border-border hover:border-primary/40 hover:bg-primary/5 transition-all group"
-                    >
-                      <span className="font-display font-bold text-xl sm:text-2xl w-8 text-center text-primary/70 shrink-0">
-                        {i + 1}
-                      </span>
-                      {thumb ? (
-                        <img
-                          src={thumb}
-                          alt={plant.name[lang]}
-                          loading="lazy"
-                          className="w-12 h-12 rounded-xl object-cover shrink-0"
-                        />
-                      ) : (
-                        <span className="w-12 h-12 rounded-xl bg-muted flex items-center justify-center text-xl shrink-0">
-                          {info?.emoji ?? "🌱"}
-                        </span>
-                      )}
-                      <span className="min-w-0 flex-1">
-                        <span className="block font-semibold text-sm sm:text-base text-card-foreground truncate group-hover:text-primary transition-colors">
-                          {plant.name[lang]}
-                        </span>
-                        <span className="block text-xs text-muted-foreground truncate">
-                          {lang === "th" ? info?.th : info?.en}
-                        </span>
-                      </span>
-                      <ViewCount views={views} className="text-xs shrink-0" />
-                    </Link>
-                  </li>
-                );
-              })}
-            </ol>
-          </div>
-        </section>
-      )}
-
-      {/* Quick Tips */}
-      <section className="section-padding bg-gradient-to-b from-muted/50 via-muted/30 to-background relative overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/3 rounded-full blur-3xl -z-10" />
-
-        <div className="container mx-auto">
-          <div className="anim-item text-center mb-8 md:mb-14">
-            <h2 className="font-display font-bold text-2xl md:text-5xl text-foreground mb-3 md:mb-4">
-              💡 {lang === "th" ? "เคล็ดลับการดูแล" : "Quick Care Tips"}
-            </h2>
-            <p className="text-muted-foreground max-w-lg mx-auto text-sm md:text-lg">
-              {lang === "th" ? "พื้นฐานที่ต้องรู้ก่อนเริ่มปลูกต้นไม้" : "Essential basics before you start gardening"}
-            </p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-8 max-w-5xl mx-auto">
-            {tips.map((tip, i) => (
-              <div key={i} className={`anim-item relative bg-card rounded-2xl md:rounded-3xl border-2 border-border p-5 md:p-8 text-center card-hover group overflow-hidden`} data-delay={i * 150}>
-                <div className={`absolute inset-0 bg-gradient-to-br ${tip.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
-                <div className="relative flex sm:block items-center gap-4 text-left sm:text-center">
-                  <div className="shrink-0 flex sm:block items-center gap-3">
-                    
-                    <div className="w-11 h-11 sm:w-14 sm:h-14 sm:mx-auto sm:mb-5 rounded-xl md:rounded-2xl bg-primary/10 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300 hidden sm:flex">
-                      {tip.icon}
-                    </div>
-                  </div>
-                  <div>
-                    <h3 className="font-display font-bold text-base md:text-xl text-card-foreground mb-1 md:mb-3">{tip.title}</h3>
-                    <p className="text-muted-foreground text-xs md:text-sm leading-relaxed">{tip.desc}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+        <div className="home-hero-visual">
+          <img className="home-hero-backdrop" src="/images/hero-botanical-backdrop.svg" alt="" aria-hidden="true" />
+          <img className="home-hero-art" src="/images/home-hero-supplied.png" alt={th ? "ภาพวาดมอนสเตอร่าในกระถางกับหนังสือสีเขียว" : "Illustrated monstera plant with green books"} width={1254} height={1254} fetchPriority="high" />
+          <div className="home-hero-motto" aria-hidden="true">More<br />Plants<br />Happier<br />People<Leaf /></div>
         </div>
-      </section>
-
-      {/* Categories Carousel */}
-      <section className="section-padding relative">
-        <div className="absolute top-20 left-10 w-56 h-56 bg-accent/5 cute-blob -z-10 animate-leaf-sway" />
-
-        <div className="container mx-auto">
-          <div className="anim-item text-center mb-8 md:mb-14">
-            <h2 className="font-display font-bold text-2xl md:text-5xl text-foreground mb-3 md:mb-4">
-              {t("categories.title")}
-            </h2>
-            <p className="text-muted-foreground max-w-lg mx-auto text-sm md:text-lg">{t("categories.sub")}</p>
-          </div>
-
-          <div className="anim-item relative px-4 md:px-12">
-            <Carousel
-              opts={{ align: "start", loop: true, dragFree: true }}
-              plugins={[
-                AutoScroll({
-                  speed: 2.5,
-                  stopOnInteraction: false,
-                  stopOnMouseEnter: true,
-                }),
-              ]}
-              className="w-full"
-            >
-              <CarouselContent className="-ml-4">
-                {allCategories.map((cat) => {
-                  const info = categoryInfo[cat];
-                  const count = plants.filter((p) => p.category === cat).length;
-                  return (
-                    <CarouselItem key={cat} className="pl-4 basis-1/2 md:basis-1/3 lg:basis-1/4">
-                      <Link
-                        to={`/plants?cat=${cat}`}
-                        className="block bg-card rounded-2xl md:rounded-3xl border-2 border-border p-4 md:p-8 text-center transition-all duration-300 hover:shadow-[0_8px_30px_-8px_hsl(var(--primary)/0.25)] hover:rotate-[0.5deg] group relative overflow-hidden h-full"
-                      >
-                        <div className="absolute -top-6 -right-6 w-24 h-24 bg-primary/5 rounded-full group-hover:scale-[2.5] transition-transform duration-700" />
-                        <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-accent/5 rounded-full group-hover:scale-[2] transition-transform duration-500" />
-                        <div className="relative">
-                          <div className="text-4xl md:text-5xl mb-3 md:mb-5 group-hover:scale-125 group-hover:-rotate-6 transition-all duration-300 inline-block drop-shadow-sm">
-                            {info.emoji}
-                          </div>
-                          <h3 className="font-display font-bold text-sm md:text-base text-card-foreground mb-2 md:mb-3">
-                            {lang === "th" ? info.th : info.en}
-                          </h3>
-                          {count > 0 && (
-                            <p className="text-muted-foreground text-xs md:text-sm bg-muted px-3 py-1.5 md:px-4 md:py-2 rounded-full inline-block font-medium">
-                              {count} {lang === "th" ? "ชนิด" : "species"}
-                            </p>
-                          )}
-                        </div>
-                      </Link>
-                    </CarouselItem>
-                  );
-                })}
-              </CarouselContent>
-              <CarouselPrevious className="absolute -left-2 top-1/2 -translate-y-1/2" />
-              <CarouselNext className="absolute -right-2 top-1/2 -translate-y-1/2" />
-            </Carousel>
-          </div>
-        </div>
-      </section>
-
-      {/* Bottom CTA */}
-      <section className="section-padding">
-        <div className="container mx-auto">
-          <div className="anim-item relative overflow-hidden rounded-2xl md:rounded-[2rem] hero-gradient p-8 md:p-16 text-center">
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,hsl(var(--primary-foreground)/0.05),transparent)]" />
-            <div className="absolute top-4 left-8 w-20 h-20 bg-primary-foreground/10 cute-blob animate-float" />
-            <div className="absolute bottom-4 right-8 w-16 h-16 bg-primary-foreground/10 cute-blob animate-leaf-sway" />
-            <div className="relative">
-              <h2 className="font-display font-bold text-2xl md:text-4xl text-primary-foreground mb-3 md:mb-4">
-                {lang === "th" ? "🌱 เริ่มต้นปลูกต้นไม้กันเถอะ!" : "🌱 Start Your Plant Journey!"}
-              </h2>
-              <p className="text-primary-foreground/70 text-sm md:text-lg mb-6 md:mb-8 max-w-lg mx-auto">
-                {lang === "th" ? "สำรวจพรรณไม้หลากหลายสายพันธุ์และอุปกรณ์จัดสวนครบครัน" : "Explore a diverse collection of plants and gardening supplies"}
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link
-                  to="/plants"
-                  className="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-card text-primary font-bold rounded-full hover:shadow-xl hover:scale-105 transition-all"
-                >
-                  🌿 {t("hero.cta")}
-                </Link>
-                <Link
-                  to="/categories"
-                  className="inline-flex items-center justify-center gap-2 px-8 py-3.5 border-2 border-primary-foreground/40 text-primary-foreground font-bold rounded-full hover:bg-primary-foreground/10 transition-all"
-                >
-                  📦 {t("hero.cta2")}
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-  );
-};
-
-export default Index;
+      </div>
+    </section>
+    <section className="home-featured home-section" id="featured">
+      <div className="home-wrap">
+        <div className="home-heading"><div className="home-heading-copy"><Illustration name="category-foliage" className="home-heading-art" /><div><h2>{th ? "พรรณไม้แนะนำ" : "Meet your next plant"}</h2><p>{th ? "ต้นไม้ยอดนิยมที่คัดมาเพื่อคุณ" : "A little inspiration for your growing collection"}</p></div></div>{allLink("/plants", th ? "ดูพรรณไม้ทั้งหมด" : "Explore all plants")}</div>
+        {(favorites.length > 0 || onlyFavorites) && <button className="home-favorites-filter" onClick={() => setOnlyFavorites(!onlyFavorites)} aria-pressed={onlyFavorites}><Heart size={16} />{onlyFavorites ? (th ? "แสดงพรรณไม้แนะนำ" : "Show featured plants") : (th ? `รายการที่ถูกใจ (${favorites.length})` : `Your favorites (${favorites.length})`)}</button>}
+        {isPending && <p role="status">{th ? "กำลังโหลดพรรณไม้..." : "Loading plants..."}</p>}
+        {isError && <p role="alert">{th ? "โหลดข้อมูลไม่สำเร็จ " : "Unable to load plants. "}<button onClick={() => refetch()}>{th ? "ลองอีกครั้ง" : "Try again"}</button></p>}
+        {!isPending && !isError && featured.length === 0 && <p>{th ? "ยังไม่มีพรรณไม้ในรายการนี้" : "No plants in this collection yet."}</p>}
+        <div className="home-plant-grid">{featured.map(plant => <article className="home-plant" key={plant.id}>
+          <Link to={`/plants/${plant.id}`} state={{ from: "/" }}><ImageWithFallback src={data?.images[plant.id]?.[0]} alt={plant.name[lang]} loading="lazy" className="home-plant-image" /></Link>
+          <div className="home-plant-body"><div className="home-plant-title"><Link to={`/plants/${plant.id}`} state={{ from: "/" }}><h3>{plant.name[lang]}</h3></Link><button aria-label={`${th ? "ถูกใจ" : "Favorite"} ${plant.name[lang]}`} aria-pressed={favorites.includes(plant.id)} onClick={() => setFavorites(prev => prev.includes(plant.id) ? prev.filter(id => id !== plant.id) : [...prev, plant.id])}><Heart size={18} fill={favorites.includes(plant.id) ? "currentColor" : "none"} /></button></div><p>{plant.description[lang]}</p><Link className="home-badge" to={`/plants?cat=${plant.category}`}>{label(plant.category)}</Link></div>
+        </article>)}</div>
+      </div>
+    </section>
+    {popular.length > 0 && <section className="home-popular home-section"><div className="home-wrap"><div className="home-heading"><div className="home-heading-copy"><Illustration name="heading-trophy" className="home-heading-art" /><div><h2>{th ? "ยอดนิยมตอนนี้" : "Popular right now"}</h2><p>{th ? "พรรณไม้ที่มีผู้เข้าชมมากที่สุด" : "The plants our community loves exploring"}</p></div></div>{allLink("/plants?sort=popular", th ? "ดูอันดับทั้งหมด" : "See all plants")}</div><ol className="home-ranking">{popular.map(({ plant }, i) => <li key={plant.id}><Link to={`/plants/${plant.id}`} state={{ from: "/" }}><strong className={`home-rank home-rank-${i}`}>{i + 1}</strong><ImageWithFallback src={data?.images[plant.id]?.[0]} alt={plant.name[lang]} loading="lazy" /><span><b>{plant.name[lang]}</b><small>{label(plant.category)}</small></span><ChevronRight size={18} /></Link></li>)}</ol></div></section>}
+    <section className="home-section home-care" id="care"><div className="home-wrap"><div className="home-heading"><div className="home-heading-copy"><Illustration name="heading-bulb" className="home-heading-art" /><div><h2>{th ? "เคล็ดลับการดูแล" : "A little care goes a long way"}</h2><p>{th ? "ดูแลต้นไม้ให้สวยและอยู่กับเราได้นาน" : "Help your plants thrive, one day at a time"}</p></div></div>{allLink("/plants", th ? "ดูวิธีดูแลแต่ละชนิด" : "Explore care guides")}</div><div className="home-tip-grid">{tips.map((tip, i) => <button className="home-tip" key={tip.title} onClick={() => setOpenTip(openTip === i ? null : i)} aria-expanded={openTip === i} aria-controls="home-tip-detail"><Illustration name={tip.image} className="home-infographic" /><h3>{tip.title}</h3><p>{tip.description}</p></button>)}</div>{openTip !== null && <div className="home-tip-detail" id="home-tip-detail"><h3>{tips[openTip].title}</h3><p>{tips[openTip].detail}</p></div>}</div></section>
+    <section className="home-section home-categories"><div className="home-wrap"><div className="home-heading"><div className="home-heading-copy"><Illustration name="category-foliage" className="home-heading-art" /><div><h2>{th ? "หมวดหมู่พรรณไม้" : "Find your kind of green"}</h2><p>{th ? "สำรวจพรรณไม้ตามประเภทที่คุณสนใจ" : "Explore the plants that speak to you"}</p></div></div>{allLink("/plants", th ? "ดูหมวดหมู่ทั้งหมด" : "All categories")}</div><div className="home-category-grid">{categories.map(({ key, image, ext }) => <Link className="home-category" key={key} to={`/plants?cat=${key}`}><span className={`home-category-icon home-category-icon-${key}`}><Illustration name={image} ext={ext} className="home-infographic" /></span><h3>{label(key)}</h3><span className="home-badge">{plants.filter(p => p.category === key).length} {th ? "ชนิด" : "species"}</span></Link>)}</div></div></section>
+    <section className="home-wrap home-cta-wrap"><div className="home-cta"><div className="home-cta-copy"><span>TreeKingdom</span><h2>{th ? "เริ่มต้นปลูกต้นไม้กันเถอะ!" : "Let’s grow something wonderful!"}</h2><p>{th ? "ค้นพบแรงบันดาลใจใหม่ๆ และร่วมเป็นส่วนหนึ่งของชุมชนคนรักต้นไม้" : "Find fresh inspiration and your own little corner of green."}</p><div className="home-cta-actions">{allLink("/plants", th ? "สำรวจพรรณไม้" : "Explore plants")}{allLink("/personality", th ? "ค้นหาต้นไม้ที่ใช่" : "Find your plant match")}</div></div><img className="home-cta-backdrop" src="/images/footer-botanical-backdrop.svg" alt="" aria-hidden="true" />
+      <img className="home-cta-leaves" src="/images/footer-floating-leaves.svg" alt="" aria-hidden="true" />
+      <img className="home-footer-plant" src="/images/footer-plant-supplied.png" alt="" loading="lazy" width={1254} height={1254} />
+      <span className="home-cta-motto" aria-hidden="true">Small<br />Plants<br />Big<br />Happiness<Heart /></span></div></section>
+  </div>;
+}

@@ -54,7 +54,7 @@ const translations: Record<string, Record<Lang, string>> = {
   "back": { th: "กลับ", en: "Back" },
   "featured": { th: "พรรณไม้แนะนำ", en: "Featured Plants" },
   "featured.sub": { th: "ต้นไม้ยอดนิยมที่คัดสรรมาเพื่อคุณ", en: "Hand-picked favorites for you" },
-  "popular.title": { th: "🔥 ยอดนิยมตอนนี้", en: "🔥 Trending Now" },
+  "popular.title": { th: "ยอดนิยมตอนนี้", en: "Trending Now" },
   "popular.sub": { th: "พรรณไม้ที่คนดูมากที่สุดในช่วงนี้", en: "The most-viewed plants right now" },
   "categories.title": { th: "หมวดหมู่พรรณไม้", en: "Plant Categories" },
   "categories.sub": { th: "เลือกดูพรรณไม้ตามประเภทที่สนใจ", en: "Browse plants by category" },

@@ -1,0 +1,27 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <!-- Lily pad: the single most recognizable "aquatic plant" silhouette —
+       reads instantly as water flora rather than a generic leaf, matching
+       how each sibling category icon (leaf, flower, cactus, tree) is one
+       bold iconic shape rather than a busy scene. A circle with one wedge
+       notch (the classic lily-pad cue), veins fanning from the notch like
+       the foliage icon's fanning leaf veins. -->
+  <path
+    d="M100,92 L74.8,148.6 A62,62 0 1,1 125.2,148.6 Z"
+    fill="#4f9d6c"
+  />
+  <g stroke="#d7e78a" stroke-width="4.5" stroke-linecap="round" fill="none">
+    <path d="M100,92 L76.8,144.1" />
+    <path d="M100,92 L44.2,80.1" />
+    <path d="M100,92 L100,35" />
+    <path d="M100,92 L155.8,80.1" />
+    <path d="M100,92 L123.2,144.1" />
+  </g>
+
+  <!-- water ripples beneath the pad, replacing the soil mound the watering-tip
+       illustration uses — this is what actually distinguishes "grows in
+       water" from "gets watered". -->
+  <g stroke="#8fcdea" stroke-width="6" stroke-linecap="round" fill="none">
+    <path d="M26 160 C46 152 56 168 76 160 C96 152 106 168 126 160 C146 152 156 168 174 160" />
+    <path d="M36 178 C52 172 60 184 76 178 C92 172 100 184 116 178 C132 172 140 184 156 178" opacity="0.6" />
+  </g>
+</svg>

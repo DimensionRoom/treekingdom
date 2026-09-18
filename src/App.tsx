@@ -23,15 +23,16 @@ const queryClient = new QueryClient();
 
 const AppLayout = () => {
   const location = useLocation();
+  const isHome = location.pathname === "/";
   const isDetailPage =
     /^\/plants\/.+/.test(location.pathname) ||
     /^\/categories\/.+/.test(location.pathname);
   const isAuthArea = location.pathname === "/tk-portal-9x7" || location.pathname.startsWith("/admin");
 
   return (
-    <div className="h-screen flex flex-col overflow-hidden">
+    <div className={isHome ? "home-shell min-h-screen flex flex-col" : "h-screen flex flex-col overflow-hidden"}>
       <Header />
-      <main className="flex-1 min-h-0 overflow-y-auto">
+      <main className={isHome ? "flex-1" : "flex-1 min-h-0 overflow-y-auto"}>
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/plants" element={<PlantsPage />} />
