@@ -18,6 +18,13 @@
 }
 .home-hero {
   background: #f3f8f5;
+  /* dvh (dynamic viewport height) is the real fill on mobile, where vh is
+     the browser chrome's tallest state and leaves a gap once the address
+     bar collapses; vh stays first as the fallback for older browsers. */
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
 }
 .home-hero-grid {
   display: grid;
