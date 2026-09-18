@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, lazy, Suspense } from "react";
 import ImageUploader from "./ImageUploader";
 import { Loader2, Plus, Trash2, ChevronDown, ChevronUp, Check, ChevronsUpDown } from "lucide-react";
 import { ARCHETYPES } from "@/lib/personality";
@@ -7,6 +7,8 @@ import { cn } from "@/lib/utils";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { tagBadgeStyle, contrastText } from "@/lib/tagColor";
+import type { EmojiClickData, Theme } from "emoji-picker-react";
 
 
 function NumberInput({
@@ -60,13 +62,18 @@ interface Option { value: string; label: string }
 interface Props {
   entity: Entity;
   record: any | null;
+  /** Seeds a fresh create with another row's data ("Copy" in the admin list)
+   *  — unlike `record`, this doesn't lock the id/key field or make the save
+   *  an update; it's still a plain create, just pre-filled. Ignored when
+   *  `record` is set (editing takes priority). */
+  prefill?: any | null;
   onSubmit: (r: any) => Promise<void> | void;
   onCancel: () => void;
   categoryOptions?: Option[];
   supplyCategoryOptions?: Option[];
   plantIdOptions?: Option[];
   varietyOptions?: (Option & { plantId: string })[];
-  tagOptions?: (Option & { color: string; emoji: string | null })[];
+  tagOptions?: (Option & { color: string; bgColor: string | null; textColor: string | null; emoji: string | null })[];
   originOptions?: (Option & { link: string | null })[];
   /** Quick-creates a new origins master record from the Origin combobox's
    *  search text; returns the new option so it can be selected immediately,
@@ -133,6 +140,8 @@ const defaults: Record<Entity, any> = {
     key: "",
     emoji: "✨",
     color: "badge-new",
+    bg_color: null,
+    text_color: null,
     name: { th: "", en: "" },
     sort_order: 0,
   },
@@ -260,7 +269,7 @@ const TagPicker = ({
 }: {
   value: string[];
   onChange: (next: string[]) => void;
-  options: (Option & { color: string; emoji: string | null })[];
+  options: (Option & { color: string; bgColor: string | null; textColor: string | null; emoji: string | null })[];
 }) => {
   const selected = value ?? [];
   const toggle = (key: string) =>
@@ -276,14 +285,18 @@ const TagPicker = ({
         <div className="flex flex-wrap gap-1.5">
           {options.map((o) => {
             const on = selected.includes(o.value);
+            // Custom colors (badge-category has no bg/text of its own) need the
+            // inline style applied; a preset class already carries its colors.
+            const { className: colorClass, style } = tagBadgeStyle(o);
             return (
               <button
                 key={o.value}
                 type="button"
                 onClick={() => toggle(o.value)}
                 aria-pressed={on}
+                style={on ? style : undefined}
                 className={`px-3 py-1 rounded-full text-xs font-semibold border-2 transition-colors ${
-                  on ? `${o.color} border-transparent` : "bg-card border-border text-muted-foreground hover:border-primary/40"
+                  on ? `${colorClass} border-transparent` : "bg-card border-border text-muted-foreground hover:border-primary/40"
                 }`}
               >
                 {o.emoji && <span className="mr-1">{o.emoji}</span>}
@@ -329,6 +342,145 @@ const BilingualText = ({
         />
       </div>
     </Field>
+  );
+};
+
+/** One color swatch: native color-well for picking + a hex text field for
+ *  precision, either drives the other. Null clears back to "not set". */
+const ColorPicker = ({
+  label,
+  value,
+  onChange,
+}: {
+  label: string;
+  value: string | null | undefined;
+  onChange: (v: string | null) => void;
+}) => {
+  const isHex = !!value && /^#[0-9a-fA-F]{6}$/.test(value);
+  return (
+    <Field label={label}>
+      <div className="flex items-center gap-2">
+        <input
+          type="color"
+          // color-swatch-flat (index.css) strips the browser's own chrome —
+          // gray backdrop, border, rounding — down to just the flat color.
+          className="color-swatch-flat h-10 w-12 shrink-0 cursor-pointer"
+          value={isHex ? (value as string) : "#ffffff"}
+          onChange={(e) => onChange(e.target.value)}
+          aria-label={label}
+        />
+        <input
+          className={fieldCls}
+          placeholder="#22c55e"
+          value={value ?? ""}
+          onChange={(e) => onChange(e.target.value.trim() || null)}
+        />
+        {value && (
+          <button
+            type="button"
+            onClick={() => onChange(null)}
+            className="shrink-0 text-xs text-muted-foreground hover:text-destructive"
+          >
+            ล้าง
+          </button>
+        )}
+      </div>
+    </Field>
+  );
+};
+
+/**
+ * A tag's two custom colors (background + text), used together to override
+ * the preset `color` class — see tagBadgeStyle in @/lib/tagColor for the
+ * fallback rule. Either field left empty and the preset applies as before.
+ */
+const TagColorFields = ({
+  bgColor,
+  textColor,
+  onChange,
+}: {
+  bgColor: string | null | undefined;
+  textColor: string | null | undefined;
+  onChange: (patch: { bg_color?: string | null; text_color?: string | null }) => void;
+}) => (
+  <div className="space-y-1.5">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <ColorPicker
+        label="สีพื้นหลังกำหนดเอง (ไม่บังคับ)"
+        value={bgColor}
+        onChange={(v) => onChange({ bg_color: v })}
+      />
+      <ColorPicker
+        label="สีตัวอักษรกำหนดเอง (ไม่บังคับ)"
+        value={textColor}
+        onChange={(v) => onChange({ text_color: v })}
+      />
+    </div>
+    <p className="text-xs text-muted-foreground">
+      ใส่ทั้งสองช่องเพื่อใช้สีที่กำหนดเองแทนพาเล็ตต์ด้านบน — เว้นว่างช่องใดช่องหนึ่งจะกลับไปใช้พาเล็ตต์ตามปกติ
+    </p>
+  </div>
+);
+
+// emoji-picker-react's emoji dataset is ~80KB gzipped — dead weight on every
+// public storefront page for a widget only the admin panel uses. Lazy-loaded
+// so it's fetched on first open instead of bundled into the main chunk.
+const LazyEmojiPicker = lazy(() => import("emoji-picker-react"));
+
+/** Any raw emoji <input> in this form, replaced by a tap-to-pick picker —
+ *  typing an emoji by hand is fiddly on desktop and inconsistent across
+ *  platforms. Selecting one closes the popover; the × clears it. */
+const EmojiField = ({
+  value,
+  onChange,
+}: {
+  value: string | null | undefined;
+  onChange: (v: string) => void;
+}) => {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="flex items-center gap-2">
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger asChild>
+          <button
+            type="button"
+            className={cn(fieldCls, "flex items-center justify-center text-lg")}
+            aria-label="เลือก emoji"
+          >
+            {value || <span className="text-sm text-muted-foreground">เลือก…</span>}
+          </button>
+        </PopoverTrigger>
+        <PopoverContent className="w-auto p-0" align="start">
+          {/* Popover content only mounts once open, so this is the first time
+              the lazy import actually fires. */}
+          <Suspense
+            fallback={
+              <div className="flex h-[360px] w-[320px] items-center justify-center">
+                <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+              </div>
+            }
+          >
+            <LazyEmojiPicker
+              onEmojiClick={(e: EmojiClickData) => { onChange(e.emoji); setOpen(false); }}
+              theme={"auto" as Theme}
+              skinTonesDisabled
+              width={320}
+              height={360}
+            />
+          </Suspense>
+        </PopoverContent>
+      </Popover>
+      {value && (
+        <button
+          type="button"
+          onClick={() => onChange("")}
+          aria-label="ล้าง emoji"
+          className="shrink-0 text-xs text-muted-foreground hover:text-destructive"
+        >
+          ล้าง
+        </button>
+      )}
+    </div>
   );
 };
 
@@ -798,20 +950,20 @@ const FormsEditor = ({
 // ---- main form ------------------------------------------------------------
 
 const EntityForm = ({
-  entity, record, onSubmit, onCancel,
+  entity, record, prefill, onSubmit, onCancel,
   categoryOptions = [], supplyCategoryOptions = [], plantIdOptions = [], varietyOptions = [],
   tagOptions = [], originOptions = [], onCreateOrigin,
 }: Props) => {
-  const [data, setData] = useState<any>(record ?? defaults[entity]);
+  const [data, setData] = useState<any>(record ?? prefill ?? defaults[entity]);
   const [busy, setBusy] = useState(false);
   const [showJson, setShowJson] = useState(false);
   const [jsonText, setJsonText] = useState("");
 
   useEffect(() => {
-    const initial = record ?? defaults[entity];
+    const initial = record ?? prefill ?? defaults[entity];
     setData(initial);
     setJsonText(JSON.stringify(initial, null, 2));
-  }, [record, entity]);
+  }, [record, prefill, entity]);
 
   const patch = (p: any) => {
     const next = { ...data, ...p };
@@ -889,11 +1041,7 @@ const EntityForm = ({
                   />
                 </Field>
                 <Field label="Emoji">
-                  <input
-                    className={fieldCls}
-                    value={data.emoji ?? ""}
-                    onChange={(e) => patch({ emoji: e.target.value })}
-                  />
+                  <EmojiField value={data.emoji} onChange={(v) => patch({ emoji: v })} />
                 </Field>
               </div>
               <BilingualText
@@ -980,11 +1128,7 @@ const EntityForm = ({
                   />
                 </Field>
                 <Field label="Emoji">
-                  <input
-                    className={fieldCls}
-                    value={data.emoji ?? ""}
-                    onChange={(e) => patch({ emoji: e.target.value })}
-                  />
+                  <EmojiField value={data.emoji} onChange={(v) => patch({ emoji: v })} />
                 </Field>
               </div>
               <BilingualText
@@ -1160,13 +1304,9 @@ const EntityForm = ({
                   />
                 </Field>
                 <Field label="Emoji">
-                  <input
-                    className={fieldCls}
-                    value={data.emoji ?? ""}
-                    onChange={(e) => patch({ emoji: e.target.value })}
-                  />
+                  <EmojiField value={data.emoji} onChange={(v) => patch({ emoji: v })} />
                 </Field>
-                <Field label="Color">
+                <Field label="Color preset">
                   <SelectOrCustom
                     value={data.color ?? "badge-new"}
                     onChange={(v) => patch({ color: v })}
@@ -1175,12 +1315,39 @@ const EntityForm = ({
                   />
                 </Field>
               </div>
+              <TagColorFields
+                bgColor={data.bg_color}
+                textColor={data.text_color}
+                onChange={(p) => {
+                  // tagBadgeStyle only applies a custom color once BOTH fields
+                  // are set — otherwise the first pick alone looked like it did
+                  // nothing. Auto-fill a legible partner for whichever field
+                  // was still empty, so the preview reacts immediately; the
+                  // admin can still overwrite the auto-picked value.
+                  if (p.bg_color && !data.text_color) {
+                    patch({ ...p, text_color: contrastText(p.bg_color) });
+                  } else if (p.text_color && !data.bg_color) {
+                    patch({ ...p, bg_color: "#64748b" });
+                  } else {
+                    patch(p);
+                  }
+                }}
+              />
               <div className="flex items-center gap-2">
                 <span className="text-xs font-semibold text-muted-foreground">Preview:</span>
-                <span className={data.color || "badge-new"}>
-                  {data.emoji && <span className="mr-1">{data.emoji}</span>}
-                  {data.name?.th || data.key || "แท็ก"}
-                </span>
+                {(() => {
+                  const { className, style } = tagBadgeStyle({
+                    color: data.color,
+                    bgColor: data.bg_color,
+                    textColor: data.text_color,
+                  }, "badge-new");
+                  return (
+                    <span className={className} style={style}>
+                      {data.emoji && <span className="mr-1">{data.emoji}</span>}
+                      {data.name?.th || data.key || "แท็ก"}
+                    </span>
+                  );
+                })()}
               </div>
               <BilingualText
                 label="Name"
@@ -1243,11 +1410,7 @@ const EntityForm = ({
                   />
                 </Field>
                 <Field label="Emoji">
-                  <input
-                    className={fieldCls}
-                    value={data.emoji ?? ""}
-                    onChange={(e) => patch({ emoji: e.target.value })}
-                  />
+                  <EmojiField value={data.emoji} onChange={(v) => patch({ emoji: v })} />
                 </Field>
                 <Field label="Color token">
                   <input
@@ -1296,11 +1459,7 @@ const EntityForm = ({
                   />
                 </Field>
                 <Field label="Emoji">
-                  <input
-                    className={fieldCls}
-                    value={data.emoji ?? ""}
-                    onChange={(e) => patch({ emoji: e.target.value })}
-                  />
+                  <EmojiField value={data.emoji} onChange={(v) => patch({ emoji: v })} />
                 </Field>
               </div>
               <BilingualText label="Title" value={data.title} onChange={(v) => patch({ title: v })} />
@@ -1361,11 +1520,7 @@ const EntityForm = ({
                   />
                 </Field>
                 <Field label="Emoji">
-                  <input
-                    className={fieldCls}
-                    value={data.emoji ?? ""}
-                    onChange={(e) => patch({ emoji: e.target.value })}
-                  />
+                  <EmojiField value={data.emoji} onChange={(v) => patch({ emoji: v })} />
                 </Field>
               </div>
               <BilingualText

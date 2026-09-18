@@ -19,6 +19,7 @@ import {
   CommandList,
 } from "@/components/ui/command";
 import { cn } from "@/lib/utils";
+import { tagBadgeStyle } from "@/lib/tagColor";
 import gsap from "gsap";
 
 const categoryOptions: { value: SupplyCategory; labelTh: string; labelEn: string; emoji: string }[] = [
@@ -139,13 +140,17 @@ const CategoriesPage = () => {
     count: supplies.filter((s) => s.category === cat.value).length,
   }));
 
-  const tagChipOptions = tagChoices.map((tg) => ({
-    value: tg.key,
-    label: tg.name[lang] || tg.key,
-    emoji: tg.emoji,
-    count: supplies.filter((s) => (s.tags ?? []).includes(tg.key)).length,
-    color: tg.color,
-  }));
+  const tagChipOptions = tagChoices.map((tg) => {
+    const { className, style } = tagBadgeStyle(tg);
+    return {
+      value: tg.key,
+      label: tg.name[lang] || tg.key,
+      emoji: tg.emoji,
+      count: supplies.filter((s) => (s.tags ?? []).includes(tg.key)).length,
+      color: className,
+      style,
+    };
+  });
 
   const activeSortLabel = sortOptions.find((s) => s.value === sortBy)?.[lang === "th" ? "labelTh" : "labelEn"] ?? "";
 

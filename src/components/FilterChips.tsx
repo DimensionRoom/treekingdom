@@ -1,3 +1,5 @@
+import type { CSSProperties } from "react";
+
 export interface ChipOption {
   value: string;
   label: string;
@@ -6,6 +8,9 @@ export interface ChipOption {
   count: number;
   /** Active-state classes, e.g. a tag's own badge color. Falls back to primary. */
   color?: string;
+  /** Inline override for a tag's freely-chosen bg/text color pair — takes
+   *  precedence over `color` when present (see tagBadgeStyle in @/lib/tagColor). */
+  style?: CSSProperties;
 }
 
 interface FilterChipsProps {
@@ -33,12 +38,14 @@ interface FilterChipsProps {
 const FilterChips = ({ options, active, onChange, allLabel, totalCount, edgeFade, className = "" }: FilterChipsProps) => {
   const isActive = (value: string) => (Array.isArray(active) ? active.includes(value) : active === value);
 
-  const chipClass = (on: boolean, disabled: boolean, color?: string) =>
+  const chipClass = (on: boolean, disabled: boolean, color?: string, hasStyle?: boolean) =>
     `shrink-0 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-semibold border-2 transition-colors whitespace-nowrap ${
       disabled
         ? "bg-card border-border text-muted-foreground/40 cursor-not-allowed"
         : on
-          ? `${color ?? "bg-primary text-primary-foreground"} border-transparent`
+          // An inline style (custom color) supplies its own bg/text, so no color
+          // utility class is added alongside it — just the transparent border.
+          ? `${hasStyle ? "" : (color ?? "bg-primary text-primary-foreground")} border-transparent`
           : "bg-card border-border text-muted-foreground hover:border-primary/40"
     }`;
 
@@ -61,7 +68,8 @@ const FilterChips = ({ options, active, onChange, allLabel, totalCount, edgeFade
                 disabled={disabled}
                 aria-pressed={isActive(opt.value)}
                 onClick={() => onChange(opt.value)}
-                className={chipClass(isActive(opt.value), disabled, opt.color)}
+                style={isActive(opt.value) ? opt.style : undefined}
+                className={chipClass(isActive(opt.value), disabled, opt.color, !!opt.style)}
               >
                 {opt.emoji && <span>{opt.emoji}</span>}
                 {opt.label}

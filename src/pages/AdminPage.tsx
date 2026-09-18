@@ -5,14 +5,16 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { supabase } from "@/integrations/supabase-external/client";
 import { useQueries, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { Loader2, LogOut, Pencil, Trash2, Plus, ShieldCheck, Search, X, ArrowRight } from "lucide-react";
+import { Loader2, LogOut, Pencil, Trash2, Plus, ShieldCheck, Search, X, ArrowRight, Copy } from "lucide-react";
 import {
   Dialog, DialogContent, DialogHeader, DialogTitle,
 } from "@/components/ui/dialog";
 import EntityForm from "@/components/admin/EntityForm";
 import FortuneMessagesPanel from "@/components/admin/FortuneMessagesPanel";
+import ViewRankPanel from "@/components/admin/ViewRankPanel";
 import { deleteImage, getPublicUrl } from "@/lib/storage";
 import { saleInfo } from "@/lib/price";
+import { tagBadgeStyle } from "@/lib/tagColor";
 import Seo from "@/components/Seo";
 import ImageWithFallback from "@/components/ImageWithFallback";
 
@@ -58,10 +60,18 @@ const AdminPage = () => {
   const [params, setParams] = useSearchParams();
   const [editing, setEditing] = useState<any | null>(null);
   const [creating, setCreating] = useState(false);
+  // Prefills the create form from an existing row's data ("Copy" in the
+  // list) — distinct from `editing`, which locks the id/key field and saves
+  // as an update. This stays a plain create so the admin retypes a fresh
+  // id/key before submitting.
+  const [copyPrefill, setCopyPrefill] = useState<any | null>(null);
   const [search, setSearch] = useState("");
   // Not a CRUD entity like the ENTITIES tabs — a standalone panel for topping
   // up the daily-fortune message pool (see fortune-messages-external.sql).
   const [fortunePanelOpen, setFortunePanelOpen] = useState(false);
+  // Same idea — a standalone read-only panel, not a CRUD entity (see
+  // view-counts-external.sql). Mutually exclusive with the fortune panel.
+  const [viewRankPanelOpen, setViewRankPanelOpen] = useState(false);
 
   const tabParam = params.get("tab") as Entity | null;
   const tab: Entity = tabParam && ENTITIES.includes(tabParam) ? tabParam : "plants";
@@ -149,6 +159,8 @@ const AdminPage = () => {
         // this label, so baking it into the label too showed it twice.
         label: `${tg.name?.th ?? tg.key}${tg.name?.en ? ` / ${tg.name.en}` : ""}`,
         color: tg.color ?? "badge-humid",
+        bgColor: tg.bg_color ?? null,
+        textColor: tg.text_color ?? null,
         emoji: tg.emoji ?? null,
       })),
     [tagRows],
@@ -227,6 +239,19 @@ const AdminPage = () => {
     await Promise.all(paths.map((p) => deleteImage(p).catch(() => {})));
     toast.success(lang === "th" ? "ลบแล้ว" : "Deleted");
     qc.invalidateQueries();
+  };
+
+  /** Opens the create form pre-filled from an existing row — everything
+   *  except the id/key (must be unique, so it's cleared for the admin to
+   *  retype) and timestamps (let the DB stamp the new row's own). Child
+   *  collections (a supply's variants, a variety's forms) live on separate
+   *  rows keyed off this one's id, so they aren't duplicated — the copy
+   *  starts with none, same as a normal new row. */
+  const handleCopy = (row: any) => {
+    const pkCol = tab === "categories" || tab === "tags" || tab === "origins" ? "key" : "id";
+    const { [pkCol]: _pk, created_at, updated_at, ...rest } = row;
+    setCopyPrefill({ ...rest, [pkCol]: "" });
+    setCreating(true);
   };
 
   // Load variants for the supply being edited/created
@@ -367,6 +392,7 @@ const AdminPage = () => {
     toast.success(lang === "th" ? "บันทึกแล้ว" : "Saved");
     setEditing(null);
     setCreating(false);
+    setCopyPrefill(null);
     qc.invalidateQueries();
   };
 
@@ -417,7 +443,7 @@ const AdminPage = () => {
 
       <div className="flex gap-2 mb-4 overflow-x-auto scrollbar-hide -mx-4 px-4">
         <button
-          onClick={() => setFortunePanelOpen((v) => !v)}
+          onClick={() => { setFortunePanelOpen((v) => !v); setViewRankPanelOpen(false); }}
           className={`px-4 py-1.5 rounded-full text-sm font-medium border-2 whitespace-nowrap inline-flex items-center gap-1.5 ${
             fortunePanelOpen ? "bg-primary text-primary-foreground border-primary" : "bg-card border-border"
           }`}
@@ -425,10 +451,21 @@ const AdminPage = () => {
           <span>🔮</span>
           {lang === "th" ? "ดวงรายวัน" : "Daily fortune"}
         </button>
+        <button
+          onClick={() => { setViewRankPanelOpen((v) => !v); setFortunePanelOpen(false); }}
+          className={`px-4 py-1.5 rounded-full text-sm font-medium border-2 whitespace-nowrap inline-flex items-center gap-1.5 ${
+            viewRankPanelOpen ? "bg-primary text-primary-foreground border-primary" : "bg-card border-border"
+          }`}
+        >
+          <span>📊</span>
+          {lang === "th" ? "อันดับยอดวิว" : "View ranking"}
+        </button>
       </div>
 
       {fortunePanelOpen ? (
         <FortuneMessagesPanel />
+      ) : viewRankPanelOpen ? (
+        <ViewRankPanel />
       ) : (
       <>
       <div className="relative mb-4">
@@ -579,11 +616,14 @@ const AdminPage = () => {
                         {tab === "personality_examples" && (
                           <>type: {r.archetype}{r.plant_id ? ` · plant: ${r.plant_id}` : ""}</>
                         )}
-                        {tab === "tags" && (
-                          <span className={r.color ?? "badge-humid"}>
-                            {r.emoji ? `${r.emoji} ` : ""}{r.name?.th ?? r.key}
-                          </span>
-                        )}
+                        {tab === "tags" && (() => {
+                          const { className, style } = tagBadgeStyle({ color: r.color, bgColor: r.bg_color, textColor: r.text_color });
+                          return (
+                            <span className={className} style={style}>
+                              {r.emoji ? `${r.emoji} ` : ""}{r.name?.th ?? r.key}
+                            </span>
+                          );
+                        })()}
                         {tab === "origins" && (r.link || "— no link —")}
                       </td>
                       <td className="p-3 text-right" onClick={(e) => e.stopPropagation()}>
@@ -594,6 +634,14 @@ const AdminPage = () => {
                             className="p-2 rounded-lg hover:bg-muted disabled:opacity-40"
                           >
                             <Pencil className="w-4 h-4" />
+                          </button>
+                          <button
+                            onClick={() => handleCopy(r)}
+                            disabled={!isAdmin}
+                            title={lang === "th" ? "คัดลอกเป็นรายการใหม่" : "Copy as new"}
+                            className="p-2 rounded-lg hover:bg-muted disabled:opacity-40"
+                          >
+                            <Copy className="w-4 h-4" />
                           </button>
                           <button
                             onClick={() => handleDelete(r)}
@@ -631,7 +679,7 @@ const AdminPage = () => {
       <Dialog
         open={!!editing || creating}
         onOpenChange={(o) => {
-          if (!o) { setEditing(null); setCreating(false); }
+          if (!o) { setEditing(null); setCreating(false); setCopyPrefill(null); }
         }}
       >
         <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
@@ -645,8 +693,9 @@ const AdminPage = () => {
           <EntityForm
             entity={tab}
             record={editingWithVariants}
+            prefill={copyPrefill}
             onSubmit={handleSave}
-            onCancel={() => { setEditing(null); setCreating(false); }}
+            onCancel={() => { setEditing(null); setCreating(false); setCopyPrefill(null); }}
             categoryOptions={categoryOptions}
             supplyCategoryOptions={supplyCategoryOptions}
             plantIdOptions={plantIdOptions}

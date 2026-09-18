@@ -163,6 +163,32 @@
   .cute-shadow {
     box-shadow: 0 6px 24px -6px hsl(var(--primary) / 0.2), 0 2px 8px -2px hsl(var(--rose) / 0.1);
   }
+
+  /* Strips every layer of native chrome from <input type="color"> — the
+     default swatch carries its own gray backdrop, padding and border that
+     Tailwind utilities alone can't reach (the browser renders them via
+     pseudo-elements). Leaves just the flat color filling the box. */
+  .color-swatch-flat {
+    appearance: none;
+    -webkit-appearance: none;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    background: none;
+  }
+  .color-swatch-flat::-webkit-color-swatch-wrapper {
+    padding: 0;
+    border: none;
+    border-radius: 0;
+  }
+  .color-swatch-flat::-webkit-color-swatch {
+    border: none;
+    border-radius: 0;
+  }
+  .color-swatch-flat::-moz-color-swatch {
+    border: none;
+    border-radius: 0;
+  }
 }
 
 /* Scroll reveal animations */

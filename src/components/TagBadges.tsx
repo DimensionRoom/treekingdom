@@ -1,5 +1,6 @@
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useTagMap } from "@/hooks/useCloudData";
+import { tagBadgeStyle } from "@/lib/tagColor";
 
 interface Props {
   tags?: string[] | null;
@@ -33,12 +34,15 @@ const TagBadges = ({ tags, variant = "inline", max, className = "" }: Props) => 
 
   return (
     <div className={wrapper}>
-      {shown.map((t) => (
-        <span key={t.key} className={`${t.color} ${size}`}>
-          {t.emoji && <span className="mr-1">{t.emoji}</span>}
-          {t.name[lang] || t.key}
-        </span>
-      ))}
+      {shown.map((t) => {
+        const { className, style } = tagBadgeStyle(t);
+        return (
+          <span key={t.key} className={`${className} ${size}`} style={style}>
+            {t.emoji && <span className="mr-1">{t.emoji}</span>}
+            {t.name[lang] || t.key}
+          </span>
+        );
+      })}
       {hidden > 0 && <span className={`badge-humid ${size}`}>+{hidden}</span>}
     </div>
   );
