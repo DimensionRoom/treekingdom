@@ -59,10 +59,19 @@ const PlantsPage = () => {
   const filtered = plants
     .filter((p) => {
       const matchesCat = !activeCategory || p.category === activeCategory;
+      // Also match the plant's category label (e.g. "แคคตัส/ไม้อวบน้ำ") —
+      // a plant's own name is often a specific species (Echeveria,
+      // Gymnocalycium...) that never contains the general word someone
+      // types for the kind of plant it is, so name-only search missed
+      // every plant in a category whose name doesn't spell that category out.
+      const catInfo = categoryInfo[p.category];
+      const q = search.toLowerCase();
       const matchesSearch =
         !search ||
         p.name.th.includes(search) ||
-        p.name.en.toLowerCase().includes(search.toLowerCase());
+        p.name.en.toLowerCase().includes(q) ||
+        !!catInfo?.th.includes(search) ||
+        !!catInfo?.en.toLowerCase().includes(q);
       return matchesCat && matchesSearch;
     })
     .sort((a, b) => {
