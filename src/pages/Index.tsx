@@ -9,16 +9,12 @@ import { SITE_NAME, SITE_TITLE, SITE_DESCRIPTION, SITE_URL } from "@/lib/site";
 import type { PlantCategory } from "@/data/plants";
 import "./home.css";
 
-// "water" points at its own category-water.svg rather than reusing
-// care-water.png — that PNG is the "watering tip" illustration (a potted
-// plant with droplets), a different idea from "plants that grow in water"
-// and duplicating it across both slots read as a mistake.
 const categories: { key: PlantCategory; image: string; ext?: "png" | "svg" }[] = [
   { key: "tree", image: "category-tree" },
   { key: "flower", image: "category-flower" },
   { key: "foliage", image: "category-foliage" },
   { key: "cactus", image: "category-cactus" },
-  { key: "water", image: "category-water", ext: "svg" },
+  { key: "water", image: "category-water" },
 ];
 
 const Illustration = ({ name, ext = "png", className = "" }: { name: string; ext?: "png" | "svg"; className?: string }) => (
