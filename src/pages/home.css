@@ -240,15 +240,6 @@
   gap: 17px;
   list-style: none;
 }
-.home-ranking a {
-  display: flex;
-  align-items: center;
-  gap: 17px;
-  background: white;
-  border-radius: 18px;
-  padding: 15px 19px;
-  min-height: 97px;
-}
 .home-rank {
   font-size: 42px;
   font-weight: 600;
@@ -451,10 +442,6 @@
   .home-heading h2 {
     font-size: 27px;
   }
-  .home-ranking a {
-    gap: 10px;
-    padding: 13px;
-  }
   .home-ranking img {
     width: 48px;
     height: 48px;
@@ -549,11 +536,6 @@
   .home-ranking {
     grid-template-columns: 1fr;
     gap: 10px;
-  }
-  .home-ranking a {
-    min-height: 82px;
-    padding: 12px 20px;
-    gap: 20px;
   }
   .home-ranking img {
     height: 54px;
@@ -1050,7 +1032,7 @@
 }
 .home-ranking-card:hover { transform: translateY(-4px); box-shadow: 0 14px 28px #9e735119; }
 .home-ranking-card-1 { border-color: #f2d58b; box-shadow: 0 7px 22px #e8b65217; }
-.home-ranking-card > a {
+.home-ranking-card-inner {
   display: flex;
   align-items: center;
   gap: clamp(10px, 1vw, 18px);
@@ -1059,19 +1041,6 @@
   background: transparent;
   border-radius: inherit;
 }
-.home-ranking-card .home-ranking-number {
-  display: grid;
-  place-items: center;
-  flex: 0 0 clamp(52px, 4vw, 72px);
-  width: clamp(52px, 4vw, 72px);
-  height: clamp(52px, 4vw, 72px);
-  border-radius: 50%;
-  color: white;
-  background: #b8bfc0;
-  font: 600 clamp(31px, 2.9vw, 48px)/1 Kanit, sans-serif;
-}
-.home-ranking-card-1 .home-ranking-number { background: #f5be46; }
-.home-ranking-card-3 .home-ranking-number { background: #c99177; }
 .home-ranking-card .home-ranking-image {
   flex: 0 0 clamp(90px, 8.1vw, 148px);
   width: clamp(90px, 8.1vw, 148px);
@@ -1102,6 +1071,103 @@
   font-size: clamp(14px, 1.15vw, 18px);
   margin-top: 7px;
 }
+/* The plant link covers the whole card, so anywhere that isn't the variety
+   link below still navigates to the plant — the card just isn't one big
+   anchor any more, since that can't legally contain another one. */
+.home-ranking-link { color: inherit; }
+.home-ranking-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+.home-ranking-variety {
+  /* Above the stretched plant link's overlay, so it takes its own clicks. */
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  margin-top: 11px;
+  padding: 6px 12px 6px 6px;
+  border: 1px solid #eef0ea;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 3px 10px #6b5a3a0f;
+  color: #46524b;
+  transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+.home-ranking-variety:hover {
+  border-color: #bcd8c4;
+  box-shadow: 0 6px 16px #4f7f5c1f;
+  transform: translateY(-1px);
+}
+/* `.home-ranking img` sets 65px on any image in this section and outranks a
+   bare class, so this one is qualified to win. */
+.home-ranking-variety .home-ranking-variety-image {
+  flex: 0 0 clamp(38px, 3.2vw, 52px);
+  width: clamp(38px, 3.2vw, 52px);
+  height: clamp(38px, 3.2vw, 52px);
+  border-radius: 12px;
+  object-fit: cover;
+}
+/* Same story for `.home-ranking span { flex: 1 }` on the three spans below. */
+.home-ranking-variety .home-ranking-variety-text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+  gap: 1px;
+  line-height: 1.25;
+}
+.home-ranking-variety .home-ranking-variety-label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #7d8a82;
+  font-size: clamp(10px, .8vw, 12px);
+}
+.home-ranking-variety .home-ranking-variety-label svg {
+  width: 13px;
+  height: 13px;
+  flex: 0 0 13px;
+  color: #4f9d6c;
+}
+.home-ranking-variety b {
+  font-size: clamp(13px, 1.05vw, 16px);
+  font-weight: 600;
+  color: #24302a;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.home-ranking-variety .home-ranking-variety-count {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 3px;
+  color: #7d8a82;
+  font-size: clamp(11px, .9vw, 14px);
+  font-variant-numeric: tabular-nums;
+}
+.home-ranking-variety .home-ranking-variety-count svg {
+  width: 14px;
+  height: 14px;
+  flex: 0 0 14px;
+  color: #ef4a44;
+  fill: #ef4a44;
+}
+/* Tight at three across: the caption goes before the name ever truncates. */
+@media (max-width: 1000px) {
+  .home-ranking-variety .home-ranking-variety-label { display: none; }
+}
+@media (max-width: 560px) {
+  .home-ranking-variety { margin-top: 8px; padding: 5px 10px 5px 5px; gap: 8px; }
+  .home-ranking-variety .home-ranking-variety-label { display: flex; }
+}
+
 .home-ranking-interest {
   display: flex !important;
   align-items: center;
@@ -1113,31 +1179,22 @@
   white-space: nowrap;
 }
 .home-ranking-interest svg { width: 22px; height: 22px; color: #ef4a44; fill: #ef4a44; }
-.home-ranking-arrow {
-  display: grid !important;
-  place-items: center;
-  flex: 0 0 clamp(38px, 3.4vw, 58px) !important;
-  width: clamp(38px, 3.4vw, 58px);
-  height: clamp(38px, 3.4vw, 58px);
-  align-self: flex-end;
-  border-radius: 50%;
-  background: #eaf5f0;
-  color: #196b52;
-}
-.home-ranking-card-1 .home-ranking-arrow { border: 1px solid #f1d184; background: #fffdf7; }
-.home-ranking-arrow svg { width: 22px; height: 22px; }
 .home-ranking-ribbon {
   position: absolute;
   top: -15px;
   right: 24px;
   z-index: 2;
   border-radius: 999px;
-  background: #f4bc43;
+  /* Silver by default, gold for first, bronze for third — the medal colours
+     the rank circle used to carry before it moved out here. */
+  background: #b8bfc0;
   color: white;
   font-size: 14px;
   font-weight: 500;
   padding: 6px 19px;
 }
+.home-ranking-card-1 .home-ranking-ribbon { background: #f4bc43; }
+.home-ranking-card-3 .home-ranking-ribbon { background: #c99177; }
 .home-ranking-crown {
   position: absolute;
   top: -29px;
@@ -1149,17 +1206,15 @@
   stroke-width: 1.4;
 }
 @media (max-width: 1400px) {
-  .home-ranking-card > a { gap: 11px; padding: 18px; }
-  .home-ranking-card .home-ranking-number { flex-basis: 50px; width: 50px; height: 50px; font-size: 31px; }
+  .home-ranking-card-inner { gap: 11px; padding: 18px; }
   .home-ranking-card .home-ranking-image { flex-basis: 95px; width: 95px; height: 95px; border-radius: 15px; }
   .home-ranking-card .home-ranking-content b { font-size: 17px; }
   .home-ranking-card .home-ranking-content small { font-size: 14px; }
   .home-ranking-interest { font-size: 13px; }
-  .home-ranking-arrow { flex-basis: 38px !important; width: 38px; height: 38px; }
 }
 @media (max-width: 1100px) {
   .home-ranking { grid-template-columns: 1fr; gap: 15px; }
-  .home-ranking-card > a { min-height: 140px; gap: 18px; }
+  .home-ranking-card-inner { min-height: 140px; gap: 18px; }
   .home-ranking-card .home-ranking-image { flex-basis: 105px; width: 105px; height: 105px; }
   .home-ranking-card .home-ranking-content b { font-size: 19px; }
   .home-ranking-interest { padding-top: 8px; }
@@ -1171,15 +1226,12 @@
   .home-popular-leaf-6 { bottom: 27%; right: -6%; }
   .home-popular .home-heading-art { width: 43px; height: 43px; }
   .home-popular .home-heading h2 { font-size: 26px; }
-  .home-ranking-card > a { min-height: 110px; gap: 9px; padding: 15px 10px; }
-  .home-ranking-card .home-ranking-number { flex-basis: 37px; width: 37px; height: 37px; font-size: 25px; }
+  .home-ranking-card-inner { min-height: 110px; gap: 9px; padding: 15px 10px; }
   .home-ranking-card .home-ranking-image { flex-basis: 76px; width: 76px; height: 76px; border-radius: 12px; }
   .home-ranking-card .home-ranking-content b { font-size: 15px; }
   .home-ranking-card .home-ranking-content small { margin-top: 3px; font-size: 12px; }
   .home-ranking-interest { gap: 4px; padding-top: 6px; font-size: 11px; }
   .home-ranking-interest svg { width: 15px; height: 15px; }
-  .home-ranking-arrow { flex-basis: 31px !important; width: 31px; height: 31px; }
-  .home-ranking-arrow svg { width: 17px; height: 17px; }
   .home-ranking-crown { width: 40px; height: 40px; top: -17px; left: 14px; }
   .home-ranking-ribbon { right: 13px; top: -12px; padding: 4px 10px; font-size: 11px; }
 }

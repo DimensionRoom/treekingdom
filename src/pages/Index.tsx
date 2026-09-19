@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowRight, BookOpen, Crown, Flame, Heart, Leaf, Search } from "lucide-react";
+import { ArrowRight, BookOpen, Crown, Flame, Heart, Leaf, Search, Sprout } from "lucide-react";
 import gsap from "gsap";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { usePlants, useCategoryInfo, useViewCounts } from "@/hooks/useCloudData";
@@ -9,6 +9,7 @@ import ImageWithFallback from "@/components/ImageWithFallback";
 import SectionViewAllLink from "@/components/SectionViewAllLink";
 import { SITE_NAME, SITE_TITLE, SITE_DESCRIPTION, SITE_URL } from "@/lib/site";
 import type { PlantCategory } from "@/data/plants";
+import { varietyImages } from "@/data/varietyImages";
 import "./home.css";
 
 const categories: { key: PlantCategory; image: string; ext?: "png" | "svg" }[] = [
@@ -25,7 +26,7 @@ const Illustration = ({ name, ext = "png", className = "" }: { name: string; ext
 
 export default function Index() {
   const popularRef = useRef<HTMLElement>(null);
-  const { lang } = useLanguage();
+  const { lang, t } = useLanguage();
   const th = lang === "th";
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
@@ -37,7 +38,28 @@ export default function Index() {
   const categoryInfo = useCategoryInfo();
   const plants = data?.plants ?? [];
   const featured = onlyFavorites ? plants.filter(p => favorites.includes(p.id)) : plants.slice(0, 5);
-  const popular = plants.map(plant => ({ plant, views: views?.[`plant:${plant.id}`] ?? 0 })).filter(p => p.views > 0).sort((a, b) => b.views - a.views).slice(0, 3);
+  // The plant's own most-viewed variety, if anyone has actually opened one.
+  // Top-level only: a mutation form has no page of its own, so VarietySection
+  // would never expand a link pointing at one. Zero views means no winner to
+  // name, rather than an arbitrary first variety.
+  const topVarietyOf = (plant: typeof plants[number]) =>
+    (plant.varieties ?? [])
+      .filter(v => !v.parentId)
+      .map(v => ({
+        variety: v,
+        views: views?.[`variety:${v.id}`] ?? 0,
+        // Gallery first, then the single image, then the bundled fallback —
+        // the same order VarietySection resolves its own thumbnails in.
+        thumb: (v.images ?? []).find(src => src && src.trim() !== "") ?? v.image ?? varietyImages[v.id],
+      }))
+      .filter(v => v.views > 0)
+      .sort((a, b) => b.views - a.views)[0];
+
+  const popular = plants
+    .map(plant => ({ plant, views: views?.[`plant:${plant.id}`] ?? 0, topVariety: topVarietyOf(plant) }))
+    .filter(p => p.views > 0)
+    .sort((a, b) => b.views - a.views)
+    .slice(0, 3);
   useEffect(() => {
     if (!popular.length || !popularRef.current || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const context = gsap.context(() => {
@@ -127,19 +149,60 @@ export default function Index() {
             <SectionViewAllLink to="/plants?sort=popular" />
           </div>
           <ol className="home-ranking">
-            {popular.map(({ plant, views: count }, index) => (
+            {popular.map(({ plant, views: count, topVariety }, index) => (
               <li className={`home-ranking-card home-ranking-card-${index + 1}`} key={plant.id}>
-                {index === 0 && <><Crown className="home-ranking-crown" aria-hidden="true" /><span className="home-ranking-ribbon">{th ? "ยอดนิยมอันดับ 1" : "No. 1 most popular"}</span></>}
-                <Link to={`/plants/${plant.id}`} state={{ from: "/" }} aria-label={`${plant.name[lang]}, ${th ? "อันดับ" : "rank"} ${index + 1}`}>
-                  <span className="home-ranking-number" aria-hidden="true">{index + 1}</span>
+                {index === 0 && <Crown className="home-ranking-crown" aria-hidden="true" />}
+                <span className="home-ranking-ribbon">
+                  {index === 0
+                    ? (th ? "ยอดนิยมอันดับ 1" : "No. 1 most popular")
+                    : (th ? `อันดับ ${index + 1}` : `Rank ${index + 1}`)}
+                </span>
+                {/* Not a single wrapping <Link> any more: the variety below is
+                    its own link, and an anchor inside an anchor is invalid
+                    HTML. The plant link stretches over the whole card via
+                    ::after instead, and the variety link sits above it. */}
+                <div className="home-ranking-card-inner">
                   <ImageWithFallback className="home-ranking-image" src={data?.images[plant.id]?.[0]} alt={plant.name[lang]} loading="lazy" />
                   <span className="home-ranking-content">
-                    <b>{plant.name[lang]}</b>
+                    <b>
+                      <Link
+                        className="home-ranking-link"
+                        to={`/plants/${plant.id}`}
+                        state={{ from: "/" }}
+                        aria-label={`${plant.name[lang]}, ${th ? "อันดับ" : "rank"} ${index + 1}`}
+                      >
+                        {plant.name[lang]}
+                      </Link>
+                    </b>
                     <small>{label(plant.category)}</small>
+                    {topVariety && (
+                      <Link
+                        className="home-ranking-variety"
+                        to={`/plants/${plant.id}?variety=${topVariety.variety.id}`}
+                        state={{ from: "/" }}
+                      >
+                        <ImageWithFallback
+                          className="home-ranking-variety-image"
+                          src={topVariety.thumb}
+                          alt={topVariety.variety.name[lang]}
+                          loading="lazy"
+                        />
+                        <span className="home-ranking-variety-text">
+                          <span className="home-ranking-variety-label">
+                            <Sprout aria-hidden="true" />
+                            {t("popular.topVariety")}
+                          </span>
+                          <b>{topVariety.variety.name[lang]}</b>
+                        </span>
+                        <span className="home-ranking-variety-count">
+                          <Flame aria-hidden="true" />
+                          {formatInterest(topVariety.views)}
+                        </span>
+                      </Link>
+                    )}
                     <span className="home-ranking-interest"><Flame aria-hidden="true" />{formatInterest(count)} {th ? "คนสนใจ" : "interested"}</span>
                   </span>
-                  <span className="home-ranking-arrow" aria-hidden="true"><ArrowRight /></span>
-                </Link>
+                </div>
               </li>
             ))}
           </ol>

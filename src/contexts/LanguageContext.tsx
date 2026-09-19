@@ -38,6 +38,7 @@ const translations: Record<string, Record<Lang, string>> = {
   "filter.results": { th: "พบ {n} รายการ", en: "{n} results" },
   "filter.clear": { th: "ล้างตัวกรอง", en: "Clear filters" },
   "filter.more": { th: "เพิ่มเติม", en: "More" },
+  "popular.topVariety": { th: "สายพันธุ์มาแรง", en: "Top variety" },
   "filter.noResults.clear": { th: "ล้างตัวกรองทั้งหมด", en: "Clear all filters" },
   "sort.label": { th: "เรียงโดย:", en: "Sort:" },
   "plants.showMore": { th: "ดูเพิ่ม ({n})", en: "Show more ({n})" },
