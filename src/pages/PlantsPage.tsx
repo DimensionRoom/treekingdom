@@ -6,11 +6,12 @@ import { usePlants, useCategoryInfo, useViewCounts } from "@/hooks/useCloudData"
 import PlantCard from "@/components/PlantCard";
 import FilterChips from "@/components/FilterChips";
 import Seo from "@/components/Seo";
-import { Search, X, ChevronsUpDown, Check } from "lucide-react";
+import { ArrowDownUp, Check, ChevronsUpDown, Leaf, Search, X } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Command, CommandGroup, CommandItem, CommandList } from "@/components/ui/command";
 import { cn } from "@/lib/utils";
 import gsap from "gsap";
+import "./plants.css";
 
 // "default" isn't a real sort — it means "leave the current sort_order-based
 // order alone", i.e. today's behavior before this feature existed. It's a
@@ -56,6 +57,7 @@ const PlantsPage = () => {
   // re-running gsap.from(opacity: 0) over the ones already on screen,
   // which would blink the whole grid on every click.
   const animatedCount = useRef(0);
+  const isFirstRender = useRef(true);
 
   const { data } = usePlants();
   const plants = data?.plants ?? NO_PLANTS;
@@ -164,6 +166,15 @@ const PlantsPage = () => {
   // deliberately absent: it narrows the same set live as you type, and
   // resetting here would re-run the entrance animation on every character.
   useEffect(() => {
+    // Not on mount. There's nothing to reset yet, and bumping animPass here
+    // re-ran the animation effect, whose cleanup reverted the entrance
+    // animation a beat after it started — the page looked like it had no
+    // animation at all whenever plants were already cached (i.e. arriving
+    // from any other page).
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
     setVisible(PAGE_SIZE);
     animatedCount.current = 0;
     setAnimPass((n) => n + 1);
@@ -202,7 +213,7 @@ const PlantsPage = () => {
   }, [animPass, visible, hasData]);
 
   return (
-    <div className="section-padding">
+    <div className="plants-page">
       <Seo
         title={lang === "th" ? "พรรณไม้ทั้งหมด | TreeKingdom" : "All Plants | TreeKingdom"}
         description={
@@ -211,30 +222,35 @@ const PlantsPage = () => {
             : "Browse our full plant catalog with detailed care information."
         }
       />
-      <div className="container mx-auto">
-        <h1 className="font-display font-bold text-3xl md:text-4xl text-foreground mb-2">
-          🌱 {t("nav.plants")}
-        </h1>
-        <p className="text-muted-foreground mb-6">{t("categories.sub")}</p>
+      <div className="plants-decoration plants-decoration-left" aria-hidden="true" />
+      <div className="plants-decoration plants-decoration-right" aria-hidden="true" />
+      <div className="plants-container">
+        <header className="plants-title-block">
+          <span className="plants-title-icon"><Leaf /></span>
+          <div><h1>{t("nav.plants")}</h1><p>{lang === "th" ? "ค้นพบพรรณไม้หลากหลายสายพันธุ์ เพื่อบ้านและสวนของคุณ" : "Discover plants for every home and garden"}</p></div>
+          <span className="plants-handwriting" aria-hidden="true">ต้นไม้<br />ทำให้ทุกวัน<br />สดใสขึ้น</span>
+        </header>
 
-        <div className="flex flex-col md:flex-row gap-4 mb-4">
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+        <div className="plants-tools">
+          <div className="plants-search">
+            <Search />
             <input
               type="text"
               placeholder={t("search.plants")}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 rounded-full bg-muted border-2 border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/40"
+              className="plants-search-input"
             />
+            <button type="button" onClick={() => setSearch(search.trim())}>{lang === "th" ? "ค้นหา" : "Search"}</button>
           </div>
           <Popover open={sortOpen} onOpenChange={setSortOpen}>
             <PopoverTrigger asChild>
               <button
                 role="combobox"
                 aria-expanded={sortOpen}
-                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-md bg-transparent text-sm text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/30"
+                className="plants-sort"
               >
+                <ArrowDownUp />
                 <span className="opacity-70">{t("sort.label")}</span>
                 <span className="text-foreground">{activeSortLabel}</span>
                 <ChevronsUpDown className="w-3.5 h-3.5 shrink-0 opacity-60" />
@@ -261,13 +277,13 @@ const PlantsPage = () => {
         </div>
 
         <FilterChips
-          className="mb-4"
+          className="plants-filter-chips"
           options={categoryOptions}
           active={activeCategory}
           onChange={setCategory}
           allLabel={t("all")}
           totalCount={plants.length}
-          edgeFade
+          overflowMenu
         />
 
         {hasFilters && (
@@ -286,19 +302,19 @@ const PlantsPage = () => {
         )}
 
         {/* Plant grid */}
-        <div ref={containerRef} className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
+        <div ref={containerRef} className="plants-grid">
           {shown.map((plant) => (
             <div key={plant.id} className="plant-card-item">
-              <PlantCard plant={plant} />
+              <PlantCard plant={plant} variant="catalog" />
             </div>
           ))}
         </div>
 
         {remaining > 0 && (
-          <div className="flex justify-center mt-8">
+          <div className="plants-more-wrap">
             <button
               onClick={() => setVisible((v) => v + PAGE_SIZE)}
-              className="px-6 py-2.5 rounded-full bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity focus:outline-none focus:ring-2 focus:ring-primary/40 focus:ring-offset-2"
+              className="plants-more"
             >
               {t("plants.showMore").replace("{n}", String(remaining))}
             </button>

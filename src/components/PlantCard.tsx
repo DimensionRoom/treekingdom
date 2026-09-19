@@ -8,17 +8,37 @@ import ViewCount from "@/components/ViewCount";
 
 interface PlantCardProps {
   plant: Plant;
+  variant?: "default" | "catalog";
 }
 
-const PlantCard = ({ plant }: PlantCardProps) => {
+const PlantCard = ({ plant, variant = "default" }: PlantCardProps) => {
   const { lang } = useLanguage();
   const location = useLocation();
   const catInfoMap = useCategoryInfo();
-  const info = catInfoMap[plant.category] ?? (fallbackInfo as any)[plant.category] ?? { emoji: "🌱", color: "badge-humid", th: plant.category, en: plant.category };
+  const info = catInfoMap[plant.category] ?? fallbackInfo[plant.category] ?? { emoji: "🌱", color: "badge-humid", th: plant.category, en: plant.category };
   const catName = lang === "th" ? info.th : info.en;
   const { data: plantsData } = usePlants();
   const images = (plantsData?.images ?? {})[plant.id] ?? [];
   const { data: viewCounts } = useViewCounts();
+
+  if (variant === "catalog") {
+    return (
+      <article className="plants-catalog-card">
+        <Link className="plants-catalog-image-link" to={`/plants/${plant.id}`} state={{ from: location.pathname + location.search }}>
+          <ImageWithFallback src={images[0]} alt={plant.name[lang]} className="plants-catalog-image" loading="lazy" />
+        </Link>
+        <div className="plants-catalog-body">
+          <Link to={`/plants/${plant.id}`} state={{ from: location.pathname + location.search }}>
+            <h3>{plant.name[lang]}</h3>
+          </Link>
+          <p>{plant.description[lang]}</p>
+          <div className="plants-catalog-meta">
+            <span className={info.color}>{info.emoji} {catName}</span>
+          </div>
+        </div>
+      </article>
+    );
+  }
 
   return (
     <Link

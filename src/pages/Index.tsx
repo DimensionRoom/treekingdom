@@ -42,15 +42,25 @@ export default function Index() {
     if (!popular.length || !popularRef.current || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const context = gsap.context(() => {
       gsap.utils.toArray<HTMLElement>(".home-popular-leaf").forEach((leaf, index) => {
-        gsap.to(leaf, {
-          x: index % 2 ? 8 : -7,
-          y: index % 3 ? -9 : 7,
-          rotation: index % 2 ? 7 : -6,
-          duration: 3.2 + index * 0.35,
-          ease: "sine.inOut",
-          repeat: -1,
-          yoyo: true,
-        });
+        const direction = index % 2 ? 1 : -1;
+        gsap.set(leaf, { transformOrigin: "50% 70%" });
+        gsap.timeline({ repeat: -1, yoyo: true, delay: index * 0.18 })
+          .to(leaf, {
+            x: direction * (18 + index * 2),
+            y: index % 3 === 0 ? -24 : 18 + index,
+            rotation: direction * (13 + index * 1.5),
+            scale: index % 2 ? 1.08 : .94,
+            duration: 2.4 + index * .22,
+            ease: "sine.inOut",
+          })
+          .to(leaf, {
+            x: direction * -10,
+            y: index % 2 ? -14 : 12,
+            rotation: direction * -8,
+            scale: 1,
+            duration: 2 + index * .16,
+            ease: "sine.inOut",
+          });
       });
     }, popularRef);
     return () => context.revert();
