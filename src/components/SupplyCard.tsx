@@ -6,11 +6,50 @@ import TagBadges from "@/components/TagBadges";
 import SalePrice from "@/components/SalePrice";
 import ImageWithFallback from "@/components/ImageWithFallback";
 
-const SupplyCard = ({ supply, showDescription = true, showMeta = true }: { supply: Supply; showDescription?: boolean; showMeta?: boolean }) => {
+interface SupplyCardProps {
+  supply: Supply;
+  showDescription?: boolean;
+  showMeta?: boolean;
+  /** "catalog" is the products-page card, sharing catalog.css with the plants grid. */
+  variant?: "default" | "catalog";
+}
+
+const SupplyCard = ({ supply, showDescription = true, showMeta = true, variant = "default" }: SupplyCardProps) => {
   const { lang, t } = useLanguage();
   const location = useLocation();
   const { data } = useSupplies();
   const images = (data?.images ?? {})[supply.id] ?? [];
+  // Carries the query string too, so "back" returns to the filtered list
+  // rather than the unfiltered one.
+  const to = { pathname: `/categories/${supply.id}`, from: location.pathname + location.search };
+
+  if (variant === "catalog") {
+    return (
+      <article className="catalog-card">
+        <Link className="catalog-card-image-link" to={to.pathname} state={{ from: to.from }}>
+          <ImageWithFallback src={images[0]} alt={supply.name[lang]} className="catalog-card-image" loading="lazy" />
+        </Link>
+        {/* Anchored to the card, which is the positioned ancestor — the image
+            link isn't, and sale/new badges carry real weight on a shop page. */}
+        <TagBadges tags={supply.tags} variant="overlay" max={2} />
+        <div className="catalog-card-body">
+          <Link to={to.pathname} state={{ from: to.from }}>
+            <h3>{supply.name[lang]}</h3>
+          </Link>
+          <p>{supply.description[lang]}</p>
+          <div className="catalog-card-meta">
+            {/* Wrapped so it isn't a direct <span> child: catalog.css pills
+                those, which would fight SalePrice's own pill styling and
+                shrink the price to the stock badge's size. */}
+            <div>
+              <SalePrice price={supply.price} compareAtPrice={supply.compareAtPrice} />
+            </div>
+            <span>📦 {supply.stock} {t("items")}</span>
+          </div>
+        </div>
+      </article>
+    );
+  }
 
   return (
     <Link

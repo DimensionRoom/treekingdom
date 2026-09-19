@@ -6,7 +6,7 @@ import { useSupplies, useTags } from "@/hooks/useCloudData";
 import SupplyCard from "@/components/SupplyCard";
 import FilterChips from "@/components/FilterChips";
 import Seo from "@/components/Seo";
-import { Search, ChevronsUpDown, Check, X } from "lucide-react";
+import { ArrowDownUp, Check, ChevronsUpDown, Search, ShoppingBag, X } from "lucide-react";
 import {
   Popover,
   PopoverContent,
@@ -21,6 +21,7 @@ import {
 import { cn } from "@/lib/utils";
 import { tagBadgeStyle } from "@/lib/tagColor";
 import gsap from "gsap";
+import "./catalog.css";
 
 const categoryOptions: { value: SupplyCategory; labelTh: string; labelEn: string; emoji: string }[] = [
   { value: "plants", labelTh: "ต้นไม้", labelEn: "Plants", emoji: "🌱" },
@@ -161,7 +162,10 @@ const CategoriesPage = () => {
     if (!gridRef.current) return;
     const ctx = gsap.context(() => {
       gsap.from(".supply-item", {
-        y: 30, opacity: 0, duration: 0.4, stagger: 0.05, ease: "power2.out",
+        y: 30, opacity: 0, duration: 0.4, ease: "power2.out",
+        // Spread over a fixed window rather than 0.05s per card, so the last
+        // one never sits at opacity 0 for long as the catalog grows.
+        stagger: { amount: 0.5 },
       });
     }, gridRef);
     return () => ctx.revert();
@@ -169,7 +173,7 @@ const CategoriesPage = () => {
   }, [activeTab, sortBy, params.get("tags")]);
 
   return (
-    <div className="section-padding">
+    <div className="catalog-page">
       <Seo
         title={lang === "th" ? "สินค้าและอุปกรณ์ทั้งหมด | TreeKingdom" : "All Products | TreeKingdom"}
         description={
@@ -178,43 +182,38 @@ const CategoriesPage = () => {
             : "Shop plants, fertilizer, pots, and gardening supplies."
         }
       />
-      <div className="container mx-auto">
-        <h1 className="font-display font-bold text-3xl md:text-4xl text-foreground mb-2">
-          {t("supplies.title")}
-        </h1>
-        <p className="text-muted-foreground mb-6">{t("supplies.sub")}</p>
+      <div className="catalog-decoration catalog-decoration-left" aria-hidden="true" />
+      <div className="catalog-decoration catalog-decoration-right" aria-hidden="true" />
+      <div className="catalog-container">
+        <header className="catalog-title-block">
+          <span className="catalog-title-icon"><ShoppingBag /></span>
+          <div>
+            <h1>{t("supplies.title")}</h1>
+            <p>{t("supplies.sub")}</p>
+          </div>
+          <span className="catalog-handwriting" aria-hidden="true">ของดี<br />สำหรับคน<br />รักต้นไม้</span>
+        </header>
 
-        <FilterChips
-          className="mb-3"
-          options={categoryChipOptions}
-          active={activeTab}
-          onChange={setCategory}
-          allLabel={t("all")}
-          totalCount={supplies.length}
-        />
-
-        {tagChipOptions.length > 0 && (
-          <FilterChips className="mb-4" options={tagChipOptions} active={activeTags} onChange={toggleTag} />
-        )}
-
-        <div className="flex flex-col md:flex-row gap-4 mb-4">
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+        <div className="catalog-tools">
+          <div className="catalog-search">
+            <Search />
             <input
               type="text"
               placeholder={lang === "th" ? "ค้นหาสินค้า..." : "Search products..."}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 rounded-full bg-muted border-2 border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/40"
+              className="catalog-search-input"
             />
+            <button type="button" onClick={() => setSearch(search.trim())}>{lang === "th" ? "ค้นหา" : "Search"}</button>
           </div>
           <Popover open={sortOpen} onOpenChange={setSortOpen}>
             <PopoverTrigger asChild>
               <button
                 role="combobox"
                 aria-expanded={sortOpen}
-                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-md bg-transparent text-sm text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/30"
+                className="catalog-sort"
               >
+                <ArrowDownUp />
                 <span className="opacity-70">{t("sort.label")}</span>
                 <span className="text-foreground">{activeSortLabel}</span>
                 <ChevronsUpDown className="w-3.5 h-3.5 shrink-0 opacity-60" />
@@ -240,6 +239,26 @@ const CategoriesPage = () => {
           </Popover>
         </div>
 
+        <FilterChips
+          className="catalog-filter-chips"
+          options={categoryChipOptions}
+          active={activeTab}
+          onChange={setCategory}
+          allLabel={t("all")}
+          totalCount={supplies.length}
+          overflowMenu
+        />
+
+        {tagChipOptions.length > 0 && (
+          <FilterChips
+            className="catalog-filter-chips"
+            options={tagChipOptions}
+            active={activeTags}
+            onChange={toggleTag}
+            overflowMenu
+          />
+        )}
+
         {hasFilters && (
           <div className="flex items-center justify-between mb-6 text-sm">
             <span className="text-muted-foreground">
@@ -255,10 +274,10 @@ const CategoriesPage = () => {
           </div>
         )}
 
-        <div ref={gridRef} className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
+        <div ref={gridRef} className="catalog-grid">
           {filtered.map((supply) => (
             <div key={supply.id} className="supply-item">
-              <SupplyCard supply={supply} />
+              <SupplyCard supply={supply} variant="catalog" />
             </div>
           ))}
         </div>

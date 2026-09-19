@@ -23,16 +23,16 @@ const PlantCard = ({ plant, variant = "default" }: PlantCardProps) => {
 
   if (variant === "catalog") {
     return (
-      <article className="plants-catalog-card">
-        <Link className="plants-catalog-image-link" to={`/plants/${plant.id}`} state={{ from: location.pathname + location.search }}>
-          <ImageWithFallback src={images[0]} alt={plant.name[lang]} className="plants-catalog-image" loading="lazy" />
+      <article className="catalog-card">
+        <Link className="catalog-card-image-link" to={`/plants/${plant.id}`} state={{ from: location.pathname + location.search }}>
+          <ImageWithFallback src={images[0]} alt={plant.name[lang]} className="catalog-card-image" loading="lazy" />
         </Link>
-        <div className="plants-catalog-body">
+        <div className="catalog-card-body">
           <Link to={`/plants/${plant.id}`} state={{ from: location.pathname + location.search }}>
             <h3>{plant.name[lang]}</h3>
           </Link>
           <p>{plant.description[lang]}</p>
-          <div className="plants-catalog-meta">
+          <div className="catalog-card-meta">
             <span className={info.color}>{info.emoji} {catName}</span>
           </div>
         </div>

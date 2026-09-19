@@ -11,7 +11,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Command, CommandGroup, CommandItem, CommandList } from "@/components/ui/command";
 import { cn } from "@/lib/utils";
 import gsap from "gsap";
-import "./plants.css";
+import "./catalog.css";
 
 // "default" isn't a real sort — it means "leave the current sort_order-based
 // order alone", i.e. today's behavior before this feature existed. It's a
@@ -213,7 +213,7 @@ const PlantsPage = () => {
   }, [animPass, visible, hasData]);
 
   return (
-    <div className="plants-page">
+    <div className="catalog-page">
       <Seo
         title={lang === "th" ? "พรรณไม้ทั้งหมด | TreeKingdom" : "All Plants | TreeKingdom"}
         description={
@@ -222,24 +222,24 @@ const PlantsPage = () => {
             : "Browse our full plant catalog with detailed care information."
         }
       />
-      <div className="plants-decoration plants-decoration-left" aria-hidden="true" />
-      <div className="plants-decoration plants-decoration-right" aria-hidden="true" />
-      <div className="plants-container">
-        <header className="plants-title-block">
-          <span className="plants-title-icon"><Leaf /></span>
+      <div className="catalog-decoration catalog-decoration-left" aria-hidden="true" />
+      <div className="catalog-decoration catalog-decoration-right" aria-hidden="true" />
+      <div className="catalog-container">
+        <header className="catalog-title-block">
+          <span className="catalog-title-icon"><Leaf /></span>
           <div><h1>{t("nav.plants")}</h1><p>{lang === "th" ? "ค้นพบพรรณไม้หลากหลายสายพันธุ์ เพื่อบ้านและสวนของคุณ" : "Discover plants for every home and garden"}</p></div>
-          <span className="plants-handwriting" aria-hidden="true">ต้นไม้<br />ทำให้ทุกวัน<br />สดใสขึ้น</span>
+          <span className="catalog-handwriting" aria-hidden="true">ต้นไม้<br />ทำให้ทุกวัน<br />สดใสขึ้น</span>
         </header>
 
-        <div className="plants-tools">
-          <div className="plants-search">
+        <div className="catalog-tools">
+          <div className="catalog-search">
             <Search />
             <input
               type="text"
               placeholder={t("search.plants")}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="plants-search-input"
+              className="catalog-search-input"
             />
             <button type="button" onClick={() => setSearch(search.trim())}>{lang === "th" ? "ค้นหา" : "Search"}</button>
           </div>
@@ -248,7 +248,7 @@ const PlantsPage = () => {
               <button
                 role="combobox"
                 aria-expanded={sortOpen}
-                className="plants-sort"
+                className="catalog-sort"
               >
                 <ArrowDownUp />
                 <span className="opacity-70">{t("sort.label")}</span>
@@ -277,7 +277,7 @@ const PlantsPage = () => {
         </div>
 
         <FilterChips
-          className="plants-filter-chips"
+          className="catalog-filter-chips"
           options={categoryOptions}
           active={activeCategory}
           onChange={setCategory}
@@ -302,7 +302,7 @@ const PlantsPage = () => {
         )}
 
         {/* Plant grid */}
-        <div ref={containerRef} className="plants-grid">
+        <div ref={containerRef} className="catalog-grid">
           {shown.map((plant) => (
             <div key={plant.id} className="plant-card-item">
               <PlantCard plant={plant} variant="catalog" />
@@ -311,10 +311,10 @@ const PlantsPage = () => {
         </div>
 
         {remaining > 0 && (
-          <div className="plants-more-wrap">
+          <div className="catalog-more-wrap">
             <button
               onClick={() => setVisible((v) => v + PAGE_SIZE)}
-              className="plants-more"
+              className="catalog-more"
             >
               {t("plants.showMore").replace("{n}", String(remaining))}
             </button>
