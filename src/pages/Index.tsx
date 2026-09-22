@@ -169,6 +169,7 @@ export default function Index() {
                         className="home-ranking-link"
                         to={`/plants/${plant.id}`}
                         state={{ from: "/" }}
+                        title={plant.name[lang]}
                         aria-label={`${plant.name[lang]}, ${th ? "อันดับ" : "rank"} ${index + 1}`}
                       >
                         {plant.name[lang]}
@@ -192,7 +193,7 @@ export default function Index() {
                             <Sprout aria-hidden="true" />
                             {t("popular.topVariety")}
                           </span>
-                          <b>{topVariety.variety.name[lang]}</b>
+                          <b title={topVariety.variety.name[lang]}>{topVariety.variety.name[lang]}</b>
                         </span>
                         <span className="home-ranking-variety-count">
                           <Flame aria-hidden="true" />

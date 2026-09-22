@@ -1057,11 +1057,16 @@
   justify-content: center;
   line-height: 1.3;
 }
-.home-ranking-card .home-ranking-content b {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+/* Direct child on purpose: the variety link further down also contains a <b>,
+   and this selector (0,2,1) outranks `.home-ranking-variety b` (0,1,1), so
+   without the `>` it was overriding that one's font-size and clamping too. */
+.home-ranking-card .home-ranking-content > b {
+  /* One line, then ellipsis. The full name is on the link's title, so a
+     clipped name is still readable on hover. */
+  display: block;
   overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   font-size: clamp(17px, 1.5vw, 25px);
   font-weight: 600;
   line-height: 1.25;
@@ -1208,7 +1213,7 @@
 @media (max-width: 1400px) {
   .home-ranking-card-inner { gap: 11px; padding: 18px; }
   .home-ranking-card .home-ranking-image { flex-basis: 95px; width: 95px; height: 95px; border-radius: 15px; }
-  .home-ranking-card .home-ranking-content b { font-size: 17px; }
+  .home-ranking-card .home-ranking-content > b { font-size: 17px; }
   .home-ranking-card .home-ranking-content small { font-size: 14px; }
   .home-ranking-interest { font-size: 13px; }
 }
@@ -1216,7 +1221,7 @@
   .home-ranking { grid-template-columns: 1fr; gap: 15px; }
   .home-ranking-card-inner { min-height: 140px; gap: 18px; }
   .home-ranking-card .home-ranking-image { flex-basis: 105px; width: 105px; height: 105px; }
-  .home-ranking-card .home-ranking-content b { font-size: 19px; }
+  .home-ranking-card .home-ranking-content > b { font-size: 19px; }
   .home-ranking-interest { padding-top: 8px; }
 }
 @media (max-width: 700px) {
@@ -1228,7 +1233,7 @@
   .home-popular .home-heading h2 { font-size: 26px; }
   .home-ranking-card-inner { min-height: 110px; gap: 9px; padding: 15px 10px; }
   .home-ranking-card .home-ranking-image { flex-basis: 76px; width: 76px; height: 76px; border-radius: 12px; }
-  .home-ranking-card .home-ranking-content b { font-size: 15px; }
+  .home-ranking-card .home-ranking-content > b { font-size: 15px; }
   .home-ranking-card .home-ranking-content small { margin-top: 3px; font-size: 12px; }
   .home-ranking-interest { gap: 4px; padding-top: 6px; font-size: 11px; }
   .home-ranking-interest svg { width: 15px; height: 15px; }
