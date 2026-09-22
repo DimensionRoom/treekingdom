@@ -37,6 +37,9 @@ export interface Supply {
   compareAtPrice?: number | null;
   /** Keys into the `tags` table; unknown keys are ignored when rendering. */
   tags?: string[];
+  /** Row creation time, for the "latest" sort. Absent on the bundled
+   *  fallback catalog, which has no timestamps. */
+  createdAt?: string;
 }
 
 

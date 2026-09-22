@@ -31,18 +31,25 @@ const categoryOptions: { value: SupplyCategory; labelTh: string; labelEn: string
 ];
 
 const sortOptions = [
+  { value: "latest", labelTh: "ล่าสุด", labelEn: "Latest" },
   { value: "name-asc", labelTh: "ชื่อ ก-ฮ", labelEn: "Name A-Z" },
   { value: "name-desc", labelTh: "ชื่อ ฮ-ก", labelEn: "Name Z-A" },
   { value: "price-asc", labelTh: "ราคาต่ำ → สูง", labelEn: "Price: Low to High" },
   { value: "price-desc", labelTh: "ราคาสูง → ต่ำ", labelEn: "Price: High to Low" },
 ] as const;
 type SortValue = (typeof sortOptions)[number]["value"];
+/** Newest first. The plants page opens on "popular", but view counts are only
+ *  tracked for plants and varieties, so that isn't an option here. */
+const DEFAULT_SORT: SortValue = "latest";
 
 const CategoriesPage = () => {
   const { t, lang } = useLanguage();
   const [params, setParams] = useSearchParams();
   const activeTab = (params.get("cat") as SupplyCategory | null) || null;
-  const sortBy = (params.get("sort") as SortValue | null) || "name-asc";
+  const sortParam = params.get("sort");
+  const sortBy: SortValue = sortOptions.some((o) => o.value === sortParam)
+    ? (sortParam as SortValue)
+    : DEFAULT_SORT;
   const activeTags = (params.get("tags") ?? "").split(",").filter(Boolean);
 
   const [search, setSearch] = useState(() => params.get("q") ?? "");
@@ -94,7 +101,7 @@ const CategoriesPage = () => {
   const setSort = (value: SortValue) => {
     setParams(
       (p) => {
-        if (value === "name-asc") p.delete("sort");
+        if (value === DEFAULT_SORT) p.delete("sort");
         else p.set("sort", value);
         return p;
       },
@@ -128,6 +135,7 @@ const CategoriesPage = () => {
         case "price-desc": return b.price - a.price;
         case "name-asc": return a.name.en.localeCompare(b.name.en);
         case "name-desc": return b.name.en.localeCompare(a.name.en);
+        case "latest": return (b.createdAt ?? "").localeCompare(a.createdAt ?? "");
         default: return 0;
       }
     });

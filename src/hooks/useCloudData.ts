@@ -279,6 +279,7 @@ const rowToSupply = (r: any): Supply => ({
   varietyId: r.variety_id ?? undefined,
   tags: (r.tags ?? []) as string[],
   compareAtPrice: r.compare_at_price != null ? Number(r.compare_at_price) : null,
+  createdAt: r.created_at ?? undefined,
 });
 
 export const useSupplies = () => {
