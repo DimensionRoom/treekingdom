@@ -207,6 +207,7 @@ const rowToPlant = (r: any): Plant => ({
   levels: r.levels,
   varieties: r.varieties ?? undefined,
   tags: (r.tags ?? []) as string[],
+  createdAt: r.created_at ?? undefined,
 });
 
 export const usePlants = () => {

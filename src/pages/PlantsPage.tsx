@@ -13,17 +13,15 @@ import { cn } from "@/lib/utils";
 import gsap from "gsap";
 import "./catalog.css";
 
-// "default" isn't a real sort — it means "leave the current sort_order-based
-// order alone", i.e. today's behavior before this feature existed. It's a
-// selectable option (not just "no ?sort param") so it has a place in the
-// dropdown alongside the others, rather than being an unlabeled empty state.
+// First entry is the default, and the one the URL omits a ?sort param for.
 const sortOptions = [
-  { value: "default", labelTh: "ค่าเริ่มต้น", labelEn: "Default" },
   { value: "popular", labelTh: "ยอดนิยม", labelEn: "Most viewed" },
+  { value: "latest", labelTh: "ล่าสุด", labelEn: "Latest" },
   { value: "name-asc", labelTh: "ชื่อ ก-ฮ", labelEn: "Name A-Z" },
   { value: "name-desc", labelTh: "ชื่อ ฮ-ก", labelEn: "Name Z-A" },
 ] as const;
 type SortValue = (typeof sortOptions)[number]["value"];
+const DEFAULT_SORT: SortValue = sortOptions[0].value;
 
 /**
  * How many cards to render at a time. Caps what's *drawn*, not what's
@@ -41,7 +39,10 @@ const PlantsPage = () => {
   const { t, lang } = useLanguage();
   const [searchParams, setSearchParams] = useSearchParams();
   const activeCategory = (searchParams.get("cat") as PlantCategory | null) || null;
-  const sortBy = (searchParams.get("sort") as SortValue | null) || "default";
+  const sortParam = searchParams.get("sort");
+  const sortBy: SortValue = sortOptions.some((o) => o.value === sortParam)
+    ? (sortParam as SortValue)
+    : DEFAULT_SORT;
 
   // Local state drives typing + filtering instantly; the URL is updated on a
   // short debounce so every keystroke doesn't spam history/query-client re-runs.
@@ -106,8 +107,10 @@ const PlantsPage = () => {
           return a.name.en.localeCompare(b.name.en);
         case "name-desc":
           return b.name.en.localeCompare(a.name.en);
+        case "latest":
+          return (b.createdAt ?? "").localeCompare(a.createdAt ?? "");
         default:
-          return 0; // "default" — leave plants' own sort_order-based order alone
+          return 0; // leave the plants' own sort_order-based order alone
       }
     }),
     [plants, activeCategory, search, sortBy, categoryInfo, viewCounts],
@@ -132,7 +135,7 @@ const PlantsPage = () => {
   const setSort = (value: SortValue) => {
     setSearchParams(
       (p) => {
-        if (value === "default") p.delete("sort");
+        if (value === DEFAULT_SORT) p.delete("sort");
         else p.set("sort", value);
         return p;
       },
