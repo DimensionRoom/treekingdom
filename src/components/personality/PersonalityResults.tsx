@@ -43,7 +43,7 @@ const PersonalityResults = ({ profile, limit = 8 }: Props) => {
 
   if (isLoading) {
     return (
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+      <div className="catalog-grid">
         {Array.from({ length: 4 }).map((_, i) => (
           <div key={i} className="h-56 rounded-2xl bg-muted animate-pulse" />
         ))}
@@ -66,7 +66,7 @@ const PersonalityResults = ({ profile, limit = 8 }: Props) => {
       <h2 className="font-display font-bold text-lg md:text-xl text-foreground mb-3">
         {t("personality.results.plants")}
       </h2>
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+      <div className="catalog-grid">
         {ranked.map(({ plant, score }) => (
           <div key={plant.id} className="relative" data-result-card>
             <span title={`${t("personality.results.match")} ${score}%`} className="absolute top-2 right-2 z-20 px-2 py-1 rounded-full bg-accent text-accent-foreground text-[10px] md:text-xs font-bold shadow-md">
@@ -82,7 +82,7 @@ const PersonalityResults = ({ profile, limit = 8 }: Props) => {
           <h2 className="font-display font-bold text-lg md:text-xl text-foreground mb-3">
             {t("personality.results.supplies")}
           </h2>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+          <div className="catalog-grid">
             {matchedSupplies.map((s) => (
               <div key={s.id} data-result-card>
                 <SupplyCard supply={s} showDescription={false} />

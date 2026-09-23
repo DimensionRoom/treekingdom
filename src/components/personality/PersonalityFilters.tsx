@@ -32,19 +32,11 @@ const PersonalityFilters = () => {
             <p className="text-xs md:text-sm font-semibold text-muted-foreground mb-1.5">
               {lang === "th" ? g.th : g.en}
             </p>
-            <div className="flex flex-wrap gap-2">
+            <div className="personality-chips">
               {CHIPS.filter((c) => c.group === g.key).map((c) => {
                 const active = selected.includes(c.key);
                 return (
-                  <button
-                    key={c.key}
-                    onClick={() => toggle(c.key)}
-                    className={`px-3 py-1.5 rounded-full text-xs md:text-sm font-semibold border-2 transition-all inline-flex items-center gap-1.5 ${
-                      active
-                        ? "bg-primary text-primary-foreground border-primary shadow-md scale-[1.03]"
-                        : "bg-card text-foreground border-border hover:border-primary/40 hover:bg-primary/5"
-                    }`}
-                  >
+                  <button key={c.key} onClick={() => toggle(c.key)} aria-pressed={active}>
                     <span>{c.emoji}</span>
                     {lang === "th" ? c.th : c.en}
                   </button>
