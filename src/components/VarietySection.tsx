@@ -47,6 +47,9 @@ const VarietySection = ({ varieties, plantName, parentLevels }: VarietySectionPr
   const [imgIdx, setImgIdx] = useState(0);
   const [zoomed, setZoomed] = useState(false);
   const [treeOpen, setTreeOpen] = useState(false);
+  // Whether the details have scrolled under the pinned header, which is what
+  // earns the header its divider — no line at rest, one once content slides by.
+  const [scrolled, setScrolled] = useState(false);
   // A form's own gallery, opened in its own lightbox instance so it never
   // collides with the parent carousel's imgIdx/zoomed.
   const [formZoom, setFormZoom] = useState<{ images: string[]; index: number } | null>(null);
@@ -93,6 +96,7 @@ const VarietySection = ({ varieties, plantName, parentLevels }: VarietySectionPr
   useEffect(() => {
     setImgIdx(0);
     setZoomed(false);
+    setScrolled(false);
     // Open the forms tree by default when there's something to show — no
     // reason to make the admin discover and click the toggle first.
     setTreeOpen(selected ? formsOf(selected.id).length > 0 : false);
@@ -266,8 +270,17 @@ const VarietySection = ({ varieties, plantName, parentLevels }: VarietySectionPr
                 </div>
               )}
 
-              {/* Content */}
-              <div className="flex-1 min-h-0 overflow-y-auto p-5">
+              {/* Header: a sibling of the scroll area rather than its first child,
+                  so it stays put while the details scroll underneath. (position:
+                  sticky inside the padded scroller would let the content show
+                  through the padding above it.) The image above stays pinned
+                  too — the back button lives on it, and losing that off-screen
+                  has been a recurring complaint. */}
+              <div
+                className={`shrink-0 px-5 pt-5 pb-3 border-b transition-[border-color,box-shadow] duration-200 ${
+                  scrolled ? "border-border shadow-[0_6px_10px_-8px_rgba(0,0,0,0.25)]" : "border-transparent"
+                }`}
+              >
                 <TagBadges tags={selected.tags} className="mb-1.5" />
                 <div className="flex items-start justify-between gap-3 mb-0.5">
                   <h3 className="font-display font-bold text-xl text-card-foreground">
@@ -296,13 +309,19 @@ const VarietySection = ({ varieties, plantName, parentLevels }: VarietySectionPr
                     />
                   </div>
                 </div>
-                <div className="flex items-center gap-2 mb-3">
+                <div className="flex items-center gap-2">
                   <p className="text-muted-foreground text-xs">
                     {lang === "th" ? `สายพันธุ์ของ${plantName}` : `Variety of ${plantName}`}
                   </p>
                   <ViewCount views={viewCounts?.[`variety:${selected.id}`]} className="text-xs" />
                 </div>
+              </div>
 
+              {/* Details — the only part that scrolls. */}
+              <div
+                className="flex-1 min-h-0 overflow-y-auto px-5 pb-5"
+                onScroll={(e) => setScrolled(e.currentTarget.scrollTop > 0)}
+              >
                 {treeOpen && selectedForms.length > 0 && (
                   <div className="mb-3 rounded-xl bg-muted/40 border border-border p-3">
                     <p className="text-xs font-semibold text-muted-foreground mb-2">
