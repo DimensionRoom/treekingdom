@@ -7,7 +7,7 @@ import { usePlants, useCategoryInfo, useViewCounts } from "@/hooks/useCloudData"
 import Seo from "@/components/Seo";
 import ImageWithFallback from "@/components/ImageWithFallback";
 import SectionViewAllLink from "@/components/SectionViewAllLink";
-import { SITE_NAME, SITE_TITLE, SITE_DESCRIPTION, SITE_URL } from "@/lib/site";
+import { SITE_NAME, SITE_TITLE, SITE_DESCRIPTION, SITE_URL, SOCIAL_PROFILES, absoluteUrl } from "@/lib/site";
 import type { PlantCategory } from "@/data/plants";
 import { varietyImages } from "@/data/varietyImages";
 import "./home.css";
@@ -98,7 +98,10 @@ export default function Index() {
   ];
   const allLink = (to: string, text: string) => <Link className="home-outline" to={to}>{text}<ArrowRight size={15} /></Link>;
   return <div className="home-page">
-    <Seo title={SITE_TITLE[lang]} description={SITE_DESCRIPTION[lang]} jsonLd={[{ "@context": "https://schema.org", "@type": "WebSite", name: SITE_NAME, url: SITE_URL }]} />
+    <Seo title={SITE_TITLE[lang]} description={SITE_DESCRIPTION[lang]} jsonLd={[
+      { "@context": "https://schema.org", "@type": "WebSite", name: SITE_NAME, url: SITE_URL, inLanguage: ["th", "en"] },
+      { "@context": "https://schema.org", "@type": "Organization", name: SITE_NAME, url: SITE_URL, logo: absoluteUrl("/logo.svg"), sameAs: [...SOCIAL_PROFILES] },
+    ]} />
     <section className="home-hero">
       <div className="home-wrap home-hero-grid">
         <div className="home-hero-copy">
@@ -119,7 +122,7 @@ export default function Index() {
     </section>
     <section className="home-featured home-section" id="featured">
       <div className="home-wrap">
-        <div className="home-heading"><div className="home-heading-copy"><Illustration name="category-foliage" className="home-heading-art" /><div><h2>{th ? "พรรณไม้แนะนำ" : "Meet your next plant"}</h2><p>{th ? "ต้นไม้ยอดนิยมที่คัดมาเพื่อคุณ" : "A little inspiration for your growing collection"}</p></div></div><SectionViewAllLink to="/plants" /></div>
+        <div className="home-heading"><div className="home-heading-copy"><Illustration name="category-foliage" className="home-heading-art" /><div><h2>{th ? "พรรณไม้แนะนำ" : "Meet your next plant"}</h2><p>{th ? "ต้นไม้ที่คัดมาเพื่อคุณ" : "A little inspiration for your growing collection"}</p></div></div><SectionViewAllLink to="/plants" /></div>
         {isPending && <p role="status">{th ? "กำลังโหลดพรรณไม้..." : "Loading plants..."}</p>}
         {isError && <p role="alert">{th ? "โหลดข้อมูลไม่สำเร็จ " : "Unable to load plants. "}<button onClick={() => refetch()}>{th ? "ลองอีกครั้ง" : "Try again"}</button></p>}
         {!isPending && !isError && featured.length === 0 && <p>{th ? "ยังไม่มีพรรณไม้ในรายการนี้" : "No plants in this collection yet."}</p>}
@@ -209,7 +212,7 @@ export default function Index() {
     )}
     <section className="home-section home-care" id="care"><div className="home-wrap"><div className="home-heading"><div className="home-heading-copy"><Illustration name="heading-bulb" className="home-heading-art" /><div><h2>{th ? "เคล็ดลับการดูแล" : "A little care goes a long way"}</h2><p>{th ? "ดูแลต้นไม้ให้สวยและอยู่กับเราได้นาน" : "Help your plants thrive, one day at a time"}</p></div></div><SectionViewAllLink to="/plants" /></div><div className="home-tip-grid">{tips.map((tip, i) => <button className="home-tip" key={tip.title} onClick={() => setOpenTip(openTip === i ? null : i)} aria-expanded={openTip === i} aria-controls="home-tip-detail"><Illustration name={tip.image} className="home-infographic" /><h3>{tip.title}</h3><p>{tip.description}</p></button>)}</div>{openTip !== null && <div className="home-tip-detail" id="home-tip-detail"><h3>{tips[openTip].title}</h3><p>{tips[openTip].detail}</p></div>}</div></section>
     <section className="home-section home-categories"><div className="home-wrap"><div className="home-heading"><div className="home-heading-copy"><Illustration name="category-foliage" className="home-heading-art" /><div><h2>{th ? "หมวดหมู่พรรณไม้" : "Find your kind of green"}</h2><p>{th ? "สำรวจพรรณไม้ตามประเภทที่คุณสนใจ" : "Explore the plants that speak to you"}</p></div></div><SectionViewAllLink to="/plants" /></div><div className="home-category-grid">{categories.map(({ key, image, ext }) => <Link className="home-category" key={key} to={`/plants?cat=${key}`}><span className={`home-category-icon home-category-icon-${key}`}><Illustration name={image} ext={ext} className="home-infographic" /></span><h3>{label(key)}</h3><span className="home-badge">{plants.filter(p => p.category === key).length} {th ? "ชนิด" : "species"}</span></Link>)}</div></div></section>
-    <section className="home-wrap home-cta-wrap"><div className="home-cta"><div className="home-cta-copy"><span>TreeKingdom</span><h2>{th ? "เริ่มต้นปลูกต้นไม้กันเถอะ!" : "Let’s grow something wonderful!"}</h2><p>{th ? "ค้นพบแรงบันดาลใจใหม่ๆ และร่วมเป็นส่วนหนึ่งของชุมชนคนรักต้นไม้" : "Find fresh inspiration and your own little corner of green."}</p><div className="home-cta-actions">{allLink("/plants", th ? "สำรวจพรรณไม้" : "Explore plants")}{allLink("/personality", th ? "ค้นหาต้นไม้ที่ใช่" : "Find your plant match")}</div></div><img className="home-cta-backdrop" src="/images/footer-botanical-backdrop.svg" alt="" aria-hidden="true" />
+    <section className="home-wrap home-cta-wrap"><div className="home-cta"><div className="home-cta-copy"><span>TreeKingdom</span><h2>{th ? "เริ่มต้นปลูกต้นไม้กันเถอะ!" : "Let’s grow something wonderful!"}</h2><p>{th ? "ค้นพบแรงบันดาลใจใหม่ ๆ และร่วมเป็นส่วนหนึ่งของชุมชนคนรักต้นไม้" : "Find fresh inspiration and your own little corner of green."}</p><div className="home-cta-actions">{allLink("/plants", th ? "สำรวจพรรณไม้" : "Explore plants")}{allLink("/personality", th ? "ค้นหาต้นไม้ที่ใช่" : "Find your plant match")}</div></div><img className="home-cta-backdrop" src="/images/footer-botanical-backdrop.svg" alt="" aria-hidden="true" />
       <img className="home-cta-leaves" src="/images/footer-floating-leaves.svg" alt="" aria-hidden="true" />
       <img className="home-footer-plant" src="/images/footer-plant-supplied.png" alt="" loading="lazy" width={1254} height={1254} />
       <span className="home-cta-motto" aria-hidden="true">Small<br />Plants<br />Big<br />Happiness<Heart /></span></div></section>

@@ -17,6 +17,7 @@ import TagBadges from "@/components/TagBadges";
 import ImageWithFallback, { BlankImage } from "@/components/ImageWithFallback";
 import ImageLightbox from "@/components/ImageLightbox";
 import SalePrice from "@/components/SalePrice";
+import LineOrderButton from "@/components/LineOrderButton";
 import Seo from "@/components/Seo";
 import { SITE_NAME, absoluteUrl } from "@/lib/site";
 import { saleInfo } from "@/lib/price";
@@ -77,6 +78,16 @@ const SupplyDetailPage = () => {
     });
   }, [carouselApi]);
 
+  // Still loading: show that, not "not found" — the not-found branch below
+  // carries noindex, and a crawler landing mid-load must never see it.
+  if (!data) {
+    return (
+      <div className="section-padding text-center text-muted-foreground" role="status">
+        {lang === "th" ? "กำลังโหลด..." : "Loading..."}
+      </div>
+    );
+  }
+
   if (!supply) {
     return (
       <div className="section-padding text-center">
@@ -110,14 +121,17 @@ const SupplyDetailPage = () => {
         title={lang === "th" ? `${supply.name.th} | TreeKingdom` : `${supply.name.en} | TreeKingdom`}
         description={supply.description[lang]}
         image={images[0]}
+        ogType="product"
         jsonLd={[
           {
             "@context": "https://schema.org",
             "@type": "Product",
             name: supply.name[lang],
             description: supply.description[lang],
-            image: images[0] ? absoluteUrl(images[0]) : undefined,
+            image: images.length ? images.map((src) => absoluteUrl(src)) : undefined,
             url: pageUrl,
+            sku: supply.id,
+            brand: { "@type": "Brand", name: SITE_NAME },
             offers: {
               "@type": "Offer",
               url: pageUrl,
@@ -128,6 +142,7 @@ const SupplyDetailPage = () => {
                   ? "https://schema.org/InStock"
                   : "https://schema.org/OutOfStock",
               ...(listPriceSpec ? { priceSpecification: listPriceSpec } : {}),
+              seller: { "@type": "Organization", name: SITE_NAME },
             },
           },
           {
@@ -205,7 +220,8 @@ const SupplyDetailPage = () => {
         )}
       </div>
 
-      {/* Right: Scrollable details */}
+      {/* Right: scrollable details over a pinned order bar */}
+      <div className="flex-1 min-h-0 flex flex-col">
       <div className="flex-1 min-h-0 overflow-y-auto p-6 md:p-8 lg:p-10">
         <div className="flex items-start justify-between gap-3 mb-2">
           <h1 className="font-display font-bold text-2xl md:text-3xl text-card-foreground">
@@ -249,8 +265,14 @@ const SupplyDetailPage = () => {
 
         {linkedPlant && (
           <Link
-            to={`/plants/${linkedPlant.id}`}
-            state={{ from: location.pathname, varietyId: linkedVariety?.id }}
+            // The variety sheet opens from ?variety=, and only for a top-level
+            // variety — a linked mutation form opens its parent's sheet.
+            to={
+              linkedVariety
+                ? `/plants/${linkedPlant.id}?variety=${encodeURIComponent(linkedVariety.parentId ?? linkedVariety.id)}`
+                : `/plants/${linkedPlant.id}`
+            }
+            state={{ from: location.pathname }}
             className="mt-6 flex items-center gap-3 p-3 rounded-2xl bg-muted/40 border-2 border-border hover:border-primary/40 hover:bg-primary/5 transition-colors"
           >
             <ImageWithFallback
@@ -260,7 +282,7 @@ const SupplyDetailPage = () => {
             />
             <div className="flex-1 min-w-0">
               <p className="text-xs text-muted-foreground">
-                {lang === "th" ? "ดูข้อมูลพรรณไม้" : "View plant encyclopedia"}
+                {lang === "th" ? "ดูข้อมูลพรรณไม้" : "View plant details"}
               </p>
               <p className="font-semibold text-sm text-card-foreground truncate">
                 {linkedPlant.name[lang]}
@@ -278,6 +300,18 @@ const SupplyDetailPage = () => {
         {supply.variants && supply.variants.length > 0 && (
           <SupplyVariantSection variants={supply.variants} supplyName={supply.name[lang]} />
         )}
+      </div>
+
+      {/* Order bar: a sibling of the scroller, so it stays at the bottom of
+          the details whatever their length — never scrolled out of reach. */}
+      <div className="shrink-0 border-t border-border bg-background px-6 py-3 md:px-8 lg:px-10">
+        <LineOrderButton
+          productName={supply.name[lang]}
+          price={supply.price}
+          inStock={supply.stock > 0}
+          className="w-full"
+        />
+      </div>
       </div>
 
 

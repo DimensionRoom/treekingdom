@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import { useLocation } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { SITE_NAME, DEFAULT_OG_IMAGE, absoluteUrl } from "@/lib/site";
+import { SITE_NAME, DEFAULT_OG_IMAGE, absoluteUrl, metaDescription } from "@/lib/site";
 
 interface SeoProps {
   title: string;
@@ -12,6 +12,11 @@ interface SeoProps {
   noindex?: boolean;
   /** One or more JSON-LD objects, e.g. Product, Article, BreadcrumbList. */
   jsonLd?: object | object[];
+  /** Overrides the canonical path, which is otherwise the bare pathname —
+   *  used when a query string names distinct content (?variety=). */
+  canonicalPath?: string;
+  /** og:type; "website" unless the page is one product or one article. */
+  ogType?: "website" | "product" | "article";
 }
 
 /**
@@ -19,10 +24,11 @@ interface SeoProps {
  * mirrors this shape when prerendering per-route <head> markup after build —
  * keep the two in sync if this changes.
  */
-const Seo = ({ title, description, image, noindex, jsonLd }: SeoProps) => {
+const Seo = ({ title, description: fullDescription, image, noindex, jsonLd, canonicalPath, ogType = "website" }: SeoProps) => {
   const { lang } = useLanguage();
   const location = useLocation();
-  const canonical = absoluteUrl(location.pathname);
+  const canonical = absoluteUrl(canonicalPath ?? location.pathname);
+  const description = metaDescription(fullDescription);
   const ogImage = absoluteUrl(image || DEFAULT_OG_IMAGE);
   const jsonLdList = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 
@@ -38,7 +44,7 @@ const Seo = ({ title, description, image, noindex, jsonLd }: SeoProps) => {
       <meta property="og:description" content={description} />
       <meta property="og:image" content={ogImage} />
       <meta property="og:url" content={canonical} />
-      <meta property="og:type" content="website" />
+      <meta property="og:type" content={ogType} />
       <meta property="og:locale" content={lang === "th" ? "th_TH" : "en_US"} />
 
       <meta name="twitter:card" content="summary_large_image" />

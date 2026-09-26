@@ -1,5 +1,6 @@
 import logoIcon from "@/assets/logo-icon.svg";
 import lineIcon from "@/assets/line-icon.svg";
+import { LINE_OA_ID, LINE_OA_URL } from "@/lib/site";
 
 const Footer = () => {
   return (
@@ -14,14 +15,14 @@ const Footer = () => {
           </div>
           <div className="flex items-center gap-3 sm:gap-4">
             <a
-              href="https://line.me/ti/p/@treekingdom"
+              href={LINE_OA_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1.5 hover:text-primary transition-colors"
-              aria-label="LINE @treekingdom"
+              aria-label={`LINE ${LINE_OA_ID}`}
             >
               <img src={lineIcon} alt="LINE" className="w-5 h-5" />
-              <span className="font-medium hidden sm:inline">@treekingdom</span>
+              <span className="font-medium hidden sm:inline">{LINE_OA_ID}</span>
             </a>
             <a
               href="https://www.tiktok.com/@tree_kingdom"

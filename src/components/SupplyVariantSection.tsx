@@ -5,6 +5,7 @@ import { Tag, Package, ArrowLeft } from "lucide-react";
 import ImageWithFallback, { BlankImage } from "@/components/ImageWithFallback";
 import ImageLightbox from "@/components/ImageLightbox";
 import Portal from "@/components/Portal";
+import LineOrderButton from "@/components/LineOrderButton";
 
 interface Props {
   variants: SupplyVariant[];
@@ -47,9 +48,9 @@ const SupplyVariantSection = ({ variants, supplyName }: Props) => {
                 ? "text-accent"
                 : "text-primary";
             const statusLabel = !inStock
-              ? lang === "th" ? "หมด" : "Out"
+              ? lang === "th" ? "หมด" : "Sold out"
               : low
-                ? lang === "th" ? "เหลือน้อย" : "Low"
+                ? lang === "th" ? "เหลือน้อย" : "Low stock"
                 : lang === "th" ? "พร้อมซื้อ" : "In stock";
             return (
               <button
@@ -123,7 +124,7 @@ const SupplyVariantSection = ({ variants, supplyName }: Props) => {
                   {selected.name[lang]}
                 </h3>
                 <p className="text-muted-foreground text-xs mb-3">
-                  {lang === "th" ? `ตัวเลือกของ${supplyName}` : `Option of ${supplyName}`}
+                  {lang === "th" ? `ตัวเลือกของ${supplyName}` : `Option for ${supplyName}`}
                 </p>
 
                 {selected.description?.[lang] && (
@@ -158,6 +159,14 @@ const SupplyVariantSection = ({ variants, supplyName }: Props) => {
                     </div>
                   </div>
                 </div>
+
+                <LineOrderButton
+                  productName={supplyName}
+                  optionName={selected.name[lang]}
+                  price={selected.price}
+                  inStock={selected.stock > 0}
+                  className="mt-3 w-full"
+                />
               </div>
             </div>
           </div>

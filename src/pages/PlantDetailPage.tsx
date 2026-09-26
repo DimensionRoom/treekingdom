@@ -1,4 +1,4 @@
-import { useParams, Link, useLocation } from "react-router-dom";
+import { useParams, Link, useLocation, useSearchParams } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { usePlants, useCategoryInfo, useSupplies } from "@/hooks/useCloudData";
 import { ArrowLeft, Sun, Droplets, Wind, Thermometer, Layers, Lightbulb, ChevronLeft, ChevronRight } from "lucide-react";
@@ -35,6 +35,10 @@ const PlantDetailPage = () => {
   const categoryInfo = useCategoryInfo();
   const plant = plants.find((p) => p.id === id);
   const { data: viewCounts } = useViewCounts();
+  const [params] = useSearchParams();
+  // The variety whose sheet is open, if any. Only top-level varieties open a
+  // sheet (see VarietySection), so only they get their own page identity.
+  const openVariety = plant?.varieties?.find((v) => !v.parentId && v.id === params.get("variety")) ?? null;
   const relatedSupplies = (suppliesData?.supplies ?? []).filter((s) => s.plantId === id);
   const supplyImages = suppliesData?.images ?? {};
   const ref = useRef<HTMLDivElement>(null);
@@ -90,6 +94,16 @@ const PlantDetailPage = () => {
     });
   }, [carouselApi]);
 
+  // Still loading: show that, not "not found" — the not-found branch below
+  // carries noindex, and a crawler landing mid-load must never see it.
+  if (!data) {
+    return (
+      <div className="section-padding text-center text-muted-foreground" role="status">
+        {lang === "th" ? "กำลังโหลด..." : "Loading..."}
+      </div>
+    );
+  }
+
   if (!plant) {
     return (
       <div className="section-padding text-center">
@@ -144,22 +158,34 @@ const PlantDetailPage = () => {
   const hasImages = images.length > 0;
 
   const pageUrl = absoluteUrl(`/plants/${plant.id}`);
+  // With a variety sheet open, the page is that variety's: its own title,
+  // description, image and canonical URL, so each variety can be found in
+  // search on its own (the sitemap lists them too).
+  const varietyPath = openVariety ? `/plants/${plant.id}?variety=${encodeURIComponent(openVariety.id)}` : null;
+  const seoTitle = openVariety
+    ? `${openVariety.name[lang]} — ${plant.name[lang]} | ${SITE_NAME}`
+    : lang === "th" ? `${plant.name.th} — วิธีดูแล | ${SITE_NAME}` : `${plant.name.en} — Care Guide | ${SITE_NAME}`;
+  const seoDescription = (openVariety?.description?.[lang] || "").trim() || plant.description[lang];
+  const seoImage = openVariety?.images?.[0] ?? images[0];
 
   return (
     <div className="fixed inset-0 top-16 z-20 flex flex-col md:flex-row bg-background" ref={ref}>
       <Seo
-        title={lang === "th" ? `${plant.name.th} — วิธีดูแล | TreeKingdom` : `${plant.name.en} — Care Guide | TreeKingdom`}
-        description={plant.description[lang]}
-        image={images[0]}
+        title={seoTitle}
+        description={seoDescription}
+        image={seoImage}
+        canonicalPath={varietyPath ?? undefined}
+        ogType="article"
         jsonLd={[
           {
             "@context": "https://schema.org",
             "@type": "Article",
-            headline: plant.name[lang],
-            description: plant.description[lang],
-            image: images[0] ? absoluteUrl(images[0]) : undefined,
-            url: pageUrl,
+            headline: openVariety ? `${openVariety.name[lang]} — ${plant.name[lang]}` : plant.name[lang],
+            description: seoDescription,
+            image: seoImage ? absoluteUrl(seoImage) : undefined,
+            url: varietyPath ? absoluteUrl(varietyPath) : pageUrl,
             inLanguage: lang === "th" ? "th" : "en",
+            publisher: { "@type": "Organization", name: SITE_NAME, url: absoluteUrl("/") },
           },
           {
             "@context": "https://schema.org",
@@ -168,6 +194,9 @@ const PlantDetailPage = () => {
               { "@type": "ListItem", position: 1, name: SITE_NAME, item: absoluteUrl("/") },
               { "@type": "ListItem", position: 2, name: lang === "th" ? "พรรณไม้" : "Plants", item: absoluteUrl("/plants") },
               { "@type": "ListItem", position: 3, name: plant.name[lang], item: pageUrl },
+              ...(openVariety && varietyPath
+                ? [{ "@type": "ListItem", position: 4, name: openVariety.name[lang], item: absoluteUrl(varietyPath) }]
+                : []),
             ],
           },
         ]}
