@@ -366,7 +366,8 @@ const VarietySection = ({ varieties, plantName, parentLevels }: VarietySectionPr
                         </span>
                       </div>
                       <div className="grid grid-cols-2 gap-2">
-                        {LEVEL_ICONS.map(({ key, icon: Icon }) => (
+                        {/* A level left unset has no figure behind it: skip it rather than draw an empty bar. */}
+                        {LEVEL_ICONS.filter(({ key }) => parentLevels[key] != null).map(({ key, icon: Icon }) => (
                           <div key={key} className="flex items-center gap-2">
                             <Icon className="w-3.5 h-3.5 text-primary shrink-0" />
                             <div className="flex-1 h-1.5 rounded-full bg-border overflow-hidden">
