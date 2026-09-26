@@ -157,7 +157,7 @@ export const QUIZ: QuizQuestion[] = [
     options: [
       { key: "dark", emoji: "🌑", th: "มืด/ห้องในตัวอาคาร", en: "Dark indoor corner", patch: { light: 18 } },
       { key: "soft", emoji: "🪟", th: "แสงรำไรผ่านหน้าต่าง", en: "Soft light by a window", patch: { light: 55 } },
-      { key: "sun", emoji: "🌞", th: "แดดเต็มๆ ระเบียง/สวน", en: "Full sun balcony or garden", patch: { light: 88 } },
+      { key: "sun", emoji: "🌞", th: "แดดเต็ม ๆ ระเบียง/สวน", en: "Full sun balcony or garden", patch: { light: 88 } },
     ],
   },
   {
@@ -166,7 +166,7 @@ export const QUIZ: QuizQuestion[] = [
     en: "What should the plant bring to your space?",
     options: [
       { key: "calm", emoji: "🍃", th: "ความสงบ เขียวสบายตา", en: "Calm, restful green", patch: { bloom: -1, humidity: 60 } },
-      { key: "color", emoji: "🌸", th: "สีสัน ดอกสวยๆ", en: "Color and blooms", patch: { bloom: 1, light: 70 } },
+      { key: "color", emoji: "🌸", th: "สีสัน ดอกสวย ๆ", en: "Color and blooms", patch: { bloom: 1, light: 70 } },
       { key: "cool", emoji: "🌵", th: "ความเท่ ดูแลง่าย", en: "Cool and low-maintenance", patch: { bloom: -0.4, water: 22, effort: 25 } },
     ],
   },
@@ -185,7 +185,7 @@ export const QUIZ: QuizQuestion[] = [
     th: "อยากได้ต้นไม้แบบไหนมากกว่า?", 
     en: "Which kind of plant appeals more?",
     options: [
-      { key: "tiny", emoji: "🪴", th: "ต้นเล็กๆ วางบนโต๊ะ", en: "Small desk plant", patch: { water: 35, effort: 35 } },
+      { key: "tiny", emoji: "🪴", th: "ต้นเล็ก ๆ วางบนโต๊ะ", en: "Small desk plant", patch: { water: 35, effort: 35 } },
       { key: "statement", emoji: "🌿", th: "ต้นใหญ่ ใบเยอะ เป็นจุดเด่น", en: "Big leafy statement", patch: { humidity: 75, water: 65, effort: 65 } },
       { key: "collection", emoji: "✨", th: "สะสมหลายต้นหลายชนิด", en: "A collection of many", patch: { effort: 70, light: 65 } },
     ],
@@ -253,7 +253,7 @@ export const ARCHETYPES: Archetype[] = [
     emoji: "🌙",
     th: "สายมุมร่ม",
     en: "The Shade Dweller",
-    descTh: "บ้านคุณแสงน้อย แต่ยังมีไม้ใบสวยๆ ที่อยู่ได้สบายในร่ม",
+    descTh: "บ้านคุณแสงน้อย แต่ยังมีไม้ใบสวย ๆ ที่อยู่ได้สบายในร่ม",
     descEn: "Low light is no problem — plenty of beautiful foliage thrives in the shade.",
   },
   {

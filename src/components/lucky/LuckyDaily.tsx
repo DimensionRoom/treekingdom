@@ -9,14 +9,19 @@ import {
   buildProfile,
 } from "@/lib/fortune";
 import SupplyCard from "@/components/SupplyCard";
+import type { Supply } from "@/data/supplies";
 import { Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
+
+// One stable empty list while supplies load, so the memo below doesn't
+// see a "new" array on every render.
+const NO_SUPPLIES: Supply[] = [];
 
 const LuckyDaily = () => {
   const { lang } = useLanguage();
   const [weekday, setWeekday] = useState<number | null>(null);
   const { data } = useSupplies();
-  const supplies = data?.supplies ?? [];
+  const supplies = data?.supplies ?? NO_SUPPLIES;
   const { data: fortunePool } = useFortuneMessages();
 
   const today = useMemo(() => new Date(), []);
@@ -41,7 +46,9 @@ const LuckyDaily = () => {
     const diff = (weekday - today.getDay() + 7) % 7;
     fakeBirth.setDate(today.getDate() - diff);
     return matchPlants(supplies, buildProfile(fakeBirth), undefined, 4);
-  }, [weekday, today]);
+    // supplies too: it arrives after the first render, and a weekday picked
+    // before then would otherwise keep the empty match list.
+  }, [weekday, today, supplies]);
 
   return (
     <div className="space-y-5">

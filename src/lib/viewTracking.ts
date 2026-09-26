@@ -6,7 +6,12 @@ type EntityType = "plant" | "variety";
 /** "plant:monstera" -> the date (YYYY-MM-DD) it was last counted. */
 type ViewedMap = Record<string, string>;
 
-const todayStr = () => new Date().toISOString().slice(0, 10);
+// The visitor's local calendar day. toISOString() would give the UTC day,
+// which in Thailand (UTC+7) rolls over at 07:00 rather than midnight.
+const todayStr = () => {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+};
 
 const readMap = (): ViewedMap => {
   try {

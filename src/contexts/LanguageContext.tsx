@@ -52,7 +52,7 @@ const translations: Record<string, Record<Lang, string>> = {
   "price": { th: "ราคา", en: "Price" },
   "price.was": { th: "ราคาปกติ", en: "Was" },
   "price.off": { th: "ลด", en: "off" },
-  "stock": { th: "คงเหลือ", en: "In Stock" },
+  "stock": { th: "คงเหลือ", en: "Stock" },
   "items": { th: "ชิ้น", en: "pcs" },
   "back": { th: "กลับ", en: "Back" },
   "featured": { th: "พรรณไม้แนะนำ", en: "Featured Plants" },
@@ -81,13 +81,13 @@ const translations: Record<string, Record<Lang, string>> = {
   // Personality module
   "personality.title": { th: "ปลูกต้นไม้ตามลักษณะนิสัย", en: "Plants for Your Personality" },
   "personality.subtitle": {
-    th: "ตอบคำถามสั้นๆ หรือเลือกตัวกรอง เพื่อค้นหาพรรณไม้ที่เข้ากับไลฟ์สไตล์ของคุณ",
+    th: "ตอบคำถามสั้น ๆ หรือเลือกตัวกรอง เพื่อค้นหาพรรณไม้ที่เข้ากับไลฟ์สไตล์ของคุณ",
     en: "Answer a few questions or pick filters to find plants that match your lifestyle",
   },
   "personality.tab.quiz": { th: "แบบทดสอบ", en: "Quiz" },
   "personality.tab.filters": { th: "ตัวกรองด่วน", en: "Quick Filters" },
   "personality.quiz.intro": {
-    th: "ตอบ 6 ข้อสั้นๆ เพื่อดูบุคลิกนักปลูกของคุณ",
+    th: "ตอบ 6 ข้อสั้น ๆ เพื่อดูบุคลิกนักปลูกของคุณ",
     en: "Answer 6 quick questions to reveal your grower personality",
   },
   "personality.quiz.question": { th: "ข้อ", en: "Question" },

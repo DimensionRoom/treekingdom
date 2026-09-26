@@ -424,7 +424,7 @@ export const plants: Plant[] = [
         name: { th: "มะลิฉัตร", en: "Tiered Jasmine" },
         emoji: "🏯",
         description: {
-          th: "มะลิฉัตรมีกลีบดอกซ้อนเป็นชั้นๆ คล้ายฉัตร สวยงามมาก นิยมปลูกเป็นไม้มงคล",
+          th: "มะลิฉัตรมีกลีบดอกซ้อนเป็นชั้น ๆ คล้ายฉัตร สวยงามมาก นิยมปลูกเป็นไม้มงคล",
           en: "Tiered Jasmine has layered petals resembling a tiered umbrella, very ornamental and considered auspicious.",
         },
         features: { th: "กลีบซ้อนเป็นชั้น คล้ายฉัตร สวยงาม ไม้มงคล", en: "Tiered layered petals, ornamental, auspicious plant" },

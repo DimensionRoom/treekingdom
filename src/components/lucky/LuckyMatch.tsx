@@ -13,15 +13,20 @@ import {
   CHINESE_ZODIACS,
 } from "@/lib/fortune";
 import SupplyCard from "@/components/SupplyCard";
+import type { Supply } from "@/data/supplies";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 
+// One stable empty list while supplies load, so the memo below doesn't
+// see a "new" array on every render.
+const NO_SUPPLIES: Supply[] = [];
+
 const LuckyMatch = () => {
   const { lang } = useLanguage();
   const { data: suppliesData } = useSupplies();
-  const supplies = suppliesData?.supplies ?? [];
+  const supplies = suppliesData?.supplies ?? NO_SUPPLIES;
   const [date, setDate] = useState<Date | undefined>(undefined);
   const [open, setOpen] = useState(false);
   const popoverRef = useRef<HTMLDivElement>(null);
@@ -96,7 +101,9 @@ const LuckyMatch = () => {
   const matches = useMemo(() => {
     if (!profile) return [];
     return matchPlants(supplies, profile, undefined, 6);
-  }, [profile]);
+    // supplies too: it arrives after the first render, and a birthday entered
+    // before then would otherwise keep the empty match list.
+  }, [profile, supplies]);
 
   const wd = profile ? WEEKDAYS[profile.weekday] : null;
   const zo = profile ? ZODIACS.find((z) => z.key === profile.zodiac) : null;
@@ -176,7 +183,7 @@ const LuckyMatch = () => {
             </div>
             <div className="profile-card bg-card border-2 border-border rounded-xl sm:rounded-2xl p-2.5 sm:p-4 min-w-0">
               <p className="text-[10px] sm:text-xs text-muted-foreground mb-0.5 sm:mb-1 truncate">
-                {lang === "th" ? "นักษัตร" : "Chinese"}
+                {lang === "th" ? "นักษัตร" : "Chinese zodiac"}
               </p>
               <p className="font-display font-bold text-xs sm:text-lg text-foreground break-words leading-tight">
                 {lang === "th" ? `ปี${cz.th}` : cz.en}

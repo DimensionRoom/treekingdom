@@ -43,7 +43,9 @@ const ImageUploader = ({ value, onChange, folder, multiple = true, label }: Prop
     const path = value[idx];
     const next = value.filter((_, i) => i !== idx);
     onChange(next);
-    try { await deleteImage(path); } catch {}
+    // Best effort: the image is already off the row; a leftover file in
+    // storage is harmless, so a failed delete isn't worth an error.
+    try { await deleteImage(path); } catch { /* ignore */ }
   };
 
   const move = (idx: number, dir: -1 | 1) => {
