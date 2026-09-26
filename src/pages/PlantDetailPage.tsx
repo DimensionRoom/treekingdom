@@ -43,6 +43,16 @@ const PlantDetailPage = () => {
   const [slideCount, setSlideCount] = useState(0);
   const [fullscreen, setFullscreen] = useState(false);
   const [fullscreenIndex, setFullscreenIndex] = useState(0);
+  // Whether the details have scrolled under the pinned header, which is what
+  // earns the header its divider — same treatment as the variety sheet.
+  const [scrolled, setScrolled] = useState(false);
+  const scrollerRef = useRef<HTMLDivElement>(null);
+
+  // Another plant reuses this page instance, so start it back at the top.
+  useEffect(() => {
+    scrollerRef.current?.scrollTo({ top: 0 });
+    setScrolled(false);
+  }, [id]);
 
   const openFullscreen = useCallback((index: number) => {
     setFullscreenIndex(index);
@@ -228,9 +238,17 @@ const PlantDetailPage = () => {
         )}
       </div>
 
-      {/* Right: Scrollable details */}
-      <div className="flex-1 min-h-0 overflow-y-auto p-6 md:p-8 lg:p-10">
-        <div className="mb-4 flex items-start justify-between gap-3">
+      {/* Right: pinned header over scrollable details */}
+      <div className="flex-1 min-h-0 flex flex-col">
+        {/* Header: a sibling of the scroll area rather than its first child, so
+            it stays put while the details scroll underneath (sticky inside the
+            padded scroller would let content show through the padding). */}
+        <div
+          className={`shrink-0 px-6 md:px-8 lg:px-10 pt-6 md:pt-8 lg:pt-10 pb-3 border-b transition-[border-color,box-shadow] duration-200 ${
+            scrolled ? "border-border shadow-[0_6px_10px_-8px_rgba(0,0,0,0.25)]" : "border-transparent"
+          }`}
+        >
+        <div className="flex items-start justify-between gap-3">
           <div>
             <h1 className="font-display font-bold text-2xl md:text-3xl text-card-foreground mb-1">
               {plant.name[lang]}
@@ -245,6 +263,13 @@ const PlantDetailPage = () => {
           </div>
           <ShareButton title={plant.name[lang]} />
         </div>
+        </div>
+
+        <div
+          ref={scrollerRef}
+          onScroll={(e) => setScrolled(e.currentTarget.scrollTop > 0)}
+          className="flex-1 min-h-0 overflow-y-auto px-6 md:px-8 lg:px-10 pt-3 pb-6 md:pb-8 lg:pb-10"
+        >
         <p className="text-muted-foreground leading-relaxed mb-6 text-sm md:text-base">
         {plant.description[lang]}
         </p>
@@ -366,6 +391,7 @@ const PlantDetailPage = () => {
             </div>
           </div>
         )}
+        </div>
       </div>
 
       {fullscreen && hasImages && (
