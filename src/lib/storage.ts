@@ -61,7 +61,9 @@ export const uploadImage = async (file: File, folder: string): Promise<string> =
   const path = `${folder}/${uuid()}.${ext}`;
   const { error } = await supabase.storage
     .from(BUCKET)
-    .upload(path, blob, { upsert: false, contentType: type || undefined });
+    // Every upload gets a new random name and is never overwritten, so the
+    // file behind a URL never changes: let browsers keep it for a year.
+    .upload(path, blob, { upsert: false, contentType: type || undefined, cacheControl: "31536000" });
   if (error) throw new Error(error.message);
   return path;
 };
