@@ -41,6 +41,11 @@ const VarietySection = ({ varieties, plantName, parentLevels }: VarietySectionPr
   // The prop stays a flat array; the form/parent link lives on each row.
   const topLevel = varieties.filter((v) => !v.parentId);
   const formsOf = (parentId: string) => varieties.filter((v) => v.parentId === parentId);
+  // The grid lists most-viewed first. Array.sort is stable, so varieties with
+  // equal views keep the order they arrived in — the admin's sort_order — which
+  // is every variety until anyone has opened one, and every tie after that.
+  const viewsOf = (id: string) => viewCounts?.[`variety:${id}`] ?? 0;
+  const ranked = [...topLevel].sort((a, b) => viewsOf(b.id) - viewsOf(a.id));
 
   // A form is not openable on its own — only top-level varieties get a sheet.
   const selected = topLevel.find((v) => v.id === params.get("variety")) ?? null;
@@ -147,7 +152,7 @@ const VarietySection = ({ varieties, plantName, parentLevels }: VarietySectionPr
           {t("varieties.title")} ({topLevel.length})
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-          {topLevel.map((v) => {
+          {ranked.map((v) => {
             const validImages = (v.images ?? []).filter((p: string) => p && p.trim() !== "");
             const thumb = validImages[0] ?? v.image ?? varietyImages[v.id];
             return (
@@ -172,7 +177,7 @@ const VarietySection = ({ varieties, plantName, parentLevels }: VarietySectionPr
                     {v.features[lang]}
                   </p>
                 </div>
-                <ViewCount views={viewCounts?.[`variety:${v.id}`]} className="shrink-0 text-[10px]" />
+                <ViewCount views={viewsOf(v.id)} className="shrink-0 text-[10px]" />
                 {formsOf(v.id).length > 0 && (
                   <Network className="w-4 h-4 shrink-0 text-muted-foreground" aria-label="has forms" />
                 )}
