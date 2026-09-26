@@ -196,6 +196,16 @@ export const useFortuneMessages = () =>
     staleTime: 5 * 60 * 1000,
   });
 
+/**
+ * Rows an admin has switched off (is_published = false). Undefined counts as
+ * visible, so the site keeps working before visibility-external.sql adds the
+ * column. Applied only after each hook's "table is empty" check, so hiding
+ * every row empties the page instead of falling back to the bundled catalog.
+ */
+// Takes any row: the generated Supabase types predate the column, so typed
+// rows don't declare it yet.
+const isPublished = (r: object) => (r as { is_published?: boolean | null }).is_published !== false;
+
 // ---------- Plants ----------
 const rowToPlant = (r: any): Plant => ({
   id: r.id,
@@ -228,7 +238,7 @@ export const usePlants = () => {
       }
 
       const varByPlant: Record<string, PlantVariety[]> = {};
-      (varRows ?? []).forEach((v: any) => {
+      (varRows ?? []).filter(isPublished).forEach((v: any) => {
         const arr = (varByPlant[v.plant_id] ||= []);
         arr.push({
           id: v.id,
@@ -252,7 +262,7 @@ export const usePlants = () => {
       });
 
       const images: Record<string, string[]> = {};
-      const plants = plantRows.map((r: any) => {
+      const plants = plantRows.filter(isPublished).map((r: any) => {
         const p = rowToPlant(r);
         if (varByPlant[p.id]) p.varieties = varByPlant[p.id];
         images[p.id] = (r.images ?? []).map((path: string) => resolveStoragePath(path));
@@ -320,7 +330,7 @@ export const useSupplies = () => {
       }
 
       const images: Record<string, string[]> = {};
-      const supplies = data.map((r: any) => {
+      const supplies = data.filter(isPublished).map((r: any) => {
         images[r.id] = (r.images ?? []).map((p: string) => resolveStoragePath(p));
         const s = rowToSupply(r);
         if (varBySupply[r.id]?.length) s.variants = varBySupply[r.id];

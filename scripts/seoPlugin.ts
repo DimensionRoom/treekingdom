@@ -147,9 +147,16 @@ export function seoPlugin(): Plugin {
       }
 
       const [plants, supplies] = await Promise.all([
-        fetchRows("plants", "id,name,description,images"),
-        fetchRows("supplies", "id,name,description,images"),
-      ]);
+        // "*" rather than naming is_published: before visibility-external.sql
+        // is run that column doesn't exist, and asking for it would fail the
+        // whole request and silently empty the sitemap.
+        fetchRows("plants", "*"),
+        fetchRows("supplies", "*"),
+      ]).then((tables) =>
+        // Hidden in the admin means gone from the sitemap and the prerendered
+        // pages too; undefined (column not added yet) counts as visible.
+        tables.map((rows) => rows.filter((r) => (r as { is_published?: boolean }).is_published !== false)),
+      );
 
       const plantHeads: HeadData[] = plants.map((p) => ({
         routePath: `/plants/${p.id}`,

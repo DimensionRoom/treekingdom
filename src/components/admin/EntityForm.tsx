@@ -8,6 +8,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { tagBadgeStyle, contrastText } from "@/lib/tagColor";
+import { Switch } from "@/components/ui/switch";
 import type { EmojiClickData, Theme } from "emoji-picker-react";
 
 
@@ -1021,6 +1022,28 @@ const EntityForm = ({
         />
       ) : (
         <div className="space-y-4">
+          {/* Only patched in when toggled, never seeded into `defaults`: until
+              visibility-external.sql adds the column, sending is_published
+              would fail every save. Left alone, the DB default (true) applies. */}
+          {(entity === "plants" || entity === "supplies" || entity === "plant_varieties") && (
+            <label className="flex items-center justify-between gap-3 rounded-xl border-2 border-border bg-muted/30 px-4 py-3 cursor-pointer">
+              <span>
+                <span className="block text-sm font-semibold">
+                  {data.is_published === false ? "ซ่อนจากหน้าเว็บ" : "แสดงบนหน้าเว็บ"}
+                </span>
+                <span className="block text-xs text-muted-foreground">
+                  {data.is_published === false
+                    ? "ผู้เข้าชมจะไม่เห็นรายการนี้ — แอดมินยังแก้ไขได้ตามปกติ"
+                    : "ผู้เข้าชมเห็นรายการนี้ในหน้าเว็บ"}
+                </span>
+              </span>
+              <Switch
+                checked={data.is_published !== false}
+                onCheckedChange={(v) => patch({ is_published: v })}
+              />
+            </label>
+          )}
+
           {/* ---- PLANTS ---- */}
           {entity === "plants" && (
             <>

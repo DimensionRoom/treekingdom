@@ -5,7 +5,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { supabase } from "@/integrations/supabase-external/client";
 import { useQueries, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { Loader2, LogOut, Pencil, Trash2, Plus, ShieldCheck, Search, X, ArrowRight, Copy } from "lucide-react";
+import { Loader2, LogOut, Pencil, Trash2, Plus, ShieldCheck, Search, X, ArrowRight, Copy, Eye, EyeOff } from "lucide-react";
 import {
   Dialog, DialogContent, DialogHeader, DialogTitle,
 } from "@/components/ui/dialog";
@@ -43,6 +43,9 @@ const ENTITY_META: Record<Entity, { emoji: string; th: string; en: string; empty
 const ENTITIES: Entity[] = ["plants", "plant_varieties", "supplies", "categories", "tags", "origins", "personality_examples"];
 
 const EMPTY: any[] = [];
+
+/** Tables whose rows can be switched off the public site (is_published). */
+const PUBLISHABLE: Entity[] = ["plants", "plant_varieties", "supplies"];
 
 /** Fields worth searching across every table. */
 const searchable = (r: any): string[] =>
@@ -252,6 +255,25 @@ const AdminPage = () => {
     const { [pkCol]: _pk, created_at, updated_at, ...rest } = row;
     setCopyPrefill({ ...rest, [pkCol]: "" });
     setCreating(true);
+  };
+
+  // One-click show/hide from the list, without opening the form.
+  const togglePublished = async (row: { id: string; is_published?: boolean | null }) => {
+    const next = row.is_published === false; // hidden -> show, anything else -> hide
+    const { error } = await (supabase as any).from(tab).update({ is_published: next }).eq("id", row.id);
+    if (error) {
+      // The usual cause: the column doesn't exist until visibility-external.sql is run.
+      toast.error(
+        error.message.includes("is_published")
+          ? (lang === "th" ? "ยังไม่ได้รัน visibility-external.sql" : "Run visibility-external.sql first")
+          : error.message,
+      );
+      return;
+    }
+    toast.success(
+      next ? (lang === "th" ? "แสดงบนหน้าเว็บแล้ว" : "Now visible") : (lang === "th" ? "ซ่อนจากหน้าเว็บแล้ว" : "Now hidden"),
+    );
+    qc.invalidateQueries();
   };
 
   // Load variants for the supply being edited/created
@@ -583,7 +605,9 @@ const AdminPage = () => {
                   return (
                     <tr
                       key={r.id ?? r.key}
-                      className="border-t border-border hover:bg-muted/30 cursor-pointer"
+                      className={`border-t border-border hover:bg-muted/30 cursor-pointer ${
+                        r.is_published === false ? "opacity-50" : ""
+                      }`}
                       onClick={() => isAdmin && setEditing(r)}
                     >
                       <td className="p-2">
@@ -595,7 +619,15 @@ const AdminPage = () => {
                       </td>
                       <td className="p-3 font-mono text-xs">{r.id ?? r.key}</td>
                       <td className="p-3">
-                        <div className="font-semibold">{r.name?.th ?? r.title?.th}</div>
+                        <div className="font-semibold flex items-center gap-2">
+                          {r.name?.th ?? r.title?.th}
+                          {r.is_published === false && (
+                            <span className="inline-flex items-center gap-1 rounded-full bg-muted px-2 py-0.5 text-[10px] font-medium text-muted-foreground">
+                              <EyeOff className="w-3 h-3" />
+                              {lang === "th" ? "ซ่อนอยู่" : "Hidden"}
+                            </span>
+                          )}
+                        </div>
                         <div className="text-xs text-muted-foreground">{r.name?.en ?? r.title?.en}</div>
                       </td>
                       <td className="p-3 text-xs text-muted-foreground">
@@ -628,6 +660,20 @@ const AdminPage = () => {
                       </td>
                       <td className="p-3 text-right" onClick={(e) => e.stopPropagation()}>
                         <div className="inline-flex gap-1">
+                          {PUBLISHABLE.includes(tab) && (
+                            <button
+                              onClick={() => togglePublished(r)}
+                              disabled={!isAdmin}
+                              title={
+                                r.is_published === false
+                                  ? (lang === "th" ? "แสดงบนหน้าเว็บ" : "Show on site")
+                                  : (lang === "th" ? "ซ่อนจากหน้าเว็บ" : "Hide from site")
+                              }
+                              className="p-2 rounded-lg hover:bg-muted disabled:opacity-40"
+                            >
+                              {r.is_published === false ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                            </button>
+                          )}
                           <button
                             onClick={() => setEditing(r)}
                             disabled={!isAdmin}
