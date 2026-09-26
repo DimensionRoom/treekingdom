@@ -441,7 +441,11 @@ const EmojiField = ({
   const [open, setOpen] = useState(false);
   return (
     <div className="flex items-center gap-2">
-      <Popover open={open} onOpenChange={setOpen}>
+      {/* modal: this form lives in a Dialog, whose scroll lock swallows wheel
+          events outside it — including this portalled popover, so the picker
+          couldn't be scrolled with a mouse. A modal popover takes the lock
+          over for itself while open. */}
+      <Popover modal open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <button
             type="button"
@@ -562,7 +566,9 @@ const OriginField = ({
   return (
     <div className="space-y-2">
       <Field label="Origin">
-        <Popover open={open} onOpenChange={setOpen}>
+        {/* modal: see EmojiField — otherwise the Dialog's scroll lock stops
+            the origin list scrolling with the mouse wheel. */}
+        <Popover modal open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild>
             <button
               type="button"
