@@ -30,14 +30,12 @@ export default function Index() {
   const th = lang === "th";
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
-  const [favorites, setFavorites] = useState<string[]>([]);
-  const [onlyFavorites, setOnlyFavorites] = useState(false);
   const [openTip, setOpenTip] = useState<number | null>(null);
   const { data, isPending, isError, refetch } = usePlants();
   const { data: views } = useViewCounts();
   const categoryInfo = useCategoryInfo();
   const plants = data?.plants ?? [];
-  const featured = onlyFavorites ? plants.filter(p => favorites.includes(p.id)) : plants.slice(0, 5);
+  const featured = plants.slice(0, 5);
   // The plant's own most-viewed variety, if anyone has actually opened one.
   // Top-level only: a mutation form has no page of its own, so VarietySection
   // would never expand a link pointing at one. Zero views means no winner to
@@ -122,13 +120,12 @@ export default function Index() {
     <section className="home-featured home-section" id="featured">
       <div className="home-wrap">
         <div className="home-heading"><div className="home-heading-copy"><Illustration name="category-foliage" className="home-heading-art" /><div><h2>{th ? "พรรณไม้แนะนำ" : "Meet your next plant"}</h2><p>{th ? "ต้นไม้ยอดนิยมที่คัดมาเพื่อคุณ" : "A little inspiration for your growing collection"}</p></div></div><SectionViewAllLink to="/plants" /></div>
-        {(favorites.length > 0 || onlyFavorites) && <button className="home-favorites-filter" onClick={() => setOnlyFavorites(!onlyFavorites)} aria-pressed={onlyFavorites}><Heart size={16} />{onlyFavorites ? (th ? "แสดงพรรณไม้แนะนำ" : "Show featured plants") : (th ? `รายการที่ถูกใจ (${favorites.length})` : `Your favorites (${favorites.length})`)}</button>}
         {isPending && <p role="status">{th ? "กำลังโหลดพรรณไม้..." : "Loading plants..."}</p>}
         {isError && <p role="alert">{th ? "โหลดข้อมูลไม่สำเร็จ " : "Unable to load plants. "}<button onClick={() => refetch()}>{th ? "ลองอีกครั้ง" : "Try again"}</button></p>}
         {!isPending && !isError && featured.length === 0 && <p>{th ? "ยังไม่มีพรรณไม้ในรายการนี้" : "No plants in this collection yet."}</p>}
         <div className="home-plant-grid">{featured.map(plant => <article className="home-plant" key={plant.id}>
           <Link to={`/plants/${plant.id}`} state={{ from: "/" }}><ImageWithFallback src={data?.images[plant.id]?.[0]} alt={plant.name[lang]} loading="lazy" className="home-plant-image" /></Link>
-          <div className="home-plant-body"><div className="home-plant-title"><Link to={`/plants/${plant.id}`} state={{ from: "/" }}><h3>{plant.name[lang]}</h3></Link><button aria-label={`${th ? "ถูกใจ" : "Favorite"} ${plant.name[lang]}`} aria-pressed={favorites.includes(plant.id)} onClick={() => setFavorites(prev => prev.includes(plant.id) ? prev.filter(id => id !== plant.id) : [...prev, plant.id])}><Heart size={18} fill={favorites.includes(plant.id) ? "currentColor" : "none"} /></button></div><p>{plant.description[lang]}</p><Link className="home-badge" to={`/plants?cat=${plant.category}`}>{label(plant.category)}</Link></div>
+          <div className="home-plant-body"><div className="home-plant-title"><Link to={`/plants/${plant.id}`} state={{ from: "/" }}><h3>{plant.name[lang]}</h3></Link></div><p>{plant.description[lang]}</p><Link className="home-badge" to={`/plants?cat=${plant.category}`}>{label(plant.category)}</Link></div>
         </article>)}</div>
       </div>
     </section>
